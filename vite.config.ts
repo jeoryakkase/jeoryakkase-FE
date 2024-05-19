@@ -4,20 +4,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import svgrPlugin from "vite-plugin-svgr";
 import tsconfigPaths from "vite-tsconfig-paths";
-import { visualizer } from "rollup-plugin-visualizer";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [
-		react(),
-		tsconfigPaths(),
-		svgrPlugin(),
-		// visualizer({
-		// 	open: true,
-		// 	gzipSize: true,
-		// 	brotliSize: true,
-		// }),
-	],
+	plugins: [react(), tsconfigPaths(), svgrPlugin()],
 	css: {
 		modules: {
 			scopeBehaviour: "local",
@@ -30,17 +19,9 @@ export default defineConfig({
 		},
 	},
 	server: {
-		// proxy: {
-		// 	"/api": {
-		// 		target: "http://54.180.121.206:8080",
-		// 		changeOrigin: true,
-		// 		rewrite: (path) => path.replace(/^\/api/, ""),
-		// 	},
-		// },
-
 		proxy: {
 			"/api": {
-				target: "http://54.180.121.206:8080",
+				target: "", // 백엔드 주소
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/api/, ""),
 			},
