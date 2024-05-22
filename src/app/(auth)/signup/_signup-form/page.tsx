@@ -2,7 +2,6 @@
 
 import { Form } from "@components/Form/page";
 import { useForm } from "react-hook-form";
-import { Textarea } from "../../../../components/Form/Textarea/page";
 
 export function SignupForm() {
 	const { register, handleSubmit } = useForm();
