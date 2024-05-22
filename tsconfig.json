@@ -31,7 +31,9 @@
 			"@hooks/*": ["src/hooks/*"],
 			"@services/*": ["src/services/*"],
 			"@types/*": ["src/types/*"],
-			"@utils/*": ["src/utils/*"]
+			"@utils/*": ["src/utils/*"],
+			"@lib/*": ["src/lib/*"],
+			"shadcn-ui": ["node_modules/shadcn-ui"]
 		}
 	},
 	"include": [
