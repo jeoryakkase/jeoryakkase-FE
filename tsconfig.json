@@ -18,21 +18,21 @@
 			}
 		],
 		"strictNullChecks": true,
-		"allowSyntheticDefaultImports": true
-	},
-	// 절대 경로 설정
-	"baseUrl": ".",
-	"paths": {
-		// "@/*": ["*"],
-		"@components/*": ["src/components/*"],
-		"@app/*": ["src/app/*"],
-		"@styles/*": ["src/styles/*"],
-		"@constants/*": ["src/constants/*"],
-		"@containers/*": ["src/containers/*"],
-		"@hooks/*": ["src/hooks/*"],
-		"@services/*": ["src/services/*"],
-		"@types/*": ["src/types/*"],
-		"@utils/*": ["src/utils/*"]
+		"allowSyntheticDefaultImports": true,
+		// 절대 경로 설정
+		"baseUrl": ".",
+		"paths": {
+			// "@/*": ["*"],
+			"@components/*": ["src/components/*"],
+			"@app/*": ["src/app/*"],
+			"@styles/*": ["src/styles/*"],
+			"@constants/*": ["src/constants/*"],
+			"@containers/*": ["src/containers/*"],
+			"@hooks/*": ["src/hooks/*"],
+			"@services/*": ["src/services/*"],
+			"@types/*": ["src/types/*"],
+			"@utils/*": ["src/utils/*"]
+		}
 	},
 	"include": [
 		"src",
@@ -43,5 +43,5 @@
 		"**/*.ts",
 		"**/*.tsx"
 	],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", ".next"]
 }
