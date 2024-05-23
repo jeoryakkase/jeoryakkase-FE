@@ -1,7 +1,19 @@
-export default function Home() {
+import BannerCarousels from "@components/BannerCarousel";
+import Card from "@components/Card";
+import React from "react";
+
+const mainPage = () => {
 	return (
-		<main className="flex min-h-screen flex-col items-center justify-between p-24">
-			home
-		</main>
+		<div>
+			<BannerCarousels />
+			<Card highlight={true}>
+				<Card.Header title="오늘 날짜"></Card.Header>
+				<Card.Content>
+					<p>내용</p>
+				</Card.Content>
+			</Card>
+		</div>
 	);
-}
+};
+
+export default mainPage;

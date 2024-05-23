@@ -1,0 +1,27 @@
+.header {
+	@apply relative text-white p-4 flex justify-end items-center border-b border-sub-gray2;
+}
+
+.headerbutton {
+	@apply text-black px-4 py-2 rounded mr-10;
+}
+
+.headericon {
+	@apply text-lg text-black font-bold;
+}
+
+.navitem {
+	@apply relative flex items-center p-2 hover:text-main-darkblue cursor-pointer rounded;
+}
+
+.tooltip {
+	@apply absolute top-full left-1/2 transform -translate-x-1/2 ml-6 p-4 bg-main-lightyellow text-black text-center rounded-3xl shadow-lg  transition-opacity duration-300 w-[130px] h-[150px] flex flex-col space-y-6;
+}
+
+.tooltip > span {
+	@apply hover:text-main-darkblue;
+}
+
+.footer {
+	@apply bg-main-lightyellow w-full h-[300px] bottom-0 flex items-center justify-center;
+}
