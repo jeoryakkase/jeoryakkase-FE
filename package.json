@@ -21,11 +21,7 @@
 		"tailwindcss-animate": "^1.0.7"
 	},
 	"eslintConfig": {
-		"extends": [
-			"next/core-web-vitals",
-			"airbnb",
-			"prettier"
-		],
+		"extends": ["next/core-web-vitals", "airbnb", "prettier"],
 		"rules": {
 			"react/jsx-filename-extension": 0,
 			"no-unused-vars": 1
