@@ -1,6 +1,5 @@
 import Footer from "./Footer";
 import Header from "./Header";
-import Nav from "./Nav";
 
 interface LayoutProps {
 	children: React.ReactNode;
@@ -10,8 +9,7 @@ const Layout = ({ children }: LayoutProps) => {
 	return (
 		<>
 			<Header />
-			<div className="mx-auto max-w-screen-lg">
-				<Nav mb-30 />
+			<div className="mx-auto max-w-[85rem] w-full ">
 				<main>{children}</main>
 			</div>
 			<Footer />

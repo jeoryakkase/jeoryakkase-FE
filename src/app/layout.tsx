@@ -10,7 +10,7 @@ interface LayoutProps {
 export default function RootLayout({ children }: LayoutProps) {
 	return (
 		<html lang="ko" className={pretandard.variable}>
-			<body>
+			<body className="h-[100dvh] flex flex-col gap-[50px] justify-between">
 				<Layout>{children}</Layout>
 			</body>
 		</html>
