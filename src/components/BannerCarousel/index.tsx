@@ -5,51 +5,33 @@ import {
 	CarouselItem,
 	CarouselNext,
 	CarouselPrevious,
-} from "../Carousel";
+} from "../shadcn/ui/Carousel";
 import BannerCarousel from "./UI/BannerCarousel";
+interface BannerCarouselsProps {
+	banners: Array<{
+		title: string;
+		subtitle: string;
+		icon: React.ReactNode;
+		backgroundColor: string;
+	}>;
+}
 
-const bannerData = [
-	{
-		title: "첫 번째 배너",
-		subtitle: "첫 번째 배너의 설명입니다.",
-		icon: <UserIcon />,
-	},
-	{
-		title: "두 번째 배너",
-		subtitle: "두 번째 배너의 설명입니다.",
-		icon: <UserIcon />,
-	},
-	{
-		title: "세 번째 배너",
-		subtitle: "세 번째 배너의 설명입니다.",
-		icon: <UserIcon />,
-	},
-];
-
-const backgroundColors = [
-	"bg-main-lightblue",
-	"bg-main-darkblue",
-	"bg-main-midblue",
-];
-
-const BannerCarousels = () => {
+const BannerCarousels = ({ banners }: BannerCarouselsProps) => {
 	return (
 		<Carousel className="w-full max-w-5xl mx-auto mb-16">
+			<CarouselPrevious />
 			<CarouselContent>
-				{bannerData.map((banner, index) => (
-					<CarouselItem key={index} className="px-4">
+				{banners.map((banner, index) => (
+					<CarouselItem key={index}>
 						<BannerCarousel
 							title={banner.title}
 							subtitle={banner.subtitle}
 							icon={banner.icon}
-							backgroundColor={
-								backgroundColors[index % backgroundColors.length]
-							}
+							backgroundColor={banner.backgroundColor}
 						/>
 					</CarouselItem>
 				))}
 			</CarouselContent>
-			<CarouselPrevious />
 			<CarouselNext />
 		</Carousel>
 	);

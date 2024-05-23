@@ -1,4 +1,4 @@
-import { CardHeader as ShadcnCardHeader } from "./shadCard";
+import { CardHeader as ShadcnCardHeader } from "../../shadcn/ui/Card";
 
 interface CardHeaderProps {
 	title: string;

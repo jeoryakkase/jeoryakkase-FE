@@ -74,6 +74,7 @@ export const theme = {
 			bold: 700,
 		},
 		fontSize: {
+			s: "12px",
 			sm: "16px",
 			base: "18px",
 			lg: "20px",
@@ -82,6 +83,7 @@ export const theme = {
 			xxxl: "40px",
 		},
 		boxShadow: {
+			default: "0 2px 4px rgba(0, 0, 0, 0.25)",
 			"custom-default": "0 4px 6px rgba(0, 0, 0, 0.1)",
 			"custom-inner": "inset 0 4px 6px rgba(0, 0, 0, 0.1)",
 		},

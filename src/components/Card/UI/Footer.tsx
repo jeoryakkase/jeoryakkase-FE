@@ -1,4 +1,4 @@
-import { CardFooter as ShadcnCardFooter } from "./shadCard";
+import { CardFooter as ShadcnCardFooter } from "../../shadcn/ui/Card";
 
 interface CardFooterProps {
 	children: React.ReactNode;

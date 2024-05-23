@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@components/shadcn/ui/button";
+import { Button } from "@components/shadcn/ui/Button";
 import {
 	Form,
 	FormControl,
@@ -11,8 +11,8 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from "@components/shadcn/ui/form";
-import { Input } from "@components/shadcn/ui/input";
+} from "@components/shadcn/ui/Form";
+import { Input } from "@components/shadcn/ui/Input";
 import { toast } from "react-toastify";
 import { FormSchema, signUpDefault } from "./signupValidation";
 
