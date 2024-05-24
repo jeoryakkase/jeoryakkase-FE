@@ -6,6 +6,8 @@ import History from "./UI/History";
 import Goal from "./UI/Goal";
 import Challenge from "./UI/Challenge";
 import HotPost from "./UI/HotPost";
+import BlankHistory from "./UI/Blank/BlankHistory";
+import BlankGoal from "./UI/Blank/BlankGoal";
 
 const bannerData = [
 	{
@@ -42,8 +44,13 @@ const mainPage = () => {
 			<BannerCarousels banners={banners} />
 
 			<History />
+			<BlankHistory />
+
 			<Goal />
+			<BlankGoal />
+
 			<Challenge />
+
 			<HotPost />
 
 			<Badge variant="default">뱃지</Badge>

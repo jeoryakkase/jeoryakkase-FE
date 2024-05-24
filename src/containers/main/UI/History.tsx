@@ -1,6 +1,5 @@
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
-import Flex from "@components/Flex";
 
 const History = () => {
 	return (
