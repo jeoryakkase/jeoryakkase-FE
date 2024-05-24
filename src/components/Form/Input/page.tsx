@@ -1,8 +1,8 @@
 import React from "react";
 import { InputHTMLAttributes, forwardRef } from "react";
 import Container from "../Container/page";
-import { cn } from "@utils/classNamesUtil";
 import { Button } from "../Button/page";
+import { cn } from "@lib/utils";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 	title?: string;
