@@ -8,11 +8,15 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
 	return (
 		<>
-			<Header />
+			<header>
+				<Header />
+			</header>
 			<div className="mx-auto max-w-[85rem] w-full ">
 				<main>{children}</main>
 			</div>
-			<Footer />
+			<footer>
+				<Footer />
+			</footer>
 		</>
 	);
 };

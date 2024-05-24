@@ -1,19 +1,7 @@
-import BannerCarousels from "@components/BannerCarousel";
-import Card from "@components/Card";
-import React from "react";
+import MainPage from "@containers/main";
 
-const mainPage = () => {
-	return (
-		<div>
-			<BannerCarousels />
-			<Card highlight={true}>
-				<Card.Header title="오늘 날짜"></Card.Header>
-				<Card.Content>
-					<p>내용</p>
-				</Card.Content>
-			</Card>
-		</div>
-	);
+const Page = () => {
+	return <MainPage />;
 };
 
-export default mainPage;
+export default Page;

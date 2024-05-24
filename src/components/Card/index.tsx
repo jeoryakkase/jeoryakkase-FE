@@ -3,8 +3,15 @@ import CardContent from "./UI/Content";
 import CardFooter from "./UI/Footer";
 import CardHeader from "./UI/Header";
 
-const Card = ({ children, highlight }) => {
-	return <Container highlight={highlight}>{children}</Container>;
+const Card = ({ children, highlight, className }) => {
+	return (
+		<Container
+			highlight={highlight}
+			className={`flex flex-col flex-grow rounded-3xl ${className}`}
+		>
+			{children}
+		</Container>
+	);
 };
 
 Card.Header = CardHeader;

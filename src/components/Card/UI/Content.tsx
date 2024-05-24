@@ -1,4 +1,4 @@
-import { CardContent as ShadcnCardContent } from "./shadCard";
+import { CardContent as ShadcnCardContent } from "../../shadcn/ui/Card";
 
 interface CardContentProps {
 	children: React.ReactNode;
