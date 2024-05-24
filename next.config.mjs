@@ -6,13 +6,6 @@ const __dirname = path.dirname(__filename);
 
 const nextConfig = {
 	swcMinify: true,
-	exportPathMap: () => ({
-		"/": { page: "/" },
-		"/challenge": { page: "/challenge" },
-		// "/p/hello-nextjs": { page: "/post", query: { title: "hello-nextjs" } },
-		// "/p/learn-nextjs": { page: "/post", query: { title: "learn-nextjs" } },
-		// "/p/deploy-nextjs": { page: "/post", query: { title: "deploy-nextjs" } },
-	}),
 	webpack: (config) => {
 		config.resolve.alias = {
 			...config.resolve.alias,
