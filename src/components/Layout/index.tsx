@@ -11,10 +11,10 @@ const Layout = ({ children }: LayoutProps) => {
 			<header>
 				<Header />
 			</header>
-			<div className="mx-auto max-w-[85rem] w-full ">
+			<div className="mx-auto max-w-[85rem] w-full mt-10">
 				<main>{children}</main>
 			</div>
-			<footer>
+			<footer className="mt-10">
 				<Footer />
 			</footer>
 		</>
