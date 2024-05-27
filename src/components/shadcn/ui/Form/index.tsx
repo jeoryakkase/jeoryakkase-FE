@@ -1,5 +1,4 @@
-import * as React from "react";
-
+import { forwardRef } from "react";
 import {
 	Controller,
 	ControllerProps,
@@ -71,7 +70,7 @@ const FormItemContext = React.createContext<FormItemContextValue>(
 	{} as FormItemContextValue,
 );
 
-const FormItem = React.forwardRef<
+const FormItem = forwardRef<
 	HTMLDivElement,
 	React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {

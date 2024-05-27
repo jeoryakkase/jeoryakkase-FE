@@ -1,6 +1,7 @@
 import React, { ReactElement, ReactNode } from "react";
-import cn from "src/lib/utils";
+
 import { cva, VariantProps } from "class-variance-authority";
+import { cn } from "@utils/classnames.utils";
 
 export interface ContentSectionProps
 	extends React.HTMLAttributes<HTMLDivElement>,

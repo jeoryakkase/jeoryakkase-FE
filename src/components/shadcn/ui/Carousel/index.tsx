@@ -1,5 +1,6 @@
 "use client";
 
+import { forwardRef } from "react";
 import useEmblaCarousel, {
 	type UseEmblaCarouselType,
 } from "embla-carousel-react";
@@ -41,7 +42,7 @@ const useCarousel = () => {
 	return context;
 };
 
-const Carousel = React.forwardRef<
+const Carousel = forwardRef<
 	HTMLDivElement,
 	React.HTMLAttributes<HTMLDivElement> & CarouselProps
 >(
