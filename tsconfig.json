@@ -18,7 +18,7 @@
 			}
 		],
 		"strictNullChecks": true,
-		"allowSyntheticDefaultImports": true
+		"allowSyntheticDefaultImports": true,
 	},
 	"baseUrl": ".",
 	"paths": {
@@ -41,5 +41,5 @@
 		"**/*.ts",
 		"**/*.tsx"
 	],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", ".next"]
 }
