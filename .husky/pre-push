@@ -8,7 +8,7 @@
 FORBIDDEN_HTTPS_URL="https://kdt-gitlab.elice.io/cloud_track/class_02/web_project3/team05/team05-fe.git"
 FORBIDDEN_SSH_URL="git@kdt-gitlab.elice.io:cloud_track/class_02/web_project3/team05/team05-fe.git"
 FORBIDDEN_REF_MAIN="refs/heads/main"
-FORBIDDEN_REF_DEV="refs/heads/dev"
+# FORBIDDEN_REF_DEV="refs/heads/dev"
 
 # $1: 첫 번째 인수 (일반적으로 원격 저장소 이름)
 # $2: 두 번째 인수 (일반적으로 사용자가 push하려는 URL)

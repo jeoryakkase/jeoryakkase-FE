@@ -1,15 +1,17 @@
 "use client";
 
+import { ToastContainer } from "react-toastify";
+
 import {
 	QueryCache,
 	QueryClient,
 	QueryClientProvider,
 } from "@tanstack/react-query";
-import { showToast } from "./toastConfig";
-import { ReactNode } from "react";
+/* eslint-disable import/no-extraneous-dependencies */
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { ToastContainer } from "react-toastify";
 import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
+
+import showToast from "./toastConfig";
 import AuthProvider from "./authProvider";
 
 const makeQueryClient = () => {
@@ -33,20 +35,19 @@ const makeQueryClient = () => {
 	});
 };
 
-let browserQueryClient: QueryClient | undefined = undefined;
+let browserQueryClient: QueryClient | undefined;
 
 const getQueryClient = () => {
 	// 서버
 	if (typeof window === "undefined") {
 		return makeQueryClient();
-	} else {
-		// 브라우저
-		if (!browserQueryClient) browserQueryClient = makeQueryClient();
-		return browserQueryClient;
 	}
+	// 브라우저
+	if (!browserQueryClient) browserQueryClient = makeQueryClient();
+	return browserQueryClient;
 };
 
-const Providers = ({ children }: { children: ReactNode }) => {
+const Providers = ({ children }: { children: React.ReactNode }) => {
 	const queryClient = getQueryClient();
 
 	return (

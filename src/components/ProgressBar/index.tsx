@@ -1,6 +1,5 @@
 "use client";
 
-import { Bar } from "react-chartjs-2";
 import {
 	Chart as ChartJS,
 	BarElement,
@@ -9,6 +8,7 @@ import {
 	CategoryScale,
 	LinearScale,
 } from "chart.js";
+import { Bar } from "react-chartjs-2";
 
 ChartJS.register(BarElement, Tooltip, Legend, CategoryScale, LinearScale);
 

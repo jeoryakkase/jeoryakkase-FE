@@ -1,10 +1,11 @@
 "use client";
 
+import { useCallback, useEffect, useRef, useState } from "react";
+import Image from "next/image";
+
 import { Input } from "@components/shadcn/ui/Input";
 
-import { useCallback, useEffect, useRef, useState } from "react";
 import ImageWithDefault from "../ImageWithDefault";
-import Image from "next/image";
 import getImgPreview from "@utils/getImgPreview";
 
 interface ImgInputProps {
@@ -55,7 +56,7 @@ const ImgInput = ({ id, initialImage, setProfileImageData }: ImgInputProps) => {
 				htmlFor={id}
 				onClick={handleImageClick}
 				className="w-[100%] h-[100%] absolute z-50"
-			></label>
+			/>
 			<div className="">
 				{profileImage ? (
 					<Image

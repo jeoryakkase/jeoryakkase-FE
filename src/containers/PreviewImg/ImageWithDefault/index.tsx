@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 
+import Image from "next/image";
+
 interface ImageWithFallbackProps
 	extends React.ImgHTMLAttributes<HTMLImageElement> {
 	src: string;

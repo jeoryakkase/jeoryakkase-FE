@@ -1,12 +1,11 @@
-import * as React from "react";
 import { ChevronRightIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Slot } from "@radix-ui/react-slot";
-
-import cn from "src/lib/utils";
+import { cn } from "@utils/classnames.utils";
 
 const Breadcrumb = React.forwardRef<
 	HTMLElement,
 	React.ComponentPropsWithoutRef<"nav"> & {
+		// eslint-disable-next-line react/require-default-props
 		separator?: React.ReactNode;
 	}
 >(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />);
@@ -42,6 +41,7 @@ BreadcrumbItem.displayName = "BreadcrumbItem";
 const BreadcrumbLink = React.forwardRef<
 	HTMLAnchorElement,
 	React.ComponentPropsWithoutRef<"a"> & {
+		// eslint-disable-next-line react/require-default-props
 		asChild?: boolean;
 	}
 >(({ asChild, className, ...props }, ref) => {

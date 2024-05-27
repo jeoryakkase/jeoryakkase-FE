@@ -1,13 +1,12 @@
+import Axios, { AxiosInstance } from "axios";
+
 import {
 	rejectInterceptor,
 	requestInterceptor,
 	responseInterceptor,
 } from "@services/api";
 
-import Axios from "axios";
-import { AxiosInstance } from "axios";
-
-const axios: AxiosInstance = Axios.create({
+const apiClient: AxiosInstance = Axios.create({
 	withCredentials: true,
 	// baseURL:
 	headers: {
@@ -15,7 +14,7 @@ const axios: AxiosInstance = Axios.create({
 	},
 });
 
-axios.interceptors.request.use(requestInterceptor);
-axios.interceptors.response.use(responseInterceptor, rejectInterceptor);
+apiClient.interceptors.request.use(requestInterceptor);
+apiClient.interceptors.response.use(responseInterceptor, rejectInterceptor);
 
-export default axios;
+export default apiClient;

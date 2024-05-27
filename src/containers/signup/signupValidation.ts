@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 export const interestTags = [
 	{ id: 1, name: "절약" },
 	{ id: 2, name: "부동산" },

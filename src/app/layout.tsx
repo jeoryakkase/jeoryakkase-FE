@@ -1,8 +1,9 @@
 import type { ReactNode } from "react";
-import pretandard from "@styles/fonts";
+
 import Layout from "@components/Layout";
 import Providers from "@lib/QueryProviders";
-import "../app/globals.css";
+import pretandard from "@styles/fonts";
+import "./globals.css";
 
 interface LayoutProps {
 	children: ReactNode;

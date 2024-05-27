@@ -18,22 +18,30 @@
 		"airbnb-typescript",
 		"airbnb/hooks",
 		"next",
-		"next/core-web-vitals",
-		"plugin:@typescript-eslint/recommended", // ts 권장
 		"plugin:prettier/recommended", // eslint의 포매팅을 prettier로 사용
-		"prettier", // eslint-config-prettier prettier와 중복된 eslint 규칙 제거
-		"eslint-config-prettier",
+		// "eslint-config-prettier",
 		"plugin:import/recommended",
+		"plugin:import/errors",
+		"plugin:import/warnings",
 		"plugin:import/typescript",
 		"eslint:recommended",
 		"plugin:react/recommended",
-		"plugin:react-hooks/recommended"
+		"plugin:react-hooks/recommended",
+		"plugin:react/jsx-runtime",
+		"plugin:@typescript-eslint/recommended", // ts 권장
+		"prettier", // eslint-config-prettier prettier와 중복된 eslint 규칙 제거
+		"next/core-web-vitals"
 	],
 	"settings": {
+		"react": {
+			"version": "detect",
+			"pragma": "React",
+			"pragmaFrag": "React.Fragment"
+		},
 		"import/resolver": {
 			"typescript": {}
 		},
-		"import/parsers": { "@typescript-eslint/parser": [".ts"] }
+		"import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] }
 	},
 	"rules": {
 		"@typescript-eslint/no-explicit-any": "off",
@@ -44,16 +52,25 @@
 			2,
 			{ "namedComponents": ["arrow-function", "function-declaration"] }
 		],
-		"sort-imports": [
+		"react/jsx-uses-react": "off",
+		"react/jsx-uses-vars": "off",
+		"react/require-default-props": "off",
+		"prettier/prettier": [
 			"error",
 			{
-				"ignoreCase": false,
-				"ignoreDeclarationSort": false,
-				"ignoreMemberSort": false,
-				"memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
-				"allowSeparatedGroups": false
+				"endOfLine": "auto"
 			}
 		],
+		// "sort-imports": [
+		// 	"error",
+		// 	{
+		// 		"ignoreCase": false,
+		// 		"ignoreDeclarationSort": false,
+		// 		"ignoreMemberSort": false,
+		// 		"memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+		// 		"allowSeparatedGroups": false
+		// 	}
+		// ],
 		"import/order": [
 			"error",
 			{
@@ -66,20 +83,33 @@
 				],
 				"pathGroups": [
 					{
-						"pattern": "~/**",
-						"group": "external",
+						"pattern": "next",
+						"group": "builtin",
 						"position": "before"
 					},
-					{ "pattern": "@*", "group": "external", "position": "after" },
-					{ "pattern": "@*/**", "group": "external", "position": "after" }
+					{
+						"pattern": "react",
+						"group": "builtin",
+						"position": "before"
+					},
+
+					{ "pattern": "@*", "group": "internal", "position": "after" },
+					{ "pattern": "@*/**", "group": "internal", "position": "after" }
 				],
-				"pathGroupsExcludedImportTypes": ["react"],
+				"pathGroupsExcludedImportTypes": [],
 				"newlines-between": "always",
 				"alphabetize": {
 					"order": "asc",
 					"caseInsensitive": true
 				}
 			}
-		]
+		],
+		"react/jsx-props-no-spreading": "off",
+		"import/no-cycle": "off",
+		"import/no-extraneous-dependencies": "off",
+		"@typescript-eslint/no-shadow": "off",
+		"@typescript-eslint/no-use-before-define": "off",
+		"consistent-return": "off",
+		"react/jsx-no-constructed-context-values": "off"
 	}
 }

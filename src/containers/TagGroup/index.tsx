@@ -1,7 +1,6 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+
 import { Badge } from "@components/shadcn/ui/Badge";
-import clsx from "clsx";
 
 interface Tag {
 	id: number;

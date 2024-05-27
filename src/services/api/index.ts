@@ -4,14 +4,15 @@ import {
 	AxiosResponse,
 	InternalAxiosRequestConfig,
 } from "axios";
+
+import apiClient from "@lib/axiosConfig";
+import showToast from "@lib/toastConfig";
+import { logout } from "@utils/auth.utils";
 import {
 	getAccessToken,
 	getRefreshToken,
 	setAccessToken,
-} from "@utils/getToken";
-import { logout } from "@utils/logout";
-import { showToast } from "@lib/toastConfig";
-import axios from "@lib/axiosConfig";
+} from "@utils/token.utils";
 
 interface AuthResponse {
 	accessToken?: string;
@@ -25,7 +26,7 @@ export const requestInterceptor = (config: InternalAxiosRequestConfig) => {
 	const headers: AxiosRequestHeaders =
 		(config.headers as AxiosRequestHeaders) || {};
 	const accessToken = getAccessToken();
-	headers["Authorization"] = `Bearer ${accessToken}`;
+	headers.Authorization = `Bearer ${accessToken}`;
 	config.headers = headers;
 	return Promise.resolve(config);
 };
@@ -79,11 +80,11 @@ const handleTokenRefresh = async (
 		// /user/createAccessByRefresh
 		const refreshToken = getRefreshToken();
 		if (refreshToken) {
-			const tokenRefreshResult = await axios.post("/users/access-token", {
-				refreshToken: refreshToken,
+			const tokenRefreshResult = await apiClient.post("/users/access-token", {
+				refreshToken,
 			});
 			if (tokenRefreshResult.status === 200) {
-				const accessToken = tokenRefreshResult.headers["authorization"];
+				const accessToken = tokenRefreshResult.headers.authorization;
 				if (!accessToken) {
 					showToast({
 						type: "error",
@@ -97,17 +98,16 @@ const handleTokenRefresh = async (
 
 				// 가져온 응답으로 헤더 갱신
 				if (config.headers) {
-					config.headers["Authorization"] = `Bearer ${accessToken}`;
+					config.headers.Authorization = `Bearer ${accessToken}`;
 				}
-				return axios(config);
-			} else {
-				logout();
-				showToast({
-					type: "error",
-					message: "세션 만료. 다시 로그인 해주세요.",
-				});
-				return Promise.reject(new Error("토큰 갱신에 실패했습니다."));
+				return await apiClient(config);
 			}
+			logout();
+			showToast({
+				type: "error",
+				message: "세션 만료. 다시 로그인 해주세요.",
+			});
+			return await Promise.reject(new Error("토큰 갱신에 실패했습니다."));
 		}
 	} catch (error) {
 		// logout();
