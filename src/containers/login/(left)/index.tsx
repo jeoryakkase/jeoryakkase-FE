@@ -13,18 +13,20 @@ import {
 	FormMessage,
 } from "@components/shadcn/ui/Form";
 import { Input } from "@components/shadcn/ui/Input";
-import { FormSchema, loginDefault } from "./loginValidation";
-import { toast } from "react-toastify";
 
-export function LoginForm() {
+import { toast } from "react-toastify";
+import { FormSchema, loginDefault } from "../loginValidation";
+import SocialLogin from "./social-login";
+
+const LoginForm = () => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: loginDefault,
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
+	const onSubmit = (data: z.infer<typeof FormSchema>) => {
 		toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
-	}
+	};
 
 	return (
 		<Form {...form}>
@@ -57,7 +59,6 @@ export function LoginForm() {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>비밀번호</FormLabel>
-
 							<FormControl>
 								<Input
 									type="password"
@@ -73,6 +74,9 @@ export function LoginForm() {
 
 				<Button type="submit">로그인</Button>
 			</form>
+			<SocialLogin />
 		</Form>
 	);
-}
+};
+
+export default LoginForm;

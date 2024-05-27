@@ -12,7 +12,7 @@ export const metadata = {
 		icon: "/images/logo.png",
 	},
 };
-export default function RootLayout({ children }: LayoutProps) {
+const RootLayout = ({ children }: LayoutProps) => {
 	return (
 		<html lang="ko" className={pretandard.variable}>
 			<body className="h-[100dvh] flex flex-col justify-between">
@@ -22,4 +22,6 @@ export default function RootLayout({ children }: LayoutProps) {
 			</body>
 		</html>
 	);
-}
+};
+
+export default RootLayout;

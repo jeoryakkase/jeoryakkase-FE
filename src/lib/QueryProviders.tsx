@@ -10,8 +10,9 @@ import { ReactNode } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ToastContainer } from "react-toastify";
 import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
+import AuthProvider from "./authProvider";
 
-function makeQueryClient() {
+const makeQueryClient = () => {
 	return new QueryClient({
 		defaultOptions: {
 			queries: {
@@ -30,11 +31,11 @@ function makeQueryClient() {
 			},
 		}),
 	});
-}
+};
 
 let browserQueryClient: QueryClient | undefined = undefined;
 
-function getQueryClient() {
+const getQueryClient = () => {
 	// 서버
 	if (typeof window === "undefined") {
 		return makeQueryClient();
@@ -43,9 +44,9 @@ function getQueryClient() {
 		if (!browserQueryClient) browserQueryClient = makeQueryClient();
 		return browserQueryClient;
 	}
-}
+};
 
-export default function Providers({ children }: { children: ReactNode }) {
+const Providers = ({ children }: { children: ReactNode }) => {
 	const queryClient = getQueryClient();
 
 	return (
@@ -53,9 +54,13 @@ export default function Providers({ children }: { children: ReactNode }) {
 			{/* experimental 기능이긴 하지만, 복잡하지 않은 쿼리 사용하거나 DX 경험 측면에서
 			사용하기 좋아보임. suspense 감싸서 dehydrate하는 건 너무
 			복잡해보임 */}
-			<ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>
-			<ToastContainer />
-			<ReactQueryDevtools initialIsOpen={false} />
+			<AuthProvider>
+				<ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>
+				<ToastContainer />
+				<ReactQueryDevtools initialIsOpen={false} />
+			</AuthProvider>
 		</QueryClientProvider>
 	);
-}
+};
+
+export default Providers;

@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@components/shadcn/ui/Button";
 import {
@@ -20,15 +20,19 @@ import { RadioGroup, RadioGroupItem } from "@components/shadcn/ui/Radio-group/";
 import ImgInput from "@containers/PreviewImg/ImgInput";
 import TagGroup from "@containers/TagGroup";
 
-export function SignupForm() {
+const SignupForm = () => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: signUpDefault,
 	});
+	console.log(
+		"관심사태그",
+		useWatch({ control: form.control, name: "interests" }),
+	);
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
+	const onSubmit = (data: z.infer<typeof FormSchema>) => {
 		toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
-	}
+	};
 
 	return (
 		<Form {...form}>
@@ -240,7 +244,10 @@ export function SignupForm() {
 										.filter((tag) => field.value.includes(tag.name))
 										.map((tag) => tag.id)}
 									onChange={(newSelectedTags) => {
-										field.onChange(newSelectedTags);
+										const selectedTagNames = interestTags
+											.filter((tag) => newSelectedTags.includes(tag.id))
+											.map((tag) => tag.name);
+										field.onChange(selectedTagNames);
 									}}
 								/>
 							</FormControl>
@@ -252,4 +259,6 @@ export function SignupForm() {
 			</form>
 		</Form>
 	);
-}
+};
+
+export default SignupForm;

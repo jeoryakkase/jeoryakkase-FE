@@ -6,7 +6,7 @@ import useEmblaCarousel, {
 	type UseEmblaCarouselType,
 } from "embla-carousel-react";
 
-import { cn } from "@lib/utils";
+import cn from "@lib/utils";
 import { Button } from "@components/Button/index";
 
 type CarouselApi = UseEmblaCarouselType[1];
@@ -32,7 +32,7 @@ type CarouselContextProps = {
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null);
 
-function useCarousel() {
+const useCarousel = () => {
 	const context = React.useContext(CarouselContext);
 
 	if (!context) {
@@ -40,7 +40,7 @@ function useCarousel() {
 	}
 
 	return context;
-}
+};
 
 const Carousel = React.forwardRef<
 	HTMLDivElement,

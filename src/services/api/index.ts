@@ -62,9 +62,9 @@ export const rejectInterceptor = (
 	return Promise.reject(error);
 };
 
-async function handleTokenRefresh(
+const handleTokenRefresh = async (
 	config: InternalAxiosRequestConfig | undefined,
-): Promise<AxiosResponse | void> {
+): Promise<AxiosResponse | void> => {
 	if (!config) {
 		logout();
 		showToast({
@@ -116,4 +116,4 @@ async function handleTokenRefresh(
 			message: "세션 만료. 다시 로그인 해주세요.",
 		});
 	}
-}
+};

@@ -1,10 +1,11 @@
 "use client";
 
 import { Input } from "@components/shadcn/ui/Input";
-import getImgPreview from "@lib/getImgPreview";
-import { useEffect, useRef, useState } from "react";
+
+import { useCallback, useEffect, useRef, useState } from "react";
 import ImageWithDefault from "../ImageWithDefault";
 import Image from "next/image";
+import getImgPreview from "@utils/getImgPreview";
 
 interface ImgInputProps {
 	id: string;
@@ -12,11 +13,7 @@ interface ImgInputProps {
 	setProfileImageData: (file: File) => void;
 }
 
-export default function ImgInput({
-	id,
-	initialImage,
-	setProfileImageData,
-}: ImgInputProps) {
+const ImgInput = ({ id, initialImage, setProfileImageData }: ImgInputProps) => {
 	const defaultImage = "/images/character01.png";
 	const imgInputRef = useRef<HTMLInputElement>(null);
 	const [profileImage, setProfileImage] = useState<string>(
@@ -29,17 +26,24 @@ export default function ImgInput({
 		}
 	}, [initialImage]);
 
-	const handleImageClick = () => {
+	const handleImageClick = useCallback(() => {
 		imgInputRef.current?.click();
-	};
-	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files?.[0] as File;
-		if (file) {
-			getImgPreview(file, setProfileImage, setProfileImageData);
-		}
-	};
+	}, []);
+	const handleFileChange = useCallback(
+		(event: React.ChangeEvent<HTMLInputElement>) => {
+			const file = event.target.files?.[0] as File;
+			if (file) {
+				if (!file.type.startsWith("image/")) {
+					console.error("이미지 파일을 선택해주세요.");
+					return;
+				}
+				getImgPreview(file, setProfileImage, setProfileImageData);
+			}
+		},
+		[setProfileImage, setProfileImageData],
+	);
 	return (
-		<div className="bg-sub-gray3 w-[200px] h-[200px] relative m-auto rounded-full">
+		<div className="bg-sub-gray3 w-[200px] h-[200px] relative m-auto rounded-full cursor-pointer">
 			<Input
 				id={id}
 				type="file"
@@ -72,4 +76,5 @@ export default function ImgInput({
 			</div>
 		</div>
 	);
-}
+};
+export default ImgInput;

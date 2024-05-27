@@ -26,7 +26,15 @@ const TagGroup = ({ tags, selectedTags, onChange }: TagGroupProps) => {
 		<div className="flex flex-wrap gap-2">
 			{tags.map((tag) => (
 				<div key={tag.id} onClick={() => toggleTag(tag.id)}>
-					<Badge variant="formTag">{tag.name}</Badge>
+					<Badge
+						variant="formTag"
+						className={clsx(
+							"cursor-pointer",
+							selectedTags.includes(tag.id) && "bg-blue-500 text-white",
+						)}
+					>
+						{tag.name}
+					</Badge>
 					<input
 						type="hidden"
 						value={selectedTags.includes(tag.id) ? tag.id : ""}
