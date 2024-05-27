@@ -1,8 +1,9 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { z } from "zod";
+
 import { Button } from "@components/shadcn/ui/Button";
 import {
 	Form,
@@ -13,8 +14,9 @@ import {
 	FormMessage,
 } from "@components/shadcn/ui/Form";
 import { Input } from "@components/shadcn/ui/Input";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { FormSchema, loginDefault } from "./loginValidation";
-import { toast } from "react-toastify";
 
 export function LoginForm() {
 	const form = useForm<z.infer<typeof FormSchema>>({

@@ -1,8 +1,9 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { z } from "zod";
+
 import { Button } from "@components/shadcn/ui/Button";
 import {
 	Form,
@@ -13,14 +14,15 @@ import {
 	FormMessage,
 } from "@components/shadcn/ui/Form";
 import { Input } from "@components/shadcn/ui/Input";
-import { toast } from "react-toastify";
-import { FormSchema, interestTags, signUpDefault } from "./signupValidation";
-import { Textarea } from "@components/shadcn/ui/Textarea";
 import { RadioGroup, RadioGroupItem } from "@components/shadcn/ui/Radio-group/";
+import { Textarea } from "@components/shadcn/ui/Textarea";
 import ImgInput from "@containers/PreviewImg/ImgInput";
 import TagGroup from "@containers/TagGroup";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-export function SignupForm() {
+import { FormSchema, interestTags, signUpDefault } from "./signupValidation";
+
+const SignupForm = () => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: signUpDefault,
@@ -252,4 +254,6 @@ export function SignupForm() {
 			</form>
 		</Form>
 	);
-}
+};
+
+export default SignupForm;

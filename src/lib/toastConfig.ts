@@ -18,7 +18,7 @@ interface ToastProps extends ToastOptions {
 }
 
 // showToast('type', message)로 토스트 메시지 띄움
-export const showToast = ({ type, message, ...props }: ToastProps) => {
+const showToast = ({ type, message, ...props }: ToastProps) => {
 	const toastOptions: ToastOptions = {
 		position: "top-center",
 		autoClose: 2000,
@@ -37,3 +37,5 @@ export const showToast = ({ type, message, ...props }: ToastProps) => {
 		toast.info(message, { ...toastOptions, icon: false });
 	}
 };
+
+export default showToast;

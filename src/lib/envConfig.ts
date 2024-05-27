@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/prefer-default-export
 export const envConfig = {
 	BASE_URL: process.env.NEXT_PUBLIC_BASE_URL!,
 	KAKAO_RESTAPI_KEY: process.env.NEXT_PUBLIC_KAKAO_RESTAPI_KEY!,

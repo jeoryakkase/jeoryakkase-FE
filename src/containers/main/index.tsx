@@ -1,13 +1,13 @@
-import React from "react";
 import BannerCarousels from "@components/BannerCarousel";
+import UserIcon from "@components/icons/UserIcon";
 import { Badge } from "@components/shadcn/ui/Badge";
-import UserIcon from "public/svgs/UserIcon";
-import History from "./UI/History";
-import Goal from "./UI/Goal";
-import Challenge from "./UI/Challenge";
-import HotPost from "./UI/HotPost";
-import BlankHistory from "./UI/Blank/BlankHistory";
+
 import BlankGoal from "./UI/Blank/BlankGoal";
+import BlankHistory from "./UI/Blank/BlankHistory";
+import Challenge from "./UI/Challenge";
+import Goal from "./UI/Goal";
+import History from "./UI/History";
+import HotPost from "./UI/HotPost";
 
 const bannerData = [
 	{
@@ -38,7 +38,7 @@ const banners = bannerData.map((banner, index) => ({
 	backgroundColor: backgroundColors[index % backgroundColors.length],
 }));
 
-const mainPage = () => {
+const Main = () => {
 	return (
 		<div>
 			<BannerCarousels banners={banners} />
@@ -68,4 +68,4 @@ const mainPage = () => {
 	);
 };
 
-export default mainPage;
+export default Main;

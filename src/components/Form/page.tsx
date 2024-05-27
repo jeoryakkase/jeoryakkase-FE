@@ -1,6 +1,7 @@
 import { FormEventHandler } from "react";
-import { Input } from "./Input/page";
+
 import { Button } from "./Button/page";
+import { Input } from "./Input/page";
 import { Textarea } from "./Textarea/page";
 
 interface FormProps {

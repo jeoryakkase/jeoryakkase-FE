@@ -5,7 +5,7 @@ import DoughnutChart from "@components/DoughnutChart";
 import Flex from "@components/Flex";
 import { Badge } from "@components/shadcn/ui/Badge";
 import doughtnutData from "@containers/main/assets/doughtnutData";
-import { getFullDate, getLastMonth } from "@utils/getDate";
+import { getFullDate, getLastMonth } from "@utils/dates.utils";
 
 const BlankHistory = () => {
 	const todayDate = getFullDate(new Date());

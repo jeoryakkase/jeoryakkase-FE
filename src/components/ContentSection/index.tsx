@@ -1,5 +1,5 @@
 import React, { ReactElement, ReactNode } from "react";
-import { cn } from "src/lib/utils";
+import { cn } from "@utils/classnames.utils";
 import { cva, VariantProps } from "class-variance-authority";
 
 export interface ContentSectionProps

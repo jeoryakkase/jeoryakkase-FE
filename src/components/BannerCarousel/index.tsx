@@ -1,4 +1,4 @@
-import UserIcon from "public/svgs/UserIcon";
+import BannerCarousel from "./UI/BannerCarousel";
 import {
 	Carousel,
 	CarouselContent,
@@ -6,7 +6,7 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from "../shadcn/ui/Carousel";
-import BannerCarousel from "./UI/BannerCarousel";
+
 interface BannerCarouselsProps {
 	banners: Array<{
 		title: string;
@@ -22,6 +22,7 @@ const BannerCarousels = ({ banners }: BannerCarouselsProps) => {
 			<CarouselPrevious />
 			<CarouselContent>
 				{banners.map((banner, index) => (
+					// eslint-disable-next-line react/no-array-index-key
 					<CarouselItem key={index}>
 						<BannerCarousel
 							title={banner.title}

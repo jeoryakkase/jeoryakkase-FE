@@ -1,6 +1,7 @@
-import { Button } from "@components/shadcn/ui/Button";
 import { FcGoogle } from "react-icons/fc";
 import { RiKakaoTalkFill } from "react-icons/ri";
+
+import { Button } from "@components/shadcn/ui/Button";
 
 export default function SocialLogin() {
 	return (
