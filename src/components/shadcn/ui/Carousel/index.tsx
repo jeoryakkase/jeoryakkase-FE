@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, forwardRef, useContext } from "react";
+
 import useEmblaCarousel, {
 	type UseEmblaCarouselType,
 } from "embla-carousel-react";

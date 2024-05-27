@@ -16,6 +16,7 @@ const CardHeader = ({ title, icon, tags }: CardHeaderProps) => (
 			<div className="flex space-x-2">
 				{tags.map((tag, index) => (
 					<span
+						// eslint-disable-next-line react/no-array-index-key
 						key={index}
 						className="bg-gray-200 text-gray-700 text-sm px-2 py-1 rounded"
 					>

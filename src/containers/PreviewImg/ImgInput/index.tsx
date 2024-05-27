@@ -1,12 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+
 import Image from "next/image";
 
 import { Input } from "@components/shadcn/ui/Input";
+import getImgPreview from "@utils/getImgPreview";
 
 import ImageWithDefault from "../ImageWithDefault";
-import getImgPreview from "@utils/getImgPreview";
 
 interface ImgInputProps {
 	id: string;

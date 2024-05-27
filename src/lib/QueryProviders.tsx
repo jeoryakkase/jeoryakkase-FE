@@ -11,8 +11,8 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
 
-import showToast from "./toastConfig";
 import AuthProvider from "./authProvider";
+import showToast from "./toastConfig";
 
 const makeQueryClient = () => {
 	return new QueryClient({
