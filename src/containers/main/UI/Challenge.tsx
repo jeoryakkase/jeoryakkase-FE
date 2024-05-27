@@ -8,32 +8,32 @@ const Challenge = () => {
 			childrenClassName="flex flex-row justify-center space-x-10"
 			itemClassName="flex-grow"
 		>
-			<Card highlight={true} className="flex-grow">
-				<Card.Header title="오늘 날짜"></Card.Header>
+			<Card highlight className="flex-grow">
+				<Card.Header title="오늘 날짜" />
 				<Card.Content>
 					<p>내용</p>
 				</Card.Content>
 			</Card>
-			<Card highlight={true} className="flex-grow">
-				<Card.Header title="오늘 날짜"></Card.Header>
+			<Card highlight className="flex-grow">
+				<Card.Header title="오늘 날짜" />
 				<Card.Content>
 					<p>내용</p>
 				</Card.Content>
 			</Card>
-			<Card highlight={true} className="flex-grow">
-				<Card.Header title="오늘 날짜"></Card.Header>
+			<Card highlight className="flex-grow">
+				<Card.Header title="오늘 날짜" />
 				<Card.Content>
 					<p>내용</p>
 				</Card.Content>
 			</Card>{" "}
-			<Card highlight={true} className="flex-grow">
-				<Card.Header title="오늘 날짜"></Card.Header>
+			<Card highlight className="flex-grow">
+				<Card.Header title="오늘 날짜" />
 				<Card.Content>
 					<p>내용</p>
 				</Card.Content>
 			</Card>
-			<Card highlight={true} className="flex-grow">
-				<Card.Header title="오늘 날짜"></Card.Header>
+			<Card highlight className="flex-grow">
+				<Card.Header title="오늘 날짜" />
 				<Card.Content>
 					<p>내용</p>
 				</Card.Content>

@@ -1,6 +1,7 @@
 import { ContentSection } from "@components/ContentSection";
-import GoalCard from "./GoalCard";
 import Flex from "@components/Flex";
+
+import GoalCard from "./GoalCard";
 
 const Goal = () => {
 	return (

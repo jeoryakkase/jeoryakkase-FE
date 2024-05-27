@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
-import { cn } from "@utils/classnames.utils";
+
+import cn from "@utils/classnames.utils";
 
 export interface TextareaProps
 	extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}

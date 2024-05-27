@@ -1,7 +1,9 @@
 "use client";
-import { Button } from "@components/Button";
+
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+
+import { Button } from "@components/Button";
 
 const GoSignup = () => {
 	const router = useRouter();
@@ -13,10 +15,10 @@ const GoSignup = () => {
 			</p>
 			<div className="m-auto">
 				<Image
-					src={"/images/character02.png"}
+					src="/images/character02.png"
 					width={300}
 					height={300}
-					alt={"회원가입 안내"}
+					alt="회원가입 안내"
 					className="static"
 				/>
 			</div>

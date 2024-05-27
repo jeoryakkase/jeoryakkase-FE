@@ -2,7 +2,7 @@ import React, { ReactElement } from "react";
 
 import { cva, VariantProps } from "class-variance-authority";
 
-import { cn } from "@utils/classnames.utils";
+import cn from "@utils/classnames.utils";
 
 export interface ContentSectionProps
 	extends React.HTMLAttributes<HTMLDivElement>,
