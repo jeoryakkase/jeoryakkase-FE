@@ -1,7 +1,7 @@
-import LoginForm from "@containers/login/(left)";
-import GoSignup from "@containers/login/(right)";
+import LoginForm from "src/containers/login/(left)";
+import GoSignup from "src/containers/login/(right)";
 
-const Login = () => {
+const LoginPage = () => {
 	return (
 		<section className={` m-auto flex justify-between gap-[30px]`}>
 			<div className="w-[45%]">
@@ -16,4 +16,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default LoginPage;

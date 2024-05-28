@@ -1,5 +1,7 @@
 "use client";
 
+import clsx from "clsx";
+
 import { Badge } from "@components/shadcn/ui/Badge";
 
 interface Tag {
@@ -24,21 +26,21 @@ const TagGroup = ({ tags, selectedTags, onChange }: TagGroupProps) => {
 	return (
 		<div className="flex flex-wrap gap-2">
 			{tags.map((tag) => (
-				<div key={tag.id} onClick={() => toggleTag(tag.id)}>
-					<Badge
-						variant="formTag"
-						className={clsx(
-							"cursor-pointer",
-							selectedTags.includes(tag.id) && "bg-blue-500 text-white",
-						)}
-					>
-						{tag.name}
-					</Badge>
+				<Badge
+					key={tag.id}
+					onClick={() => toggleTag(tag.id)}
+					variant="formTag"
+					className={clsx(
+						"cursor-pointer",
+						selectedTags.includes(tag.id) && "bg-blue-500 text-white",
+					)}
+				>
+					{tag.name}
 					<input
 						type="hidden"
 						value={selectedTags.includes(tag.id) ? tag.id : ""}
 					/>
-				</div>
+				</Badge>
 			))}
 		</div>
 	);
