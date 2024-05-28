@@ -1,6 +1,6 @@
 import { FC, SVGProps } from "react";
 
-const BadgeStroke: FC<SVGProps<SVGSVGElement>> = (props) => {
+const BadgeContainer: FC<SVGProps<SVGSVGElement>> = (props) => {
 	return (
 		<svg
 			width="476"
@@ -16,4 +16,4 @@ const BadgeStroke: FC<SVGProps<SVGSVGElement>> = (props) => {
 	);
 };
 
-export default BadgeStroke;
+export default BadgeContainer;
