@@ -1,5 +1,5 @@
 const mockMemberData = {
-	profileImage: null,
+	profileImage: "/images/character04.png",
 	about:
 		"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis felis at velit pretium varius.",
 	email: "test@google.com",

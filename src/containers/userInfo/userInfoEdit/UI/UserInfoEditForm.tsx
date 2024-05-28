@@ -51,7 +51,11 @@ const UserInfoEditForm = () => {
 					render={({ field: { onChange } }) => (
 						<FormItem>
 							<FormControl>
-								<ImgInput id="profileImage" setProfileImageData={onChange} />
+								<ImgInput
+									id="profileImage"
+									setProfileImageData={onChange}
+									initialImage={mockMemberData.profileImage}
+								/>
 							</FormControl>
 							<FormMessage />
 						</FormItem>
