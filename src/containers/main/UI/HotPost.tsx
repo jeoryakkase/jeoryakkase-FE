@@ -7,20 +7,20 @@ const HotPost = () => {
 			title="염전 실시간 인기글"
 			childrenClassName="flex flex-col justify-center space-x-10"
 		>
-			<Card highlight={true} className="flex-grow">
-				<Card.Header title="오늘 날짜"></Card.Header>
+			<Card highlight className="flex-grow">
+				<Card.Header title="오늘 날짜" />
 				<Card.Content>
 					<p>내용</p>
 				</Card.Content>
 			</Card>
-			<Card highlight={true} className="flex-grow">
-				<Card.Header title="오늘 날짜"></Card.Header>
+			<Card highlight className="flex-grow">
+				<Card.Header title="오늘 날짜" />
 				<Card.Content>
 					<p>내용</p>
 				</Card.Content>
 			</Card>
-			<Card highlight={true} className="flex-grow">
-				<Card.Header title="오늘 날짜"></Card.Header>
+			<Card highlight className="flex-grow">
+				<Card.Header title="오늘 날짜" />
 				<Card.Content>
 					<p>내용</p>
 				</Card.Content>

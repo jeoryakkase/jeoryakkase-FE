@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 
 import { ChevronRightIcon, DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "@utils/classnames.utils";
+import cn from "@utils/classnames.utils";
 
 const Breadcrumb = forwardRef<
 	HTMLElement,
@@ -13,7 +13,7 @@ const Breadcrumb = forwardRef<
 >(({ ...props }, ref) => <nav ref={ref} aria-label="breadcrumb" {...props} />);
 Breadcrumb.displayName = "Breadcrumb";
 
-const BreadcrumbList = React.forwardRef<
+const BreadcrumbList = forwardRef<
 	HTMLOListElement,
 	React.ComponentPropsWithoutRef<"ol">
 >(({ className, ...props }, ref) => (
@@ -28,7 +28,7 @@ const BreadcrumbList = React.forwardRef<
 ));
 BreadcrumbList.displayName = "BreadcrumbList";
 
-const BreadcrumbItem = React.forwardRef<
+const BreadcrumbItem = forwardRef<
 	HTMLLIElement,
 	React.ComponentPropsWithoutRef<"li">
 >(({ className, ...props }, ref) => (

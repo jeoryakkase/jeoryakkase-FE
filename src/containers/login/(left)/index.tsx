@@ -14,9 +14,10 @@ import {
 	FormMessage,
 } from "@components/shadcn/ui/Form";
 import { Input } from "@components/shadcn/ui/Input";
-import { FormSchema, loginDefault } from "../loginValidation";
-import SocialLogin from "./social-login";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import SocialLogin from "./social-login";
+import { FormSchema, loginDefault } from "../loginValidation";
 
 const LoginForm = () => {
 	const form = useForm<z.infer<typeof FormSchema>>({
@@ -26,6 +27,7 @@ const LoginForm = () => {
 
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
 		toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
+		console.log(data);
 	};
 
 	return (

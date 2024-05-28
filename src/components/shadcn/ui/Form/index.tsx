@@ -12,7 +12,7 @@ import {
 import Label from "@components/shadcn/ui/Label";
 import * as LabelPrimitive from "@radix-ui/react-label";
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "@utils/classnames.utils";
+import cn from "@utils/classnames.utils";
 
 const Form = FormProvider;
 

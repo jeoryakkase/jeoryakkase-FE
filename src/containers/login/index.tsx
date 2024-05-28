@@ -24,9 +24,10 @@ const LoginForm = () => {
 		defaultValues: loginDefault,
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
+	const onSubmit = (data: z.infer<typeof FormSchema>) => {
 		toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
-	}
+		console.log(data);
+	};
 
 	return (
 		<Form {...form}>

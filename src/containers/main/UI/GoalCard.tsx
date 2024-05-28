@@ -1,7 +1,8 @@
 import Card from "@components/Card";
-import { Badge } from "@components/shadcn/ui/Badge";
-import progressBarData from "../assets/progressBarData";
 import ProgressBarChart from "@components/ProgressBar";
+import { Badge } from "@components/shadcn/ui/Badge";
+
+import progressBarData from "../assets/progressBarData";
 
 const tagMessage = (percentage: number): [string, string] => {
 	if (percentage < 50) return ["노력부족", "조금 더 노력해볼까요?💪"];
@@ -30,7 +31,7 @@ const GoalCard = ({ percentage, title, ...props }: GoalCardProps) => {
 					{messages[1]}
 				</Badge>
 			</div>
-			<Card highlight={true} className="flex-grow">
+			<Card highlight className="flex-grow">
 				<Card.Header title={title} />
 				<ProgressBarChart data={progressBarData} />
 				<Card.Content>

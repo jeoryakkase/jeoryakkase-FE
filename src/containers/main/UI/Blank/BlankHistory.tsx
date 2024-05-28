@@ -17,7 +17,7 @@ const BlankHistory = () => {
 			childrenClassName="flex flex-row justify-center space-x-10"
 		>
 			<Card
-				highlight={true}
+				highlight
 				className="w-[400px] bg-main-lightyellow border-transparent"
 			>
 				<Card.Header title={todayDate} />
@@ -43,7 +43,7 @@ const BlankHistory = () => {
 				</Card.Content>
 			</Card>
 			<Card
-				highlight={true}
+				highlight
 				className="w-[400px]  bg-main-lightyellow  border-transparent"
 			>
 				<Card.Header title={lastMonth} />
@@ -67,7 +67,7 @@ const BlankHistory = () => {
 				</Card.Content>
 			</Card>
 			<Card
-				highlight={true}
+				highlight
 				className="w-[100px]  bg-main-lightyellow  border-transparent"
 			>
 				<Card.Content>
