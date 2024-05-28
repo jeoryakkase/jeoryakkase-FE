@@ -18,14 +18,16 @@ import { Input } from "@components/shadcn/ui/Input";
 import { RadioGroup, RadioGroupItem } from "@components/shadcn/ui/Radio-group/";
 import { Textarea } from "@components/shadcn/ui/Textarea";
 import TagGroup from "@components/TagGroup";
+import { interestTags } from "@containers/signup/signupValidation";
+import mockMemberData from "@containers/userInfo/assets/userinfoData";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { FormSchema, interestTags, signUpDefault } from "./signupValidation";
+import FormSchema from "../userInfoEditValidation";
 
-const SignupForm = () => {
+const UserInfoEditForm = () => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
-		defaultValues: signUpDefault,
+		defaultValues: mockMemberData,
 	});
 	console.log(
 		"관심사태그",
@@ -33,7 +35,7 @@ const SignupForm = () => {
 	);
 
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
+		toast.success("회원가입 수정이 완료되었습니다.", { autoClose: 2000 });
 		console.log(data);
 	};
 
@@ -74,46 +76,18 @@ const SignupForm = () => {
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>이메일</FormLabel>
-							<div className="flex gap-[20px]">
-								<FormControl>
-									<Input
-										type="email"
-										placeholder="이메일을 입력해주세요."
-										{...field}
-									/>
-								</FormControl>
-								<Button type="button" onClick={() => {}}>
-									중복확인
-								</Button>
-							</div>
-
+							<FormControl>
+								<Input
+									type="email"
+									placeholder="이메일을 입력해주세요."
+									{...field}
+								/>
+							</FormControl>
 							<FormMessage />
 						</FormItem>
 					)}
 				/>
-				<FormField
-					control={form.control}
-					name="verify"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>이메일 인증번호</FormLabel>
-							<div className="flex gap-[20px]">
-								<FormControl>
-									<Input
-										type="text"
-										placeholder="인증번호를 입력해주세요."
-										{...field}
-									/>
-								</FormControl>
-								<Button type="button" onClick={() => {}}>
-									인증번호 확인
-								</Button>
-							</div>
 
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
 				<FormField
 					control={form.control}
 					name="nickname"
@@ -137,44 +111,7 @@ const SignupForm = () => {
 						</FormItem>
 					)}
 				/>
-				<FormField
-					control={form.control}
-					name="password"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>비밀번호</FormLabel>
 
-							<FormControl>
-								<Input
-									type="password"
-									placeholder="비밀번호를 입력해주세요."
-									{...field}
-								/>
-							</FormControl>
-
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
-				<FormField
-					control={form.control}
-					name="confirmPassword"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>비밀번호 확인</FormLabel>
-
-							<FormControl>
-								<Input
-									type="password"
-									placeholder="비밀번호를 입력해주세요."
-									{...field}
-								/>
-							</FormControl>
-
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
 				<div className="flex gap-[40px]">
 					<FormField
 						control={form.control}
@@ -264,4 +201,4 @@ const SignupForm = () => {
 	);
 };
 
-export default SignupForm;
+export default UserInfoEditForm;

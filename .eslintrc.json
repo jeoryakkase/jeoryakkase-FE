@@ -110,6 +110,9 @@
 		"@typescript-eslint/no-shadow": "off",
 		"@typescript-eslint/no-use-before-define": "off",
 		"consistent-return": "off",
-		"react/jsx-no-constructed-context-values": "off"
+		"react/jsx-no-constructed-context-values": "off",
+		"jsx-a11y/label-has-associated-control": "off",
+		"jsx-a11y/click-events-have-key-events": "off",
+		"jsx-a11y/no-noninteractive-element-interactions": "off"
 	}
 }
