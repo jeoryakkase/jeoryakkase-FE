@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
+import scrollbarHide from "tailwind-scrollbar-hide";
 import { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
 
@@ -119,7 +120,7 @@ const config: Config = {
 			},
 		},
 	},
-	plugins: [tailwindcssAnimate],
+	plugins: [tailwindcssAnimate, scrollbarHide],
 };
 
 export default config;
