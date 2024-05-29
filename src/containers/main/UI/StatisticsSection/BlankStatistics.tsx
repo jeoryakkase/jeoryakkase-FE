@@ -7,7 +7,7 @@ import { Badge } from "@components/shadcn/ui/Badge";
 import doughtnutData from "@containers/main/assets/doughtnutData";
 import { getFullDate, getLastMonth } from "@utils/dates.utils";
 
-const BlankHistory = () => {
+const BlankStatistics = () => {
 	const todayDate = getFullDate(new Date());
 	const lastMonth = getLastMonth(new Date());
 
@@ -18,7 +18,7 @@ const BlankHistory = () => {
 		>
 			<Card
 				highlight
-				className="w-[400px] bg-main-lightyellow border-transparent"
+				className="flex-grow w-[400px] bg-main-lightyellow border-transparent"
 			>
 				<Card.Header title={todayDate} />
 				<Card.Content>
@@ -44,7 +44,7 @@ const BlankHistory = () => {
 			</Card>
 			<Card
 				highlight
-				className="w-[400px]  bg-main-lightyellow  border-transparent"
+				className=" flex-grow w-[400px]  bg-main-lightyellow  border-transparent"
 			>
 				<Card.Header title={lastMonth} />
 				<Card.Content>
@@ -68,7 +68,7 @@ const BlankHistory = () => {
 			</Card>
 			<Card
 				highlight
-				className="w-[100px]  bg-main-lightyellow  border-transparent"
+				className="flex-grow w-[100px]  bg-main-lightyellow  border-transparent"
 			>
 				<Card.Content>
 					<Flex direction="column" align="center">
@@ -82,4 +82,4 @@ const BlankHistory = () => {
 	);
 };
 
-export default BlankHistory;
+export default BlankStatistics;

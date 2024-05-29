@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 
@@ -15,7 +15,11 @@ interface ImgInputProps {
 	setProfileImageData: (file: File) => void;
 }
 
-const ImgInput = ({ id, initialImage, setProfileImageData }: ImgInputProps) => {
+export default function ImgInput({
+	id,
+	initialImage,
+	setProfileImageData,
+}: ImgInputProps) {
 	const defaultImage = "/images/character01.png";
 	const imgInputRef = useRef<HTMLInputElement>(null);
 	const [profileImage, setProfileImage] = useState<string>(
@@ -28,24 +32,17 @@ const ImgInput = ({ id, initialImage, setProfileImageData }: ImgInputProps) => {
 		}
 	}, [initialImage]);
 
-	const handleImageClick = useCallback(() => {
+	const handleImageClick = () => {
 		imgInputRef.current?.click();
-	}, []);
-	const handleFileChange = useCallback(
-		(event: React.ChangeEvent<HTMLInputElement>) => {
-			const file = event.target.files?.[0] as File;
-			if (file) {
-				if (!file.type.startsWith("image/")) {
-					console.error("이미지 파일을 선택해주세요.");
-					return;
-				}
-				getImgPreview(file, setProfileImage, setProfileImageData);
-			}
-		},
-		[setProfileImage, setProfileImageData],
-	);
+	};
+	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const file = event.target.files?.[0] as File;
+		if (file) {
+			getImgPreview(file, setProfileImage, setProfileImageData);
+		}
+	};
 	return (
-		<div className="bg-sub-gray3 w-[200px] h-[200px] relative m-auto rounded-full cursor-pointer">
+		<div className="bg-sub-gray3 w-[200px] h-[200px] relative m-auto rounded-full">
 			<Input
 				id={id}
 				type="file"
@@ -78,5 +75,4 @@ const ImgInput = ({ id, initialImage, setProfileImageData }: ImgInputProps) => {
 			</div>
 		</div>
 	);
-};
-export default ImgInput;
+}

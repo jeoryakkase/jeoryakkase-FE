@@ -21,6 +21,7 @@ const options = {
 			display: false, // x축 숨기기
 		},
 		y: {
+			stacked: true,
 			display: false, // y축 숨기기
 		},
 	},

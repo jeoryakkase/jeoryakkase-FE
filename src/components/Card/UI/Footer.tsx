@@ -5,7 +5,7 @@ interface CardFooterProps {
 }
 
 const CardFooter = ({ children }: CardFooterProps) => (
-	<ShadcnCardFooter className="border-t pt-2 mt-2">{children}</ShadcnCardFooter>
+	<ShadcnCardFooter className=" pt-2 mt-2">{children}</ShadcnCardFooter>
 );
 
 export default CardFooter;

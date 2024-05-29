@@ -4,7 +4,7 @@ import {
 	rejectInterceptor,
 	requestInterceptor,
 	responseInterceptor,
-} from "@services/api";
+} from "@lib/interceptor";
 
 const apiClient: AxiosInstance = Axios.create({
 	withCredentials: true,

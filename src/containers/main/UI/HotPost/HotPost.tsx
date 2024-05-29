@@ -13,18 +13,6 @@ const HotPost = () => {
 					<p>내용</p>
 				</Card.Content>
 			</Card>
-			<Card highlight className="flex-grow">
-				<Card.Header title="오늘 날짜" />
-				<Card.Content>
-					<p>내용</p>
-				</Card.Content>
-			</Card>
-			<Card highlight className="flex-grow">
-				<Card.Header title="오늘 날짜" />
-				<Card.Content>
-					<p>내용</p>
-				</Card.Content>
-			</Card>
 		</ContentSection>
 	);
 };

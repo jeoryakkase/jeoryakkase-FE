@@ -7,7 +7,7 @@ interface CardHeaderProps {
 }
 
 const CardHeader = ({ title, icon, tags }: CardHeaderProps) => (
-	<ShadcnCardHeader className="flex items-center justify-between mb-2">
+	<ShadcnCardHeader className="flex items-center justify-between">
 		<div className="flex items-center">
 			{icon && <span className="mr-2">{icon}</span>}
 			<h2 className="text-lg font-semibold">{title}</h2>
