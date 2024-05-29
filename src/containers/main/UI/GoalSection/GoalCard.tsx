@@ -61,7 +61,7 @@ const GoalCard = ({
 					{messages[1]}
 				</Badge>
 			</div>
-			<Card highlight={false} className="flex-grow">
+			<Card highlight="" className="flex-grow">
 				<Image src={img} alt="목표 이미지" width={150} height={150} />
 				<Card.Header title={title} />
 				<Card.Content>

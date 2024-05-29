@@ -1,3 +1,5 @@
+import character1 from "@assets/images/character/character01.png";
+
 import doughtnutData from "../assets/doughtnutData";
 
 export const dummyGoals = [
@@ -79,7 +81,47 @@ export const dummyStatistics = {
 		doughnutData: doughtnutData, // 기존의 doughnutData 가져오기
 	},
 	logo: {
-		src: "/images/logo.png",
-		message: "로그인하고 저략카세로 절약을 시작해보세요!",
+		src: character1,
+		message: "124344555",
 	},
+};
+
+export const dummyZarangData = [
+	{
+		id: 1,
+		nickName: "리틀최강민수",
+		profileImage: "https://picsum.photos/60/60",
+		comment: "친구는 잃었지만 통장은 지켰다",
+		zarangContent: ["카페 금지 챌린지 성공", 3740000] as [string, number],
+		cheers: 540,
+	},
+	{
+		id: 2,
+		nickName: "리틀최강민수",
+		profileImage: "https://picsum.photos/60/60",
+		comment: "친구는 잃었지만 통장은 지켰다11",
+		zarangContent: ["매달 10만원 저축 성공", 312000] as [string, number],
+		cheers: 100,
+	},
+	{
+		id: 3,
+		nickName: "리틀최강민수",
+		profileImage: "https://picsum.photos/60/60",
+		comment: "친구는 잃었지만 통장은 지켰다22",
+		zarangContent: ["한 달 도시락 싸기 챌린지 성공", 2323000] as [
+			string,
+			number,
+		],
+		cheers: 300,
+	},
+];
+
+export const dummyHotPostData = {
+	voteTitle: "중고차 허부러",
+	voteContent:
+		"이거 살까말까 허불허 눌러줘이거 살까말까 허불허 눌러줘이거 살까말까 허불허 눌러줘이거 살까말까 허불허 눌러줘이거 살까말까 허불허 눌러줘",
+	tipTitle: "페트병으로 쏠쏠하게 모으기",
+	tipContent:
+		"절약하는 꿀팁을 알려드려요!절약하는 꿀팁을 알려드려요!절약하는 꿀팁을 알려드려요!절약하는 꿀팁을 알려드려요!절약하는 꿀팁을 알려드려요!",
+	tipImg: "https://picsum.photos/200/150",
 };

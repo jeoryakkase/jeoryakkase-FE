@@ -1,4 +1,5 @@
-import { Button } from "@components/Button";
+import Image from "next/image";
+
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 import DoughnutChart from "@components/DoughnutChart";
@@ -71,9 +72,9 @@ const Statistics = ({ userStatistics }) => {
 			>
 				<Card.Content>
 					<Flex direction="column" align="center">
-						<img alt="이모티콘" src={logo.src} />
-						<span>{logo.message} </span>
-						<Button className="mt-3">로그인</Button>
+						<Image alt="이모티콘" src={logo.src} />
+						<span> 저략카세로 절약한 금액 </span>
+						<span>총 {logo.message} 원 </span>
 					</Flex>
 				</Card.Content>
 			</Card>

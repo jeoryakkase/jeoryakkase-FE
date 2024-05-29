@@ -1,5 +1,9 @@
 import BannerCarousels from "@components/BannerCarousel";
 import UserIcon from "@components/icons/UserIcon";
+import {
+	dummyHotPostData as hotPostData,
+	dummyStatistics,
+} from "@containers/main/dummy";
 import useUserGoalStore from "@stores/Goal/useGoalStore";
 
 import Challenge from "./ChallengeSection/Challenge";
@@ -8,7 +12,6 @@ import Goal from "./GoalSection/Goal";
 import HotPost from "./HotPost/HotPost";
 import BlankStatistics from "./StatisticsSection/BlankStatistics";
 import Statistics from "./StatisticsSection/Statistics";
-import { dummyStatistics } from "../dummy";
 
 const bannerData = [
 	{
@@ -53,7 +56,8 @@ const Main = () => {
 
 			<Challenge />
 
-			<HotPost />
+			{/* provider로 감싸야할거 같음 */}
+			<HotPost hotPostData={hotPostData} />
 		</div>
 	);
 };

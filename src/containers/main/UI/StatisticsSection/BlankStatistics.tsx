@@ -18,7 +18,7 @@ const BlankStatistics = () => {
 			childrenClassName="flex flex-row justify-center space-x-10"
 		>
 			<Card
-				highlight
+				highlight=""
 				className="flex-grow w-[400px] bg-main-lightyellow border-transparent"
 			>
 				<Card.Header title={todayDate} />
@@ -44,7 +44,7 @@ const BlankStatistics = () => {
 				</Card.Content>
 			</Card>
 			<Card
-				highlight
+				highlight=""
 				className=" flex-grow w-[400px]  bg-main-lightyellow  border-transparent"
 			>
 				<Card.Header title={lastMonth} />
@@ -68,7 +68,7 @@ const BlankStatistics = () => {
 				</Card.Content>
 			</Card>
 			<Card
-				highlight
+				highlight=""
 				className="flex-grow w-[100px]  bg-main-lightyellow  border-transparent"
 			>
 				<Card.Content>

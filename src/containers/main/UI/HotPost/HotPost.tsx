@@ -1,18 +1,20 @@
-import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 
-const HotPost = () => {
+import HotPostContent from "./HotPostContent";
+
+const HotPost = ({ hotPostData }) => {
 	return (
 		<ContentSection
 			title="염전 실시간 인기글"
 			childrenClassName="flex flex-col justify-center space-x-10"
 		>
-			<Card highlight className="flex-grow">
-				<Card.Header title="오늘 날짜" />
-				<Card.Content>
-					<p>내용</p>
-				</Card.Content>
-			</Card>
+			<HotPostContent
+				voteTitle={hotPostData.voteTitle}
+				voteContent={hotPostData.voteContent}
+				tipTitle={hotPostData.tipTitle}
+				tipContent={hotPostData.tipContent}
+				tipImg={hotPostData.tipImg}
+			/>
 		</ContentSection>
 	);
 };

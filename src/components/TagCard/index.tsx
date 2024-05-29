@@ -47,7 +47,7 @@ const TagCard = ({
 	const messages = getMessages(today, dueDate);
 
 	return (
-		<Card highlight={false} className={` ${backgroundColor} ${className}`}>
+		<Card highlight="" className={` ${backgroundColor} ${className}`}>
 			<div className="flex flex-col justify-center items-center p-2">
 				<div className="flex flex-col">
 					<Card.Header title={title} />

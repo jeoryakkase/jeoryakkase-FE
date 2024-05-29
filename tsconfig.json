@@ -26,6 +26,7 @@
 			// "@/*": ["*"],
 			"@components/*": ["src/components/*"],
 			"@app/*": ["src/app/*"],
+			"@assets/*": ["src/assets/*"],
 			"@styles/*": ["src/styles/*"],
 			"@constants/*": ["src/constants/*"],
 			"@containers/*": ["src/containers/*"],

@@ -30,6 +30,7 @@ const config: Config = {
 				"main-navy": "#0A174E",
 				"point-lightred": "#FDB085",
 				"point-red": "#FF842B",
+				"point-bronze": "#C1B88D",
 				"sub-gray1": "#F5F5F5",
 				"sub-gray2": "#D9D9D9",
 				"sub-gray3": "#C9C9C9",
