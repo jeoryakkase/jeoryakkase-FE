@@ -31,6 +31,7 @@
 			"@containers/*": ["src/containers/*"],
 			"@hooks/*": ["src/hooks/*"],
 			"@services/*": ["src/services/*"],
+			"@stores/*": ["src/stores/*"],
 			"@types/*": ["src/types/*"],
 			"@utils/*": ["src/utils/*"],
 			"@lib/*": ["src/lib/*"],
@@ -42,6 +43,7 @@
 		"src/**/*",
 		"src/types",
 		"next-env.d.ts",
+		"next.config.mjs",
 		".next/types/**/*.ts",
 		"**/*.ts",
 		"**/*.tsx"

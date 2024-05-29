@@ -16,6 +16,7 @@ const nextConfig = {
 			"@containers": path.resolve(__dirname, "src/containers"),
 			"@hooks": path.resolve(__dirname, "src/hooks"),
 			"@services": path.resolve(__dirname, "src/services"),
+			"@stores": path.resolve(__dirname, "src/stores"),
 			"@types": path.resolve(__dirname, "src/types"),
 			"@utils": path.resolve(__dirname, "src/utils"),
 			"@lib": path.resolve(__dirname, "src/lib"),
