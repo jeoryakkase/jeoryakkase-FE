@@ -10,16 +10,18 @@ import getImgPreview from "@utils/getImgPreview";
 import ImageWithDefault from "../ImageWithDefault";
 
 interface ImgInputProps {
-	id: string;
+	id?: string;
 	initialImage?: string;
-	setProfileImageData: (file: File) => void;
+	setProfileImageData?: (file: File) => void;
+	viewOnly?: boolean;
 }
 
-export default function ImgInput({
+const ImgInput = ({
 	id,
 	initialImage,
 	setProfileImageData,
-}: ImgInputProps) {
+	viewOnly = false,
+}: ImgInputProps) => {
 	const defaultImage = "/images/character01.png";
 	const imgInputRef = useRef<HTMLInputElement>(null);
 	const [profileImage, setProfileImage] = useState<string>(
@@ -34,27 +36,38 @@ export default function ImgInput({
 
 	const handleImageClick = () => {
 		imgInputRef.current?.click();
-	};
-	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files?.[0] as File;
-		if (file) {
-			getImgPreview(file, setProfileImage, setProfileImageData);
-		}
-	};
+	}, []);
+	const handleFileChange = useCallback(
+		(event: React.ChangeEvent<HTMLInputElement>) => {
+			if (viewOnly) return;
+			const file = event.target.files?.[0] as File;
+			if (file) {
+				if (!file.type.startsWith("image/")) {
+					console.error("이미지 파일을 선택해주세요.");
+					return;
+				}
+				getImgPreview(file, setProfileImage, setProfileImageData || (() => {}));
+			}
+		},
+		[setProfileImage, setProfileImageData, viewOnly],
+	);
 	return (
-		<div className="bg-sub-gray3 w-[200px] h-[200px] relative m-auto rounded-full">
-			<Input
-				id={id}
-				type="file"
-				accept="image/*"
-				style={{ display: "none" }}
-				onChange={handleFileChange}
-			/>
-			<label
-				htmlFor={id}
-				onClick={handleImageClick}
-				className="w-[100%] h-[100%] absolute z-50"
-			/>
+		<div className="bg-sub-gray3 w-[200px] h-[200px] relative m-auto rounded-full cursor-pointer">
+			{!viewOnly && (
+				<Input
+					id={id}
+					type="file"
+					accept="image/*"
+					style={{ display: "none" }}
+					onChange={handleFileChange}
+				/>
+			)}
+			{!viewOnly && (
+				<label
+					htmlFor={id}
+					className="w-[100%] h-[100%] absolute z-50 cursor-pointer"
+				/>
+			)}
 			<div className="">
 				{profileImage ? (
 					<Image
