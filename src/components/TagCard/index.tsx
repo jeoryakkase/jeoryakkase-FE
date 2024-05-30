@@ -1,14 +1,22 @@
+import Image from "next/image";
+
 import Card from "../Card/index";
 import { Badge } from "../shadcn/ui/Badge/index";
 
+type TagImgType = {
+	id: string;
+	img: string;
+}[];
 interface TagCardProps {
 	title: string;
 	description: string;
 	startDate: string;
 	endDate: string;
+	imgs?: TagImgType;
 	today: boolean;
 	dueDate: boolean;
 	className?: string;
+	countDay?: number;
 }
 
 const getBackgroundColor = (today: boolean, dueDate: boolean) => {
@@ -36,10 +44,12 @@ const getMessages = (today: boolean, dueDate: boolean): [string, string] => {
 const TagCard = ({
 	title,
 	description,
+	imgs,
 	startDate,
 	endDate,
 	today,
 	dueDate,
+	countDay,
 	className,
 }: TagCardProps) => {
 	const backgroundColor = getBackgroundColor(today, dueDate);
@@ -49,9 +59,25 @@ const TagCard = ({
 	return (
 		<Card highlight="" className={` ${backgroundColor} ${className}`}>
 			<div className="flex flex-col justify-center items-center p-2">
-				<div className="flex flex-col">
-					<Card.Header title={title} />
+				<div className="flex flex-col items-start">
+					<div className="flex justify-between items-center">
+						<Card.Header title={title} />
+						{countDay && <div>D +{countDay}</div>}
+					</div>
 					<Card.Content>{description}</Card.Content>
+				</div>
+				<div className="flex flex-wrap justify-center items-center space-x-2 mb-4">
+					{imgs?.map((img) => (
+						<div key={img.id} className="flex-shrink-0">
+							<Image
+								src={img.img}
+								alt={title}
+								width={70}
+								height={70}
+								className="rounded"
+							/>
+						</div>
+					))}
 				</div>
 				<div className="flex flex-col items-start space-y-2">
 					<Badge variant="default" bgColor={badgeColor}>

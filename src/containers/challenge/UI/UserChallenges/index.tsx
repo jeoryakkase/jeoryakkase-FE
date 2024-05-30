@@ -6,12 +6,11 @@ interface ChallengeProps {
 	challenges: UserChallenge[];
 }
 
-// challenge, userInfo 에서도 사용하기 때문에 전역으로 관리하자
-const Challenge = ({ challenges }: ChallengeProps) => {
+const UserChallenges = ({ challenges }: ChallengeProps) => {
 	return (
 		<ContentSection
 			title="참여 중인 챌린지"
-			childrenClassName="flex flex-row justify-start space-x-10 overflow-x-auto whitespace-nowrap"
+			childrenClassName="flex flex-row justify-start space-x-10 overflow-x-auto scrollbar-hide"
 		>
 			{challenges.map((challenge) => (
 				<TagCard
@@ -22,11 +21,13 @@ const Challenge = ({ challenges }: ChallengeProps) => {
 					endDate={challenge.endDate}
 					today={challenge.today}
 					dueDate={challenge.dueDate}
-					className="w-[300px] h-[300px] inline-block"
+					className="w-[350px] h-[350px] flex-shrink-0"
+					imgs={challenge.imgs}
+					countDay={challenge.countDay}
 				/>
 			))}
 		</ContentSection>
 	);
 };
 
-export default Challenge;
+export default UserChallenges;

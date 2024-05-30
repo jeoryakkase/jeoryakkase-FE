@@ -5,7 +5,7 @@ interface CardContentProps {
 }
 
 const CardContent = ({ children }: CardContentProps) => (
-	<ShadcnCardContent className="mb-2">{children}</ShadcnCardContent>
+	<ShadcnCardContent>{children}</ShadcnCardContent>
 );
 
 export default CardContent;

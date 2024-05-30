@@ -1,11 +1,16 @@
 import character1 from "@assets/images/character/character01.png";
+// import character2 from "@assets/images/character/character02.png";
+// import character3 from "@assets/images/character/character03.png";
+// import character4 from "@assets/images/character/character04.png";
+// import character5 from "@assets/images/character/character05.png";
+// import character6 from "@assets/images/character/character06.png";
 
 import doughtnutData from "../assets/doughtnutData";
 
 export const dummyGoals = [
 	{
 		id: "1",
-		img: "/images/goal1.png",
+		img: "https://picsum.photos/60/60",
 		title: "목표 1",
 		percentage: 40,
 		leftMoney: 50000,
@@ -14,7 +19,7 @@ export const dummyGoals = [
 	},
 	{
 		id: "2",
-		img: "/images/goal2.png",
+		img: "https://picsum.photos/60/60",
 		title: "목표 2",
 		percentage: 60,
 		leftMoney: 30000,
@@ -23,7 +28,7 @@ export const dummyGoals = [
 	},
 	{
 		id: "3",
-		img: "/images/goal3.png",
+		img: "https://picsum.photos/60/60",
 		title: "목표 3",
 		percentage: 80,
 		leftMoney: 20000,
@@ -32,7 +37,7 @@ export const dummyGoals = [
 	},
 	{
 		id: "4",
-		img: "/images/goal4.png",
+		img: "https://picsum.photos/60/60",
 		title: "목표 4",
 		percentage: 20,
 		leftMoney: 100000,
@@ -41,7 +46,7 @@ export const dummyGoals = [
 	},
 	{
 		id: "5",
-		img: "/images/goal5.png",
+		img: "https://picsum.photos/60/60",
 		title: "목표 5",
 		percentage: 50,
 		leftMoney: 40000,
@@ -50,7 +55,7 @@ export const dummyGoals = [
 	},
 	{
 		id: "6",
-		img: "/images/goal6.png",
+		img: "https://picsum.photos/60/60",
 		title: "목표 6",
 		percentage: 90,
 		leftMoney: 10000,
@@ -59,7 +64,7 @@ export const dummyGoals = [
 	},
 	{
 		id: "7",
-		img: "/images/goal7.png",
+		img: "https://picsum.photos/60/60",
 		title: "목표 7",
 		percentage: 70,
 		leftMoney: 25000,
@@ -113,6 +118,79 @@ export const dummyZarangData = [
 			number,
 		],
 		cheers: 300,
+	},
+];
+
+export const dummyChallenges = [
+	{
+		id: "1",
+		title: "점심 도시락 싸기",
+		description: "한 달 동안 점심 도시락 싸기 도전",
+		startDate: "2024.05.15",
+		endDate: "2024.06.14",
+		today: true,
+		dueDate: false,
+		imgs: [
+			{ id: "1", img: "https://picsum.photos/60/60" },
+			{ id: "2", img: "https://picsum.photos/60/60" },
+		],
+		countDay: 30,
+	},
+	{
+		id: "2",
+		title: "일주일 동안 커피 안 마시기",
+		description: "일주일 동안 커피 안 마시기 도전",
+		startDate: "2024.05.01",
+		endDate: "2024.05.07",
+		today: true,
+		dueDate: true,
+		imgs: [
+			{ id: "3", img: "https://picsum.photos/60/60" },
+			{ id: "4", img: "https://picsum.photos/60/60" },
+		],
+		countDay: 12,
+	},
+	{
+		id: "3",
+		title: "하루 만보 걷기",
+		description: "하루에 만보 걷기 도전",
+		startDate: "2024.05.15",
+		endDate: "2024.06.14",
+		today: false,
+		dueDate: true,
+		imgs: [
+			{ id: "5", img: "https://picsum.photos/60/60" },
+			{ id: "6", img: "https://picsum.photos/60/60" },
+		],
+		countDay: 1,
+	},
+	{
+		id: "4",
+		title: "하루 만보 걷기",
+		description: "하루에 만보 걷기 도전",
+		startDate: "2024.05.15",
+		endDate: "2024.06.14",
+		today: false,
+		dueDate: true,
+		imgs: [
+			{ id: "5", img: "https://picsum.photos/60/60" },
+			{ id: "6", img: "https://picsum.photos/60/60" },
+		],
+		countDay: 1,
+	},
+	{
+		id: "4",
+		title: "하루 만보 걷기",
+		description: "하루에 만보 걷기 도전",
+		startDate: "2024.05.15",
+		endDate: "2024.06.14",
+		today: false,
+		dueDate: true,
+		imgs: [
+			{ id: "5", img: "https://picsum.photos/60/60" },
+			{ id: "6", img: "https://picsum.photos/60/60" },
+		],
+		countDay: 1,
 	},
 ];
 

@@ -5,6 +5,7 @@ import {
 	dummyStatistics,
 } from "@containers/main/dummy";
 import useUserGoalStore from "@stores/Goal/useGoalStore";
+import useUserChallenge from "@stores/UserChallenge/useUserChallenge";
 
 import Challenge from "./ChallengeSection/Challenge";
 import BlankGoal from "./GoalSection/BlankGoal";
@@ -43,7 +44,11 @@ const banners = bannerData.map((banner, index) => ({
 }));
 
 const Main = () => {
+	// 로그인 상태 받아서 ui 다르게 보여주기
+	// 로그인 안했을 땐 주로 Link href="/login" 감싸기
 	const goals = useUserGoalStore((state) => state.goals);
+	const challenges = useUserChallenge((state) => state.challenges);
+
 	return (
 		<div>
 			<BannerCarousels banners={banners} />
@@ -54,7 +59,7 @@ const Main = () => {
 			<Goal goals={goals} />
 			<BlankGoal />
 
-			<Challenge />
+			<Challenge challenges={challenges} />
 
 			{/* provider로 감싸야할거 같음 */}
 			<HotPost hotPostData={hotPostData} />

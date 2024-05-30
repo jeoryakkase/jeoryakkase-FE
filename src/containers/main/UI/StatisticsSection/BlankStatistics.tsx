@@ -1,3 +1,6 @@
+import Image from "next/image";
+import Link from "next/link";
+
 import doughtnutData from "src/containers/main/assets/doughtnutData";
 
 import { Button } from "@components/Button";
@@ -73,9 +76,16 @@ const BlankStatistics = () => {
 			>
 				<Card.Content>
 					<Flex direction="column" align="center">
-						<img alt="이모티콘" src="/images/logo.png" />
+						<Image
+							alt="이모티콘"
+							src="/images/logo.png"
+							width={100}
+							height={100}
+						/>
 						<span>로그인하고 저략카세로 절약을 시작해보세요! </span>
-						<Button className="mt-3">로그인</Button>
+						<Link href="/login">
+							<Button className="mt-3">로그인</Button>
+						</Link>
 					</Flex>
 				</Card.Content>
 			</Card>
