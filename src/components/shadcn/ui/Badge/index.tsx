@@ -24,6 +24,7 @@ const badgeVariants = cva(
 				midblue: "bg-main-midblue",
 				darkblue: "bg-main-darkblue",
 				lightred: "bg-point-lightred",
+				red: "bg-point-red",
 			},
 		},
 		defaultVariants: {

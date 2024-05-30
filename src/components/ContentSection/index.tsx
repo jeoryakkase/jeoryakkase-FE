@@ -13,7 +13,7 @@ export interface ContentSectionProps
 	itemClassName?: string;
 }
 
-const contentSectionVariants = cva("my-3", {
+const contentSectionVariants = cva("my-4", {
 	variants: {
 		fontSize: {
 			lg: "text-lg",

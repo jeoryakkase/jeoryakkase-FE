@@ -1,3 +1,6 @@
+import Image from "next/image";
+import Link from "next/link";
+
 import doughtnutData from "src/containers/main/assets/doughtnutData";
 
 import { Button } from "@components/Button";
@@ -8,7 +11,7 @@ import Flex from "@components/Flex";
 import { Badge } from "@components/shadcn/ui/Badge";
 import { getFullDate, getLastMonth } from "@utils/dates.utils";
 
-const BlankHistory = () => {
+const BlankStatistics = () => {
 	const todayDate = getFullDate(new Date());
 	const lastMonth = getLastMonth(new Date());
 
@@ -18,8 +21,8 @@ const BlankHistory = () => {
 			childrenClassName="flex flex-row justify-center space-x-10"
 		>
 			<Card
-				highlight
-				className="w-[400px] bg-main-lightyellow border-transparent"
+				highlight=""
+				className="flex-grow w-[400px] bg-main-lightyellow border-transparent"
 			>
 				<Card.Header title={todayDate} />
 				<Card.Content>
@@ -44,8 +47,8 @@ const BlankHistory = () => {
 				</Card.Content>
 			</Card>
 			<Card
-				highlight
-				className="w-[400px]  bg-main-lightyellow  border-transparent"
+				highlight=""
+				className=" flex-grow w-[400px]  bg-main-lightyellow  border-transparent"
 			>
 				<Card.Header title={lastMonth} />
 				<Card.Content>
@@ -68,14 +71,21 @@ const BlankHistory = () => {
 				</Card.Content>
 			</Card>
 			<Card
-				highlight
-				className="w-[100px]  bg-main-lightyellow  border-transparent"
+				highlight=""
+				className="flex-grow w-[100px]  bg-main-lightyellow  border-transparent"
 			>
 				<Card.Content>
 					<Flex direction="column" align="center">
-						<img alt="이모티콘" src="/images/logo.png" />
+						<Image
+							alt="이모티콘"
+							src="/images/logo.png"
+							width={100}
+							height={100}
+						/>
 						<span>로그인하고 저략카세로 절약을 시작해보세요! </span>
-						<Button className="mt-3">로그인</Button>
+						<Link href="/login">
+							<Button className="mt-3">로그인</Button>
+						</Link>
 					</Flex>
 				</Card.Content>
 			</Card>
@@ -83,4 +93,4 @@ const BlankHistory = () => {
 	);
 };
 
-export default BlankHistory;
+export default BlankStatistics;

@@ -14,12 +14,6 @@
 			}
 		},
 		{
-			"files": "*.cjs",
-			"options": {
-				"parser": "babel"
-			}
-		},
-		{
 			"files": "*.json",
 			"options": {
 				"parser": "json"

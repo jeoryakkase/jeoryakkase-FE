@@ -5,10 +5,8 @@ interface CardContentProps {
 	className?: string;
 }
 
-const CardContent = ({ children, className }: CardContentProps) => (
-	<ShadcnCardContent className={`mb-2 ${className}`}>
-		{children}
-	</ShadcnCardContent>
+const CardContent = ({ children }: CardContentProps) => (
+	<ShadcnCardContent>{children}</ShadcnCardContent>
 );
 
 export default CardContent;

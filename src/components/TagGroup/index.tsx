@@ -3,6 +3,7 @@
 import clsx from "clsx";
 
 import { Badge } from "@components/shadcn/ui/Badge";
+import cn from "@utils/classnames.utils";
 
 interface Tag {
 	id: number;
@@ -18,7 +19,7 @@ interface TagGroupProps {
 const TagGroup = ({ tags, selectedTags, onChange }: TagGroupProps) => {
 	const toggleTag = (tagId: number) => {
 		const newSelectedTags = selectedTags.includes(tagId)
-			? selectedTags.filter((id) => id !== tagId)
+			? selectedTags.filter((id) => id! === tagId)
 			: [...selectedTags, tagId];
 		onChange(newSelectedTags);
 	};

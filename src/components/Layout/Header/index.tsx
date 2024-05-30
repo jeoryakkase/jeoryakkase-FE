@@ -17,7 +17,7 @@ const Header = () => {
 				</Link>
 				<ul className="text-black flex gap-[30px]">
 					<HeaderItem label="홈" href="/" />
-					<HeaderItem label="짠맛 내공 쌓기" href="/challenge" />
+					<HeaderItem label="짠맛 내공 쌓기" href="/userinfo" />
 					<HeaderItem label="챌린지" href="/challenge" />
 					<HeaderItem label="염전" showTooltip href="/saltern" />
 				</ul>

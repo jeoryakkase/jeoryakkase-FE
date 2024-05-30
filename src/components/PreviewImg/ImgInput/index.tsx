@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 
@@ -34,7 +34,7 @@ const ImgInput = ({
 		}
 	}, [initialImage]);
 
-	const handleImageClick = useCallback(() => {
+	const handleImageClick = () => {
 		imgInputRef.current?.click();
 	}, []);
 	const handleFileChange = useCallback(
@@ -88,5 +88,4 @@ const ImgInput = ({
 			</div>
 		</div>
 	);
-};
-export default ImgInput;
+}

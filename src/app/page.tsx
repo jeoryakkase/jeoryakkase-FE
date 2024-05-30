@@ -1,4 +1,4 @@
-import MainPage from "src/containers/main";
+import MainPage from "@containers/main/index";
 
 const Page = () => {
 	return <MainPage />;

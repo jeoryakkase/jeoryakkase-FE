@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 
+import scrollbarHide from "tailwind-scrollbar-hide";
 import { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 const config: Config = {
 	darkMode: ["class"],
@@ -28,6 +30,8 @@ const config: Config = {
 				"main-darkgray": "#41444B",
 				"main-navy": "#0A174E",
 				"point-lightred": "#FDB085",
+				"point-red": "#FF842B",
+				"point-bronze": "#C1B88D",
 				"sub-gray1": "#F5F5F5",
 				"sub-gray2": "#D9D9D9",
 				"sub-gray3": "#C9C9C9",
@@ -116,7 +120,7 @@ const config: Config = {
 			},
 		},
 	},
-	plugins: [require("tailwindcss-animate")],
+	plugins: [tailwindcssAnimate, scrollbarHide],
 };
 
 export default config;
