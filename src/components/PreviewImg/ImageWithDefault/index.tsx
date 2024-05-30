@@ -29,7 +29,10 @@ const ImageWithDefault = ({
 		<Image
 			priority
 			src={imageSrc}
-			fill
+			width={0}
+			height={0}
+			sizes="100vw"
+			className="w-[100%] object-cover"
 			alt="이미지"
 			onError={handleImageError}
 			{...props}

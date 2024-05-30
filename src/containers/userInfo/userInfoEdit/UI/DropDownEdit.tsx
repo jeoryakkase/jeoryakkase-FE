@@ -1,6 +1,3 @@
-import { IoMdSettings } from "react-icons/io";
-
-import { Button } from "@components/shadcn/ui/Button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -9,22 +6,31 @@ import {
 	DropdownMenuTrigger,
 } from "@components/shadcn/ui/DropdownMenu";
 
-function DropdownMenuEdit() {
+interface DropdownMenuEditProps {
+	trigger: React.ReactNode | string;
+	menuItems: { id: number; label: React.ReactNode }[];
+	className?: string;
+	childrenClassName?: string;
+}
+
+function DropdownMenuEdit({
+	trigger,
+	menuItems,
+	className,
+	childrenClassName,
+}: DropdownMenuEditProps) {
 	return (
 		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<Button variant="outline">
-					<IoMdSettings />
-				</Button>
+			<DropdownMenuTrigger asChild className={`cursor-pointer ${className}`}>
+				{trigger}
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className="w-56">
-				<DropdownMenuGroup>
-					<DropdownMenuItem className="justify-center ">
-						비밀번호 변경
-					</DropdownMenuItem>
-					<DropdownMenuItem className="justify-center">
-						회원탈퇴
-					</DropdownMenuItem>
+			<DropdownMenuContent className="w-56 p-0">
+				<DropdownMenuGroup className={childrenClassName}>
+					{menuItems?.map((item) => (
+						<DropdownMenuItem key={item.id} className="justify-center ">
+							{item.label}
+						</DropdownMenuItem>
+					))}
 				</DropdownMenuGroup>
 			</DropdownMenuContent>
 		</DropdownMenu>

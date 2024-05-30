@@ -1,4 +1,5 @@
-import { Button } from "@components/Button";
+import Link from "next/link";
+
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 import { Badge } from "@components/shadcn/ui/Badge";
@@ -26,9 +27,9 @@ const ChallengeHistory = () => {
 			title="챌린지 히스토리"
 			childrenClassName="flex-col gap-[20px]"
 		>
-			<Button variant="ghost" className="self-end">
+			<Link href="/userinfo/challenge-history" className="self-end">
 				더 보기
-			</Button>
+			</Link>
 			<div className="flex justify-between">
 				<div className="w-[50%]">
 					<h2> 진행중</h2>

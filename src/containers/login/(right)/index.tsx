@@ -1,12 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { Button } from "@components/Button";
 
 const GoSignup = () => {
-	const router = useRouter();
 	return (
 		<div className="flex flex-col">
 			<p>
@@ -16,15 +15,16 @@ const GoSignup = () => {
 			<div className="m-auto">
 				<Image
 					src="/images/character02.png"
-					width={300}
-					height={300}
+					width={0}
+					height={0}
+					sizes="100vw"
+					className="static w-[100%] object-cover"
 					alt="회원가입 안내"
-					className="static"
 				/>
 			</div>
 
-			<Button type="button" onClick={() => router.push("/signup")}>
-				회원가입 바로가기
+			<Button type="button">
+				<Link href="/signup">회원가입 바로가기</Link>
 			</Button>
 		</div>
 	);

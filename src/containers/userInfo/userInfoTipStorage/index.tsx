@@ -1,18 +1,13 @@
 import Image from "next/image";
-import Link from "next/link";
 import { GoBookmark } from "react-icons/go";
 
 import Card from "@components/Card";
-import { ContentSection } from "@components/ContentSection";
 
 import saltTipsData from "../assets/saltTipsData";
 
-const SaltTipsStorage = () => {
+const UerInfoTipStorage = () => {
 	return (
-		<ContentSection title="짠팁 보관함" childrenClassName="gap-[20px] flex-col">
-			<Link href="/userinfo/tip-storage" className="self-end">
-				더 보기
-			</Link>
+		<div className="gap-[20px] flex-col">
 			<div className="flex gap-[20px]">
 				{saltTipsData.map((tip) => (
 					<Card
@@ -33,14 +28,14 @@ const SaltTipsStorage = () => {
 
 						<Card.Content>
 							<p>{tip.date}</p>
-							<div className="w-[160px] ">
+							<div className="w-[100px] ">
 								<Image
 									src={tip.image}
 									alt=""
 									width={0}
 									height={0}
 									sizes="100vw"
-									className="static w-[100%] object-cover"
+									className="w-[100%] object-cover"
 								/>
 							</div>
 							<p>{tip.content}</p>
@@ -48,8 +43,8 @@ const SaltTipsStorage = () => {
 					</Card>
 				))}
 			</div>
-		</ContentSection>
+		</div>
 	);
 };
 
-export default SaltTipsStorage;
+export default UerInfoTipStorage;

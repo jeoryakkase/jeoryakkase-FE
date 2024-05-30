@@ -27,8 +27,10 @@ const UserProfileBox = ({
 				<Image
 					src={profileImg || character}
 					alt={`${nickname} 유저의 프로필 이미지`}
-					className="rounded-full"
-					fill
+					width={0}
+					height={0}
+					sizes="100vw"
+					className="rounded-full w-[100%] object-cover"
 				/>
 			</div>
 			<div className="flex flex-col">
