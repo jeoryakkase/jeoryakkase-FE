@@ -3,8 +3,7 @@
 	"parser": "@typescript-eslint/parser",
 	"plugins": ["@typescript-eslint", "prettier", "import"],
 	"parserOptions": {
-		"project": "./tsconfig.json",
-		"createDefaultProgram": true
+		"project": "./tsconfig.json"
 	},
 	"env": {
 		// 전역객체를 eslint가 인식하는 구간
