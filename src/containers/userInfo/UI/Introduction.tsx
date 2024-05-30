@@ -6,10 +6,10 @@ import mockMemberData from "../assets/userinfoData";
 
 const Introduction = () => {
 	return (
-		<div>
+		<div className="flex flex-col gap-[40px] max-w-[40rem] m-auto">
 			<div className="relative">
 				<ImgInput viewOnly initialImage={mockMemberData.profileImage} />
-				<div className="absolute top-1/2 left-1/2 transform translate-x-[170%] translate-y-[-50%] text-[20px]">
+				<div className="absolute top-1/2 left-1/2 transform translate-x-[140%] translate-y-[-50%] text-[20px]">
 					<DropDownBadge />
 				</div>
 			</div>

@@ -13,17 +13,28 @@ interface SuccessBadgeProps {
 	contentType: "image" | "text";
 	content: string;
 	alt?: string;
+	imageClassName?: string;
 }
 
 const SuccessBadge = forwardRef<HTMLDivElement, SuccessBadgeProps>(
-	({ stroke, fill, className, contentType, content, alt, ...props }, ref) => {
+	(
+		{ stroke, fill, className, contentType, content, alt, imageClassName },
+		ref,
+	) => {
 		return (
 			<div ref={ref} className="relative flex justify-center items-center">
-				<BadgeContainer stroke={stroke} fill={fill} className={className} />
+				<BadgeContainer
+					stroke={stroke}
+					fill={fill}
+					className={className}
+					strokeWidth="10px"
+				/>
 				{contentType === "image" ? (
-					<Image src={content} alt={alt || "Badge content"} fill {...props} />
+					<div className={`w-[60%] h-[60%] absolute ${imageClassName}`}>
+						<Image src={content} alt={alt || "Badge content"} fill />
+					</div>
 				) : (
-					<div className="absolute bg-none ">{content}</div>
+					<div className="absolute bg-none">{content}</div>
 				)}
 			</div>
 		);

@@ -21,7 +21,7 @@ function DropDownBadge() {
 	const handleBadgeSelect = (id: number) => {
 		setSelectedBadgeId(id);
 	};
-	console.log(selectedBadge);
+
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>

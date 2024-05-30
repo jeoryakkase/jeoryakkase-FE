@@ -11,7 +11,7 @@ const Layout = ({ children }: LayoutProps) => {
 			<header>
 				<Header />
 			</header>
-			<div className="mx-auto max-w-[85rem] w-full mt-10">
+			<div className="m-auto max-w-[85rem] w-full mt-10">
 				<main>{children}</main>
 			</div>
 			<footer className="mt-10">
