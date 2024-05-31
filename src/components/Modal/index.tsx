@@ -36,9 +36,11 @@ function Modal({
 				{(button || closeButton) && (
 					<DialogFooter>
 						{button && (
-							<Button type="button" onClick={buttonAction}>
-								{button}
-							</Button>
+							<DialogClose asChild>
+								<Button type="button" onClick={buttonAction}>
+									{button}
+								</Button>
+							</DialogClose>
 						)}
 						{closeButton && (
 							<DialogClose asChild>
