@@ -1,6 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
 
-import { Button } from "@components/Button";
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 import ProgressBarChart from "@components/ProgressBar";
@@ -13,14 +13,21 @@ const ProgressGoal = () => {
 			title="진행중인 목표"
 			childrenClassName="flex-col gap-[20px]"
 		>
-			<Button variant="ghost" className="self-end">
+			<Link href="/userinfo/goal" className="self-end">
 				더 보기
-			</Button>
+			</Link>
 
 			<Card highlight={false} className="">
 				<Card.Content className="flex flex-row p-[40px] justify-between">
-					<div className="w-[100px] relative">
-						<Image src={goalData[0].image} alt="ProgressGoal" fill />
+					<div className="w-[100px]  relative">
+						<Image
+							src={goalData[0].image}
+							alt="ProgressGoal"
+							width={0}
+							height={0}
+							sizes="100vw"
+							className="static w-[100%] object-cover"
+						/>
 					</div>
 					<div>
 						<div className="text-center">
@@ -32,8 +39,10 @@ const ProgressGoal = () => {
 					</div>
 					<Image
 						src="/images/coin.png"
-						width={120}
-						height={120}
+						width={0}
+						height={0}
+						sizes="100vw"
+						className="static w-[100%] object-cover"
 						alt="ProgressGoal"
 					/>
 				</Card.Content>
@@ -44,7 +53,14 @@ const ProgressGoal = () => {
 					className=" bg-main-lightyellow border-transparent overflow-hidden flex-row justify-between items-center border-none w-[33.3%]"
 				>
 					<div className="w-[300px] h-[300px] relative mt-[100px]">
-						<Image src="/images/character06.png" alt="ProgressGoal" fill />
+						<Image
+							src="/images/character06.png"
+							alt="ProgressGoal"
+							width={0}
+							height={0}
+							sizes="100vw"
+							className="static w-[100%] object-cover"
+						/>
 					</div>
 					<Card.Content>
 						<div className="text-[#FF0000]">D - 10</div>
@@ -60,7 +76,14 @@ const ProgressGoal = () => {
 						</div>
 					</Card.Content>
 					<div className="w-[180px] h-[180px] relative m-auto">
-						<Image src="/images/character01.png" alt="ProgressGoal" fill />
+						<Image
+							src="/images/character01.png"
+							alt="ProgressGoal"
+							width={0}
+							height={0}
+							sizes="100vw"
+							className="static w-[100%] object-cover"
+						/>
 					</div>
 				</Card>
 				<Card
@@ -73,7 +96,14 @@ const ProgressGoal = () => {
 						</div>
 					</Card.Content>
 					<div className="w-[75px] h-[90px] relative ">
-						<Image src="/images/coin02.png" alt="ProgressGoal" fill />
+						<Image
+							src="/images/coin02.png"
+							alt="ProgressGoal"
+							width={0}
+							height={0}
+							sizes="100vw"
+							className="static w-[100%] object-cover"
+						/>
 					</div>
 				</Card>
 			</div>

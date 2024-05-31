@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 
@@ -36,7 +36,7 @@ const ImgInput = ({
 
 	const handleImageClick = () => {
 		imgInputRef.current?.click();
-	}, []);
+	};
 	const handleFileChange = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>) => {
 			if (viewOnly) return;
@@ -73,8 +73,10 @@ const ImgInput = ({
 					<Image
 						src={profileImage}
 						alt="사용자 프로필"
-						fill
-						className="relative object-cover rounded-full"
+						width={0}
+						height={0}
+						sizes="100vw"
+						className="relative object-cover rounded-full w-[100%] "
 					/>
 				) : (
 					<ImageWithDefault
@@ -88,4 +90,6 @@ const ImgInput = ({
 			</div>
 		</div>
 	);
-}
+};
+
+export default ImgInput;
