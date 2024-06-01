@@ -31,7 +31,14 @@ const SuccessBadge = forwardRef<HTMLDivElement, SuccessBadgeProps>(
 				/>
 				{contentType === "image" ? (
 					<div className={`w-[60%] h-[60%] absolute ${imageClassName}`}>
-						<Image src={content} alt={alt || "Badge content"} fill />
+						<Image
+							src={content}
+							alt={alt || "Badge content"}
+							width={0}
+							height={0}
+							sizes="100vw"
+							className="w-[100%] object-cover"
+						/>
 					</div>
 				) : (
 					<div className="absolute bg-none">{content}</div>

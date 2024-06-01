@@ -1,4 +1,5 @@
-import { Button } from "@components/Button";
+import Link from "next/link";
+
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 import SuccessBadge from "@components/SuccessBadge";
@@ -7,9 +8,9 @@ import badgeData from "@components/SuccessBadge/BadgeData";
 const BadgeCollection = () => {
 	return (
 		<ContentSection title="뱃지 컬렉션" childrenClassName="flex-col gap-[20px]">
-			<Button variant="ghost" className="self-end">
+			<Link href="/userinfo/badges" className="self-end">
 				더 보기
-			</Button>
+			</Link>
 			<Card highlight={false} className="flex flex-row gap-[20px] p-[20px]">
 				{badgeData
 					.filter((badge) => badge.id !== 0)
