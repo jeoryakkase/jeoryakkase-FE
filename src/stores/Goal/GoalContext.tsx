@@ -3,7 +3,7 @@
 import { createContext, ReactNode, useContext } from "react";
 
 import showToast from "@lib/toastConfig";
-import useGoalStore, { GoalState } from "@stores/Goal/useGoalStore";
+import useGoalStore, { GoalState } from "@stores/Goal/goalStore";
 
 const UserGoalContext = createContext<GoalState | undefined>(undefined);
 

@@ -10,18 +10,12 @@ import getImgPreview from "@utils/getImgPreview";
 import ImageWithDefault from "../ImageWithDefault";
 
 interface ImgInputProps {
-	id?: string;
+	id: string;
 	initialImage?: string;
-	setProfileImageData?: (file: File) => void;
-	viewOnly?: boolean;
+	setProfileImageData: (file: File) => void;
 }
 
-const ImgInput = ({
-	id,
-	initialImage,
-	setProfileImageData,
-	viewOnly = false,
-}: ImgInputProps) => {
+const ImgInput = ({ id, initialImage, setProfileImageData }: ImgInputProps) => {
 	const defaultImage = "/images/character01.png";
 	const imgInputRef = useRef<HTMLInputElement>(null);
 	const [profileImage, setProfileImage] = useState<string>(
@@ -34,40 +28,37 @@ const ImgInput = ({
 		}
 	}, [initialImage]);
 
-	const handleImageClick = () => {
+	const handleImageClick = useCallback(() => {
 		imgInputRef.current?.click();
-	};
+	}, []);
+
 	const handleFileChange = useCallback(
 		(event: React.ChangeEvent<HTMLInputElement>) => {
-			if (viewOnly) return;
 			const file = event.target.files?.[0] as File;
 			if (file) {
 				if (!file.type.startsWith("image/")) {
 					console.error("이미지 파일을 선택해주세요.");
 					return;
 				}
-				getImgPreview(file, setProfileImage, setProfileImageData || (() => {}));
+				getImgPreview(file, setProfileImage, setProfileImageData);
 			}
 		},
-		[setProfileImage, setProfileImageData, viewOnly],
+		[setProfileImage, setProfileImageData],
 	);
 	return (
 		<div className="bg-sub-gray3 w-[200px] h-[200px] relative m-auto rounded-full cursor-pointer">
-			{!viewOnly && (
-				<Input
-					id={id}
-					type="file"
-					accept="image/*"
-					style={{ display: "none" }}
-					onChange={handleFileChange}
-				/>
-			)}
-			{!viewOnly && (
-				<label
-					htmlFor={id}
-					className="w-[100%] h-[100%] absolute z-50 cursor-pointer"
-				/>
-			)}
+			<Input
+				id={id}
+				type="file"
+				accept="image/*"
+				style={{ display: "none" }}
+				onChange={handleFileChange}
+			/>
+			<label
+				htmlFor={id}
+				onClick={handleImageClick}
+				className="w-[100%] h-[100%] absolute z-50"
+			/>
 			<div className="">
 				{profileImage ? (
 					<Image
@@ -91,5 +82,4 @@ const ImgInput = ({
 		</div>
 	);
 };
-
 export default ImgInput;

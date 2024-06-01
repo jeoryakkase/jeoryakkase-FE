@@ -1,4 +1,4 @@
-import Challenge from "@containers/challenge/UI";
+import Challenge from "@containers/challenge";
 
 const ChallengePage = () => {
 	return <Challenge />;

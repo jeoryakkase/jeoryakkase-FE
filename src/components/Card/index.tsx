@@ -7,7 +7,7 @@ const Card = ({ children, highlight, className }) => {
 	return (
 		<Container
 			highlight={highlight}
-			className={`flex flex-col rounded-3xl ${className}`}
+			className={`flex flex-col rounded-3xl overflow-hidden ${className}`}
 		>
 			{children}
 		</Container>
