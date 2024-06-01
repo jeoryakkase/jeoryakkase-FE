@@ -1,5 +1,5 @@
 import Feed from "@components/Feed";
-import { CommentProvider } from "@stores/Commnet/CommentContext";
+import { CommentProvider } from "@stores/Comment/CommentContext";
 
 const ChallengeFeed = ({ feedDatas }) => {
 	return (

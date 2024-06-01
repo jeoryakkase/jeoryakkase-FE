@@ -1,5 +1,10 @@
 import Image from "next/image";
 
+import {
+	getBackgroundColor,
+	getBadgeColor,
+	getMessages,
+} from "./utils/tagcard.utils";
 import Card from "../Card/index";
 import { Badge } from "../shadcn/ui/Badge/index";
 
@@ -10,36 +15,15 @@ type TagImgType = {
 interface TagCardProps {
 	title: string;
 	description: string;
-	startDate: string;
-	endDate: string;
+	startDate?: string;
+	endDate?: string;
 	imgs?: TagImgType;
-	today: boolean;
-	dueDate: boolean;
+	today?: boolean;
+	dueDate?: boolean;
 	className?: string;
 	countDay?: number;
+	tagMessage?: string[];
 }
-
-const getBackgroundColor = (today: boolean, dueDate: boolean) => {
-	if (!today) return "bg-point-lightred"; // 오늘 인증을 하지 않았을 경우
-	if (dueDate) return "bg-main-lightblue"; // DueDate가 true일 경우
-	return "bg-main-lightyellow"; // 그 외의 경우
-};
-
-const getBadgeColor = (today: boolean, dueDate: boolean) => {
-	if (!today) return "red";
-	if (dueDate) return "midblue";
-	return "yellow";
-};
-
-const getMessages = (today: boolean, dueDate: boolean): [string, string] => {
-	if (!today) {
-		return ["포기하지 마세요", "오늘 인증을 진행해주세요!"];
-	}
-	if (dueDate) {
-		return ["내일이면 완주", "오늘 인증을 완료했습니다"];
-	}
-	return ["잘하고 있어요!", "오늘 인증을 완료했습니다"];
-};
 
 const TagCard = ({
 	title,
@@ -50,11 +34,21 @@ const TagCard = ({
 	today,
 	dueDate,
 	countDay,
+	tagMessage,
 	className,
 }: TagCardProps) => {
-	const backgroundColor = getBackgroundColor(today, dueDate);
-	const badgeColor = getBadgeColor(today, dueDate);
-	const messages = getMessages(today, dueDate);
+	const backgroundColor =
+		today !== undefined && dueDate !== undefined
+			? getBackgroundColor(today, dueDate)
+			: "";
+	const badgeColor =
+		today !== undefined && dueDate !== undefined
+			? getBadgeColor(today, dueDate)
+			: "yellow";
+	const messages =
+		today !== undefined && dueDate !== undefined
+			? getMessages(today, dueDate)
+			: undefined;
 
 	return (
 		<Card highlight="" className={` ${backgroundColor} ${className}`}>
@@ -80,15 +74,31 @@ const TagCard = ({
 					))}
 				</div>
 				<div className="flex flex-col items-start space-y-2">
-					<Badge variant="default" bgColor={badgeColor}>
-						{messages[0]}
-					</Badge>
-					<Badge variant="default" bgColor={badgeColor}>
-						{messages[1]}
-					</Badge>
+					{today !== undefined
+						? messages && (
+								<>
+									<Badge variant="default" bgColor={badgeColor}>
+										{messages[0]}
+									</Badge>
+									<Badge variant="default" bgColor={badgeColor}>
+										{messages[1]}
+									</Badge>
+								</>
+							)
+						: tagMessage &&
+							tagMessage.map((msg, index) => (
+								// eslint-disable-next-line react/no-array-index-key
+								<Badge key={index} variant="default" bgColor="yellow">
+									{msg}
+								</Badge>
+							))}
 				</div>
 				<Card.Footer>
-					<span>{startDate}</span> - <span>{endDate}</span>
+					{startDate && endDate && (
+						<>
+							<span>{startDate}</span> - <span>{endDate}</span>
+						</>
+					)}
 				</Card.Footer>
 			</div>
 		</Card>

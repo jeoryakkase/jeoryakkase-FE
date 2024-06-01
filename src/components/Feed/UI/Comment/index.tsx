@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import { comments as dummyComments } from "@containers/challenge/dummy";
-import { useCommentContext } from "@stores/Commnet/CommentContext";
+import { useCommentContext } from "@stores/Comment/CommentContext";
 
 import CommentBox, { CommentProps } from "./CommentBox";
 import Header from "./Header";

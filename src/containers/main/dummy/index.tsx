@@ -173,13 +173,13 @@ export const dummyChallenges = [
 		today: false,
 		dueDate: true,
 		imgs: [
-			{ id: "5", img: "https://picsum.photos/60/60" },
-			{ id: "6", img: "https://picsum.photos/60/60" },
+			{ id: "7", img: "https://picsum.photos/60/60" },
+			{ id: "8", img: "https://picsum.photos/60/60" },
 		],
 		countDay: 1,
 	},
 	{
-		id: "4",
+		id: "5",
 		title: "하루 만보 걷기",
 		description: "하루에 만보 걷기 도전",
 		startDate: "2024.05.15",
@@ -187,8 +187,8 @@ export const dummyChallenges = [
 		today: false,
 		dueDate: true,
 		imgs: [
-			{ id: "5", img: "https://picsum.photos/60/60" },
-			{ id: "6", img: "https://picsum.photos/60/60" },
+			{ id: "9", img: "https://picsum.photos/60/60" },
+			{ id: "10", img: "https://picsum.photos/60/60" },
 		],
 		countDay: 1,
 	},

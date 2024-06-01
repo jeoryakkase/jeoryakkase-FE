@@ -113,6 +113,7 @@ const CardCarousels = ({ goalCardData }: CardCarouselsProps) => {
 			<div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
 				{Array.from({ length: totalPages }).map((_, index) => (
 					<div
+						// eslint-disable-next-line react/no-array-index-key
 						key={index}
 						className={`h-2 w-2 mx-1 rounded-full ${index === selectedIndex ? "bg-black" : "bg-gray-300"}`}
 					/>

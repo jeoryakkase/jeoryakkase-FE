@@ -4,13 +4,13 @@ import {
 	dummyHotPostData as hotPostData,
 	dummyStatistics,
 } from "@containers/main/dummy";
-import useUserGoalStore from "@stores/Goal/useGoalStore";
+import useUserGoalStore from "@stores/Goal/goalStore";
 import useUserChallenge from "@stores/UserChallenge/useUserChallenge";
 
 import Challenge from "./ChallengeSection/Challenge";
-import BlankGoal from "./GoalSection/BlankGoal";
+// import BlankGoal from "./GoalSection/BlankGoal";
 import Goal from "./GoalSection/Goal";
-import HotPost from "./HotPost/HotPost";
+import HotPost from "./HotPostSection/HotPost";
 import BlankStatistics from "./StatisticsSection/BlankStatistics";
 import Statistics from "./StatisticsSection/Statistics";
 
@@ -57,7 +57,7 @@ const Main = () => {
 			<BlankStatistics />
 
 			<Goal goals={goals} />
-			<BlankGoal />
+			{/* <BlankGoal /> */}
 
 			<Challenge challenges={challenges} />
 
