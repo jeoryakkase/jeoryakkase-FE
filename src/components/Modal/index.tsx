@@ -17,14 +17,14 @@ interface ModalProps {
 	buttonAction?: () => void;
 	closeButton?: React.ReactNode;
 }
-function Modal({
+const Modal = ({
 	triggerChildren,
 	title,
 	children,
 	button,
 	buttonAction,
 	closeButton,
-}: ModalProps) {
+}: ModalProps) => {
 	return (
 		<Dialog>
 			<DialogTrigger asChild>{triggerChildren}</DialogTrigger>
@@ -54,5 +54,5 @@ function Modal({
 			</DialogContent>
 		</Dialog>
 	);
-}
+};
 export default Modal;

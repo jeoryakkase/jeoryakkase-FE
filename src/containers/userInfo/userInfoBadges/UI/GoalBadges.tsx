@@ -1,8 +1,7 @@
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
+import SuccessBadge from "@components/SuccessBadge";
 import challengHistoryData from "@containers/userInfo/assets/challengHistoryData";
-
-import SuccessBadge from "../../../../components/SuccessBadge/index";
 
 const GoalBadges = () => {
 	const challengesWithBadges = challengHistoryData.filter(

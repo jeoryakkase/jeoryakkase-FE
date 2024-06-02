@@ -16,10 +16,10 @@ import {
 import { Input } from "@components/shadcn/ui/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import SocialLogin from "./social-login";
+import SocialLogin from "./SocialLogin";
 import { FormSchema, loginDefault } from "../loginValidation";
 
-const LoginForm = () => {
+const LeftForm = () => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: loginDefault,
@@ -81,4 +81,4 @@ const LoginForm = () => {
 	);
 };
 
-export default LoginForm;
+export default LeftForm;
