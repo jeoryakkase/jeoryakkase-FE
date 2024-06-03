@@ -1,16 +1,28 @@
 import type { ReactNode } from "react";
-import Header from "../components/Layout/Header/Header";
-import pretandard from "../styles/fonts";
+
+import Layout from "@components/Layout";
+import Providers from "@lib/QueryProviders";
+import pretandard from "@styles/fonts";
+import "./globals.css";
 
 interface LayoutProps {
 	children: ReactNode;
 }
-
-export default function RootLayout({ children }: LayoutProps) {
+export const metadata = {
+	icons: {
+		icon: "/images/logo.png",
+	},
+};
+const RootLayout = ({ children }: LayoutProps) => {
 	return (
 		<html lang="ko" className={pretandard.variable}>
-			<body className="px">{children}</body>
-			<Header />
+			<body className="h-[100dvh] flex flex-col justify-between">
+				<Providers>
+					<Layout>{children}</Layout>
+				</Providers>
+			</body>
 		</html>
 	);
-}
+};
+
+export default RootLayout;

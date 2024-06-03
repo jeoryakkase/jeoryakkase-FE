@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-	font-family: var(--font-pretandard), sans-serif;
+  font-family: var(--font-pretandard), sans-serif;
 }

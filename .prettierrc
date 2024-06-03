@@ -4,14 +4,9 @@
 	"tabWidth": 2,
 	"trailingComma": "all",
 	"useTabs": true,
+	"endOfLine": "lf",
 	"printWidth": 80,
 	"overrides": [
-    {
-            "files": "*.cjs",
-            "options": {
-                "parser": "babel"
-            }
-        },
 		{
 			"files": "*.cjs",
 			"options": {
