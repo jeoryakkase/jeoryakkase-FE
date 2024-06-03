@@ -4,8 +4,7 @@ import { GoBookmark } from "react-icons/go";
 
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
-
-import saltTipsData from "../assets/saltTipsData";
+import saltTipsData from "@containers/userInfo/assets/saltTipsData";
 
 const SaltTipsStorage = () => {
 	return (
