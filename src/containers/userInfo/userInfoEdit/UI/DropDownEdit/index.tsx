@@ -13,12 +13,12 @@ interface DropdownMenuEditProps {
 	childrenClassName?: string;
 }
 
-function DropdownMenuEdit({
+const DropdownMenuEdit = ({
 	trigger,
 	menuItems,
 	className,
 	childrenClassName,
-}: DropdownMenuEditProps) {
+}: DropdownMenuEditProps) => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild className={`cursor-pointer ${className}`}>
@@ -35,6 +35,6 @@ function DropdownMenuEdit({
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
-}
+};
 
 export default DropdownMenuEdit;

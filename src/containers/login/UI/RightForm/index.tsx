@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import { Button } from "@components/Button";
 
-const GoSignup = () => {
+const RightForm = () => {
 	return (
 		<div className="flex flex-col">
 			<p>
@@ -30,4 +30,4 @@ const GoSignup = () => {
 	);
 };
 
-export default GoSignup;
+export default RightForm;

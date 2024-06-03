@@ -22,7 +22,7 @@ import { interestTags } from "@containers/signup/signupValidation";
 import mockMemberData from "@containers/userInfo/assets/userinfoData";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import FormSchema from "../userInfoEditValidation";
+import FormSchema from "../../userInfoEditValidation";
 
 const UserInfoEditForm = () => {
 	const form = useForm<z.infer<typeof FormSchema>>({

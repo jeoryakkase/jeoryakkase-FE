@@ -4,8 +4,8 @@ import { FcGoogle } from "react-icons/fc";
 import { RiKakaoTalkFill } from "react-icons/ri";
 
 import { Button } from "@components/Button";
-import { handleGoogleLogin } from "@utils/getGoogleAuthUrl";
-import { handleKakaoLogin } from "@utils/getKakaoAuthUrl";
+import { handleGoogleLogin } from "@constants/getGoogleAuthUrl";
+import { handleKakaoLogin } from "@constants/getKakaoAuthUrl";
 
 const SocialLogin = () => {
 	return (

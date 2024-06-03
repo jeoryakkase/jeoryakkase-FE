@@ -13,7 +13,7 @@ import {
 import SuccessBadge from "@components/SuccessBadge";
 import badgeData from "@components/SuccessBadge/BadgeData";
 
-function DropDownBadge() {
+const DropDownBadge = () => {
 	const [selectedBadgeId, setSelectedBadgeId] = useState<number | null>(null);
 	const selectedBadge =
 		badgeData.find((badge) => badge.id === selectedBadgeId) || badgeData[0];
@@ -63,6 +63,6 @@ function DropDownBadge() {
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
-}
+};
 
 export default DropDownBadge;

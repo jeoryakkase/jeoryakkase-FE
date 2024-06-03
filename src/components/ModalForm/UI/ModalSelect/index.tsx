@@ -18,13 +18,13 @@ interface ModalSelectProps {
 	formChildren?: React.ReactNode;
 }
 
-function ModalSelect({
+const ModalSelect = ({
 	title,
 	triggerPlaceholder,
 	options,
 	noOptionsMessage,
 	formChildren,
-}: ModalSelectProps) {
+}: ModalSelectProps) => {
 	return (
 		<ModalContainer title={title}>
 			{formChildren}
@@ -53,6 +53,6 @@ function ModalSelect({
 			</Select>
 		</ModalContainer>
 	);
-}
+};
 
 export default ModalSelect;
