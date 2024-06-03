@@ -1,13 +1,10 @@
-export const getFullDate = (date: Date, joiner: string = ".") => {
-	const year = date.getFullYear();
-	const month = (date.getMonth() + 1).toString().padStart(2, "0");
-	const day = date.getDate().toString().padStart(2, "0");
+import { format, subMonths } from "date-fns";
 
-	return [year, month, day].join(joiner);
+export const getFullDate = (date: Date, joiner = ".") => {
+	return format(date, `yyyy${joiner}MM${joiner}dd`);
 };
 
-export const getLastMonth = (date: Date, joiner: string = ".") => {
-	const year = date.getFullYear();
-	const month = date.getMonth().toString().padStart(2, "0");
-	return [year, month].join(joiner);
+export const getLastMonth = (date: Date, joiner = ".") => {
+	const lastMonthDate = subMonths(date, 1);
+	return format(lastMonthDate, `yyyy${joiner}MM`);
 };

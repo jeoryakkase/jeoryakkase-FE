@@ -1,7 +1,7 @@
-import MainPage from "@containers/main/index";
+import Main from "@containers/main";
 
-const Page = () => {
-	return <MainPage />;
+const MainPage = () => {
+	return <Main />;
 };
 
-export default Page;
+export default MainPage;
