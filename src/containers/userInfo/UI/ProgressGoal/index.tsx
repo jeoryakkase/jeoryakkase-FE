@@ -4,8 +4,10 @@ import Link from "next/link";
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 import ProgressBarChart from "@components/ProgressBar";
-
-import { goalData, progressGoalData } from "../assets/progressGoalData";
+import {
+	goalData,
+	progressGoalData,
+} from "@containers/userInfo/assets/progressGoalData";
 
 const ProgressGoal = () => {
 	return (

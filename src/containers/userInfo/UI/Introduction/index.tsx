@@ -1,8 +1,8 @@
 import ImgInput from "@components/PreviewImg/ImgInput";
 import { Textarea } from "@components/shadcn/ui/Textarea";
+import mockMemberData from "@containers/userInfo/assets/userinfoData";
 
-import DropDownBadge from "./DropDownBadge";
-import mockMemberData from "../assets/userinfoData";
+import DropDownBadge from "../DropDownBadge";
 
 const Introduction = () => {
 	return (

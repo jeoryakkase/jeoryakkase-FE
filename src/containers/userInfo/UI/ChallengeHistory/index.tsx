@@ -4,8 +4,7 @@ import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 import { Badge } from "@components/shadcn/ui/Badge";
 import SuccessBadge from "@components/SuccessBadge";
-
-import challengHistoryData from "../assets/challengHistoryData";
+import challengHistoryData from "@containers/userInfo/assets/challengHistoryData";
 
 const ChallengeHistory = () => {
 	const statusColorClasses = {

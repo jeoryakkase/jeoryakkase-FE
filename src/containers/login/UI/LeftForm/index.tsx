@@ -14,10 +14,11 @@ import {
 	FormMessage,
 } from "@components/shadcn/ui/Form";
 import { Input } from "@components/shadcn/ui/Input";
+import { loginDefault } from "@containers/login/loginValidation";
+import { FormSchema } from "@containers/signup/signupValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import SocialLogin from "./SocialLogin";
-import { FormSchema, loginDefault } from "../loginValidation";
+import SocialLogin from "../SocialLogin";
 
 const LeftForm = () => {
 	const form = useForm<z.infer<typeof FormSchema>>({
