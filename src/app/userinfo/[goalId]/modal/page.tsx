@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
 import UrlModal from "@components/UrlModal";
+
 import UserInfoGoalPage from "../page";
 
 const UserInfoGoalPageModal = () => {

@@ -23,6 +23,7 @@ export const signUpDefault = {
 	password: "",
 	confirmPassword: "",
 	age: "0",
+	gender: "",
 	savePurpose: "",
 	interests: [],
 };
@@ -56,8 +57,8 @@ export const FormSchema = z.object({
 	password: z.string().min(2, {
 		message: "Username must be at least 2 characters.",
 	}),
-	confirmPassword: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+	confirmPassword: z.string().min(2).equalTo([FormSchema.fields.password], {
+		message: "비밀번호가 일치하지 않습니다.",
 	}),
 	age: z.string().min(2, {
 		message: "Username must be at least 2 characters.",

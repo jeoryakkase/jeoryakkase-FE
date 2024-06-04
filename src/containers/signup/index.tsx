@@ -1,9 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
+import postSignUp from "@app/api/auth/signup";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import ImgInput from "@components/PreviewImg/ImgInput";
@@ -19,13 +21,25 @@ import { RadioGroup, RadioGroupItem } from "@components/shadcn/ui/Radio-group/";
 import TagGroup from "@components/TagGroup";
 import { Textarea } from "@components/Textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 
 import { FormSchema, interestTags, signUpDefault } from "./signupValidation";
 
 const SignupForm = () => {
+	const router = useRouter();
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: signUpDefault,
+	});
+	const { mutate } = useMutation({
+		mutationFn: postSignUp,
+		onSuccess: () => {
+			toast.success("회원가입이 완료되었습니다.", { autoClose: 2000 });
+			router.push("/login");
+		},
+		onError: () => {
+			toast.error("회원가입에 실패하였습니다.", { autoClose: 2000 });
+		},
 	});
 	console.log(
 		"관심사태그",
@@ -35,6 +49,7 @@ const SignupForm = () => {
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
 		toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
 		console.log(data);
+		mutate(data);
 	};
 
 	return (

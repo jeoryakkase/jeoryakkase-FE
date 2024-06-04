@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import { Button } from "@components/Button";
 import {
 	Dialog,
@@ -9,19 +11,44 @@ import {
 	DialogTitle,
 } from "@components/shadcn/ui/Dialog";
 
-const UrlModal = () => {
+interface UrlModalProps {
+	title?: string;
+	children: React.ReactNode;
+	button?: React.ReactNode;
+	buttonAction?: () => void;
+	closeButton?: React.ReactNode;
+}
+const UrlModal = ({
+	title,
+	children,
+	button,
+	buttonAction,
+	closeButton,
+}: UrlModalProps) => {
+	const router = useRouter();
 	return (
 		<Dialog defaultOpen>
-			<DialogContent className="sm:max-w-[425px]">
+			<DialogContent
+				className="sm:max-w-[425px]"
+				onInteractOutside={(e) => {
+					e.preventDefault();
+				}}
+			>
 				<DialogHeader>
-					<DialogTitle>타이틀</DialogTitle>
+					<DialogTitle>{title}</DialogTitle>
 				</DialogHeader>
-				내용
+				{children}
 				<DialogFooter>
-					<Button type="button">버튼</Button>
+					<Button type="button" onClick={buttonAction}>
+						{button}
+					</Button>
 
-					<Button type="button" bgColor="lightyellow">
-						닫기버튼
+					<Button
+						type="button"
+						bgColor="lightyellow"
+						onClick={() => router.back()}
+					>
+						{closeButton}
 					</Button>
 				</DialogFooter>
 			</DialogContent>
