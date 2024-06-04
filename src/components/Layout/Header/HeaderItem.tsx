@@ -13,7 +13,9 @@ const HeaderItem = ({ label, href, showTooltip }: HeaderItemProps) => {
 		<li className={`${styles.navitem} group`}>
 			<Link href={href}>{label}</Link>
 			{showTooltip && (
-				<div className={`${styles.tooltip} opacity-0 group-hover:opacity-100`}>
+				<div
+					className={`${styles.tooltip} opacity-0 group-hover:opacity-100 z-50`}
+				>
 					<Link href="/vote">허불허</Link>
 					<Link href="/tips">짠팁</Link>
 					<Link href="/fame">소금 모아 태산</Link>

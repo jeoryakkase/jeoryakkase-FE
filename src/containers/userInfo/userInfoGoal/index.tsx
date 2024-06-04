@@ -87,7 +87,14 @@ const UserInfoGoal = () => {
 							</Card>
 							<div className="absolute z-20 top-0 left-0 p-[20px] w-full">
 								<div className="">
-									<Image src="/images/character05.png" alt="" fill />
+									<Image
+										src="/images/character05.png"
+										alt=""
+										width={0}
+										height={0}
+										sizes="100vw"
+										className="relative object-cover  rounded-md w-[100%] "
+									/>
 								</div>
 								<div>
 									<Badge bgColor="lightblue" className="text-black">
@@ -129,7 +136,14 @@ const UserInfoGoal = () => {
 							</Card>
 							<div className="absolute z-20 top-0 left-0 p-[20px] w-full">
 								<div className="">
-									<Image src="/images/character05.png" alt="" fill />
+									<Image
+										src="/images/character05.png"
+										alt=""
+										width={0}
+										height={0}
+										sizes="100vw"
+										className="relative object-cover  rounded-md w-[100%] "
+									/>
 								</div>
 								<div>
 									<Badge bgColor="lightblue" className="text-black">

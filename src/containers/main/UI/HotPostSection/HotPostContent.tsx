@@ -30,11 +30,11 @@ const HotPostContent = ({
 					<Card.Header title={voteTitle} />
 					<Card.Content>
 						<p>{voteContent}</p>
-						<Button variant="secondary" className="mr-3">
+						<Button bgColor="lightblue" className="mr-3">
 							허
 						</Button>
-						<Button variant="destructive">불허</Button>
-						<Button variant="ghost">
+						<Button bgColor="red">불허</Button>
+						<Button bgColor="lightyellow">
 							다른 소금이들의 허불허 구경하러 가기
 						</Button>
 					</Card.Content>
@@ -57,7 +57,7 @@ const HotPostContent = ({
 					<Card.Header title={tipTitle} />
 					<Card.Content>
 						<p>{tipContent}</p>
-						<Button variant="ghost">짠맛나는 짠팁 보러가기</Button>
+						<Button bgColor="lightyellow">짠맛나는 짠팁 보러가기</Button>
 					</Card.Content>
 				</div>
 			</Card>

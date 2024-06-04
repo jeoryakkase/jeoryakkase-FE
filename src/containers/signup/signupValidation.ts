@@ -26,21 +26,33 @@ export const signUpDefault = {
 	savePurpose: "",
 	interests: [],
 };
+// 허용된 이메일 도메인 목록
+const allowedDomains = ["naver.com", "gmail.com", "kakao.com"];
+const emailCheckRegex =
+	/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+
+// 이메일 도메인 확인 유틸리티 함수
+const isAllowedDomain = (email: string, allowedDomains: string[]) => {
+	const domain = email.split("@")[1];
+	return allowedDomains.some((allowedDomain) => domain === allowedDomain);
+};
 
 export const FormSchema = z.object({
 	profileImage: z.instanceof(File).nullable().optional(),
 	about: z.string().min(2, {
 		message: "Username must be at least 2 characters.",
 	}),
-	email: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
-	}),
-	verify: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
-	}),
-	nickname: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
-	}),
+	email: z
+		.string()
+		.min(1, "이메일을 입력하세요.")
+		.regex(emailCheckRegex, "이메일 형식에 맞지 않습니다")
+		.refine(
+			(email) => isAllowedDomain(email, allowedDomains),
+			"지원되는 도메인의 이메일을 사용하세요",
+		),
+
+	nickname: z.string().min(2, { message: "이름은 2글자 이상이어야 합니다." }),
+
 	password: z.string().min(2, {
 		message: "Username must be at least 2 characters.",
 	}),

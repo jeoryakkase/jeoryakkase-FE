@@ -4,8 +4,9 @@ import { useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
+import { Button } from "@components/Button";
+import { Input } from "@components/Input";
 import ImgInput from "@components/PreviewImg/ImgInput";
-import { Button } from "@components/shadcn/ui/Button";
 import {
 	Form,
 	FormControl,
@@ -14,10 +15,9 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@components/shadcn/ui/Form";
-import { Input } from "@components/shadcn/ui/Input";
 import { RadioGroup, RadioGroupItem } from "@components/shadcn/ui/Radio-group/";
-import { Textarea } from "@components/shadcn/ui/Textarea";
 import TagGroup from "@components/TagGroup";
+import { Textarea } from "@components/Textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { FormSchema, interestTags, signUpDefault } from "./signupValidation";
@@ -91,29 +91,7 @@ const SignupForm = () => {
 						</FormItem>
 					)}
 				/>
-				<FormField
-					control={form.control}
-					name="verify"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>이메일 인증번호</FormLabel>
-							<div className="flex gap-[20px]">
-								<FormControl>
-									<Input
-										type="text"
-										placeholder="인증번호를 입력해주세요."
-										{...field}
-									/>
-								</FormControl>
-								<Button type="button" onClick={() => {}}>
-									인증번호 확인
-								</Button>
-							</div>
 
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
 				<FormField
 					control={form.control}
 					name="nickname"

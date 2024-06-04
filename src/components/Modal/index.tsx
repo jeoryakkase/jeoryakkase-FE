@@ -44,7 +44,7 @@ const Modal = ({
 						)}
 						{closeButton && (
 							<DialogClose asChild>
-								<Button type="button" variant="secondary">
+								<Button type="button" bgColor="lightyellow">
 									{closeButton}
 								</Button>
 							</DialogClose>
