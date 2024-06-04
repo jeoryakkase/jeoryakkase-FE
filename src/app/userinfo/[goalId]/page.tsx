@@ -4,7 +4,7 @@ import UserInfoGoal from "@containers/userInfo/userInfoGoal";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
-const UserInfoGoalPage = ({ params }) => {
+const UserInfoGoalPage = () => {
 	const { goalId } = useParams();
 	return (
 		<section className="w-full m-auto ">
