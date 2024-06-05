@@ -8,6 +8,7 @@ export interface ContentSectionProps
 	extends React.HTMLAttributes<HTMLDivElement>,
 		VariantProps<typeof contentSectionVariants> {
 	title: string;
+	subTitle?: string;
 	flex?: string;
 	childrenClassName?: string;
 	itemClassName?: string;
@@ -29,6 +30,7 @@ const ContentSection = ({
 	title,
 	fontSize = "xl",
 	children,
+	subTitle,
 	className,
 	childrenClassName,
 	itemClassName,
@@ -39,6 +41,7 @@ const ContentSection = ({
 			<h2 className={cn(contentSectionVariants({ fontSize }), "font-bold")}>
 				{title}
 			</h2>
+			<h4 className="font-semibold">{subTitle}</h4>
 			<div className={cn("mt-2 flex w-full", childrenClassName)}>
 				{React.Children.map(children, (child) =>
 					React.isValidElement(child)

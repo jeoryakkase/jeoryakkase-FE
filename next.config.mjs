@@ -32,7 +32,6 @@ const nextConfig = {
 			"@utils": path.resolve(__dirname, "src/utils"),
 			"@lib": path.resolve(__dirname, "src/lib"),
 		};
-		config.cache = false;
 		return config;
 	},
 };

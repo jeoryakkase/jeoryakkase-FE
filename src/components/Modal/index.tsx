@@ -16,6 +16,7 @@ interface ModalProps {
 	button?: React.ReactNode;
 	buttonAction?: () => void;
 	closeButton?: React.ReactNode;
+	subText?: string;
 }
 const Modal = ({
 	triggerChildren,
@@ -24,6 +25,7 @@ const Modal = ({
 	button,
 	buttonAction,
 	closeButton,
+	subText,
 }: ModalProps) => {
 	return (
 		<Dialog>
@@ -33,6 +35,7 @@ const Modal = ({
 					{title && <DialogTitle>{title}</DialogTitle>}
 				</DialogHeader>
 				{children}
+				{subText && <p className="text-point-red mt-2">{subText}</p>}
 				{(button || closeButton) && (
 					<DialogFooter>
 						{button && (
