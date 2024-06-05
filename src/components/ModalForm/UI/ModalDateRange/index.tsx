@@ -3,7 +3,6 @@
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 
-import { Button } from "@components/Button";
 import { Calendar } from "@components/shadcn/ui/Calendar";
 import {
 	Popover,
@@ -12,6 +11,7 @@ import {
 } from "@components/shadcn/ui/Popover";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import cn from "@utils/classnames.utils";
+import { Button } from "@components/Button";
 
 interface ModalDateRangeProps {
 	value?: DateRange; // 날짜 타입(from ~ to)
@@ -31,9 +31,10 @@ const ModalDateRange = ({
 					<Button
 						id="date"
 						variant="outline"
+						bgColor="white"
 						className={cn(
 							"w-[300px] justify-start text-left font-normal",
-							!value && "text-muted-foreground",
+							!value && "text-muted-foreground p-[20px]",
 						)}
 					>
 						<CalendarIcon className="mr-2 h-4 w-4" />

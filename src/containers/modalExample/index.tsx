@@ -42,7 +42,7 @@ const ModalExample = () => {
 	};
 	return (
 		<Modal
-			triggerChildren={<Button variant="outline">Edit Profile</Button>}
+			triggerChildren={<Button>Edit Profile</Button>}
 			title="목표 작성"
 			button="확인"
 			closeButton="아니요"
