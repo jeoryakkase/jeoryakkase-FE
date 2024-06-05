@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,14 +10,16 @@ import {
 	goalData,
 	progressGoalData,
 } from "@containers/userInfo/assets/progressGoalData";
+import { useParams } from "next/navigation";
 
 const ProgressGoal = () => {
+	const { goalId } = useParams();
 	return (
 		<ContentSection
 			title="진행중인 목표"
 			childrenClassName="flex-col gap-[20px]"
 		>
-			<Link href="/userinfo/goal" className="self-end">
+			<Link href={`userinfo/${goalId}`} className="self-end">
 				더 보기
 			</Link>
 

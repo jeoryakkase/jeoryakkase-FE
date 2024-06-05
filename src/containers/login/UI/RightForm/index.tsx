@@ -23,7 +23,7 @@ const RightForm = () => {
 				/>
 			</div>
 
-			<Button type="button">
+			<Button type="button" bgColor="navy">
 				<Link href="/signup">회원가입 바로가기</Link>
 			</Button>
 		</div>

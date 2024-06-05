@@ -6,7 +6,7 @@ import {
 	SelectLabel,
 	SelectTrigger,
 	SelectValue,
-} from "@components/shadcn/ui/Select";
+} from "@components/Select";
 
 import ModalContainer from "../ModalContainer";
 

@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import { Textarea } from "@components/shadcn/ui/Textarea";
+import { Textarea } from "@components/Textarea";
 
 import ModalContainer from "../ModalContainer";
 

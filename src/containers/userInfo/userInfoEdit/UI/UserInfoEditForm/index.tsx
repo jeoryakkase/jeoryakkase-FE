@@ -4,8 +4,9 @@ import { useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
+import { Button } from "@components/Button";
+import { Input } from "@components/Input";
 import ImgInput from "@components/PreviewImg/ImgInput";
-import { Button } from "@components/shadcn/ui/Button";
 import {
 	Form,
 	FormControl,
@@ -14,10 +15,9 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@components/shadcn/ui/Form";
-import { Input } from "@components/shadcn/ui/Input";
 import { RadioGroup, RadioGroupItem } from "@components/shadcn/ui/Radio-group/";
-import { Textarea } from "@components/shadcn/ui/Textarea";
 import TagGroup from "@components/TagGroup";
+import { Textarea } from "@components/Textarea";
 import { interestTags } from "@containers/signup/signupValidation";
 import mockMemberData from "@containers/userInfo/assets/userinfoData";
 import { zodResolver } from "@hookform/resolvers/zod";
