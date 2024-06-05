@@ -1,6 +1,7 @@
+"use client";
+
 import { useEffect } from "react";
 
-import { comments as dummyComments } from "@containers/challenge/dummy";
 import { useCommentContext } from "@stores/Comment/CommentContext";
 
 import CommentBox, { CommentProps } from "./CommentBox";
@@ -18,21 +19,26 @@ const Comment = ({ commentData }: CommentArrProps) => {
 	const { comments, setComments } = useCommentContext();
 
 	useEffect(() => {
-		setComments(commentData.postId, commentData.commentCounts, dummyComments);
+		setComments(
+			commentData.postId,
+			commentData.commentCounts,
+			commentData.comments,
+		);
 	}, []);
 
 	return (
 		<section>
 			<Header commentCounts={commentData.commentCounts} />
-			{comments[commentData.postId]?.comments.map((comment) => (
-				<CommentBox
-					key={comment.id}
-					comment={comment}
-					onReply={() => console.log("답글")}
-					onEdit={() => console.log("수정")}
-					onDelete={() => console.log("삭제")}
-				/>
-			))}
+			<div className="p-2">
+				{comments[commentData.postId]?.comments.map((comment) => (
+					<CommentBox
+						key={comment.id}
+						comment={comment}
+						onReplyEdit={() => console.log("수정")}
+						onReplyDelete={() => console.log("삭제")}
+					/>
+				))}
+			</div>
 		</section>
 	);
 };

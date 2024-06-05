@@ -14,21 +14,21 @@ const CommentBtn = ({
 	onDelete,
 }: CommentBtnProps) => {
 	return (
-		<div className="comment-btns mt-2">
+		<div className="flex flex-col mt-2">
 			{!isOwner && (
 				<Button onClick={onReply} className="mr-2">
 					답글
 				</Button>
 			)}
 			{isOwner && (
-				<>
-					<Button onClick={onEdit} className="mr-2">
+				<div className="flex">
+					<Button onClick={onEdit} className="mr-2 mb-2">
 						수정
 					</Button>
 					<Button onClick={onDelete} className="text-red-500">
 						삭제
 					</Button>
-				</>
+				</div>
 			)}
 		</div>
 	);

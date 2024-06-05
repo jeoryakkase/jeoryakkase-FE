@@ -33,19 +33,19 @@ const UserProfileBox = ({
 					className="rounded-full w-[100%] object-cover"
 				/>
 			</div>
-			<div className="flex flex-col">
-				<span className="font-semibold">{nickname}</span>
-			</div>
 			{badge && (
 				<SuccessBadge
 					stroke={badge.stroke}
 					fill={badge.fill}
-					className={badge.className}
+					className="w-8 h-8"
 					contentType={badge.contentType}
 					content={badge.content}
 					alt={badge.alt}
 				/>
 			)}
+			<div className="flex flex-col">
+				<span className="font-semibold text-lg">{nickname}</span>
+			</div>
 		</div>
 	);
 };

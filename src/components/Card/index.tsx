@@ -3,7 +3,13 @@ import CardContent from "./UI/Content";
 import CardFooter from "./UI/Footer";
 import CardHeader from "./UI/Header";
 
-const Card = ({ children, highlight, className }) => {
+interface CardProps {
+	children: React.ReactNode;
+	highlight?: string;
+	className?: string;
+}
+
+const Card = ({ children, highlight, className }: CardProps) => {
 	return (
 		<Container
 			highlight={highlight}

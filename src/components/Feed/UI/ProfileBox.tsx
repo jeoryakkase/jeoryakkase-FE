@@ -1,3 +1,4 @@
+import Flex from "@components/Flex";
 import { Badge } from "@components/shadcn/ui/Badge";
 import UserProfileBox from "@components/UserProfileBox";
 
@@ -34,16 +35,32 @@ const ProfileBox = ({
 	isChallenge,
 }: ProfileBoxProps) => {
 	return (
-		<section>
-			<UserProfileBox
-				profileImg={profileImg}
-				nickname={nickname}
-				badge={badge}
-			/>
-			{writeHour && <div>{writeHour}시간 전 작성</div>}
-			{/* date는 날짜 변환하는 함수 넣어줘야지뭐 */}
-			{writeHour! && date && <div> {date} </div>}
-			{progressDate && <Badge>{progressDate}일째</Badge>}
+		<section className="flex flex-row w-full items-center justify-between mb-16">
+			<Flex direction="column">
+				<UserProfileBox
+					profileImg={profileImg}
+					nickname={nickname}
+					badge={badge}
+				/>
+				<div className="flex flex-col ml-24">
+					<div className="flex mb-3 text-sub-gray4">
+
+					{writeHour && <div className="ml-5">{writeHour}시간 전 작성</div>}
+					{/* date는 날짜 변환하는 함수 넣어줘야지뭐 */}
+					{writeHour! && date && <div className="ml-5"> {date} </div>}
+					</div>
+					{progressDate && (
+						<Badge
+							variant="shadow"
+							bgColor="lightyellow"
+							size="m"
+							className="text-center w-20 ml-4"
+						>
+							{progressDate}일째
+						</Badge>
+					)}
+				</div>
+			</Flex>
 			<ContentToolTip isOwner={isOwner} isChallenge={isChallenge} />
 		</section>
 	);
