@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 const nextConfig = {
 	swcMinify: true,
 	images: {
+		domains: ["res.cloudinary.com"],
 		remotePatterns: [
 			{
 				protocol: "https",
