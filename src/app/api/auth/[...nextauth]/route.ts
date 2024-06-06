@@ -90,6 +90,7 @@ const handler = NextAuth({
 	session: {
 		strategy: "jwt",
 	},
+
 	callbacks: {
 		// user id가 필요하면  user.id로 추가 가능
 		async jwt({ token, account }) {
