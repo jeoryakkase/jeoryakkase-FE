@@ -5,7 +5,6 @@ import { useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
-import postSignUp from "@app/api/auth/signup";
 import { Button } from "@components/Button";
 import { Input } from "@components/Input";
 import ImgInput from "@components/PreviewImg/ImgInput";
@@ -21,14 +20,19 @@ import { RadioGroup, RadioGroupItem } from "@components/shadcn/ui/Radio-group/";
 import TagGroup from "@components/TagGroup";
 import { Textarea } from "@components/Textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
+import postSignUp from "@services/api/user/signup";
 import { useMutation } from "@tanstack/react-query";
 
-import { FormSchema, interestTags, signUpDefault } from "./signupValidation";
+import {
+	interestTags,
+	signUpDefault,
+	signupValidation,
+} from "./signupValidation";
 
 const SignupForm = () => {
 	const router = useRouter();
-	const form = useForm<z.infer<typeof FormSchema>>({
-		resolver: zodResolver(FormSchema),
+	const form = useForm<z.infer<typeof signupValidation>>({
+		resolver: zodResolver(signupValidation),
 		defaultValues: signUpDefault,
 	});
 	const { mutate } = useMutation({
@@ -46,10 +50,10 @@ const SignupForm = () => {
 		useWatch({ control: form.control, name: "interests" }),
 	);
 
-	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
-		console.log(data);
+	const onSubmit = (data: z.infer<typeof signupValidation>) => {
 		mutate(data);
+		console.log(data);
+		// 주스탠드 스토어 연결
 	};
 
 	return (
@@ -176,7 +180,11 @@ const SignupForm = () => {
 							<FormItem>
 								<FormLabel>연령</FormLabel>
 								<FormControl>
-									<Input type="number" {...field} />
+									<Input
+										type="number"
+										value={field.value}
+										onChange={(e) => field.onChange(e.target.valueAsNumber)}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -236,14 +244,9 @@ const SignupForm = () => {
 							<FormControl>
 								<TagGroup
 									tags={interestTags}
-									selectedTags={interestTags
-										.filter((tag) => field.value.includes(tag.name))
-										.map((tag) => tag.id)}
+									selectedTags={field.value}
 									onChange={(newSelectedTags) => {
-										const selectedTagNames = interestTags
-											.filter((tag) => newSelectedTags.includes(tag.id))
-											.map((tag) => tag.name);
-										field.onChange(selectedTagNames);
+										field.onChange(newSelectedTags);
 									}}
 								/>
 							</FormControl>

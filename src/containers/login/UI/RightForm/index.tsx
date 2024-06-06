@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import character02 from "@assets/images/character/character02.png";
 import { Button } from "@components/Button";
 
 const RightForm = () => {
@@ -14,7 +15,7 @@ const RightForm = () => {
 			</p>
 			<div className="m-auto">
 				<Image
-					src="/images/character02.png"
+					src={character02}
 					width={0}
 					height={0}
 					sizes="100vw"

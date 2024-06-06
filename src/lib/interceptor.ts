@@ -80,7 +80,7 @@ const handleTokenRefresh = async (
 		// /user/createAccessByRefresh
 		const refreshToken = getRefreshToken();
 		if (refreshToken) {
-			const tokenRefreshResult = await apiClient.post("/users/access-token", {
+			const tokenRefreshResult = await apiClient.post("/api/token", {
 				refreshToken,
 			});
 			if (tokenRefreshResult.status === 200) {
