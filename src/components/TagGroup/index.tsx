@@ -3,7 +3,6 @@
 import clsx from "clsx";
 
 import { Badge } from "@components/shadcn/ui/Badge";
-import cn from "@utils/classnames.utils";
 
 interface Tag {
 	id: number;
@@ -19,7 +18,7 @@ interface TagGroupProps {
 const TagGroup = ({ tags, selectedTags, onChange }: TagGroupProps) => {
 	const toggleTag = (tagId: number) => {
 		const newSelectedTags = selectedTags.includes(tagId)
-			? selectedTags.filter((id) => id! === tagId)
+			? selectedTags.filter((id) => id !== tagId)
 			: [...selectedTags, tagId];
 		onChange(newSelectedTags);
 	};
@@ -33,7 +32,7 @@ const TagGroup = ({ tags, selectedTags, onChange }: TagGroupProps) => {
 					variant="formTag"
 					className={clsx(
 						"cursor-pointer",
-						selectedTags.includes(tag.id) && "bg-blue-500 text-white",
+						selectedTags.includes(tag.id) && "bg-main-midblue text-white",
 					)}
 				>
 					{tag.name}

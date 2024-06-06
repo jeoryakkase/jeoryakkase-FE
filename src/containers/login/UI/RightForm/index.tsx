@@ -14,7 +14,7 @@ const RightForm = () => {
 			</p>
 			<div className="m-auto">
 				<Image
-					src="/images/character02.png"
+					src="/images/character/character02.png"
 					width={0}
 					height={0}
 					sizes="100vw"

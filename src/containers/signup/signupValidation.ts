@@ -14,60 +14,76 @@ export const interestTags = [
 	{ id: 11, name: "자취" },
 	{ id: 12, name: "공과금" },
 ];
+export interface SignUpFormType {
+	profileImage?: string | undefined;
+	about: string;
+	email: string;
+	nickname: string;
+	password: string;
+	confirmPassword: string;
+	age: number;
+	gender: "male" | "female";
+	savePurpose: string;
+	interests: number[];
+}
 export const signUpDefault = {
-	profileImage: null,
+	profileImage: "",
 	about: "",
 	email: "",
-	verify: "",
 	nickname: "",
 	password: "",
 	confirmPassword: "",
-	age: "0",
-	gender: "",
+	age: 0,
+	gender: "male",
 	savePurpose: "",
 	interests: [],
 };
-// 허용된 이메일 도메인 목록
-const allowedDomains = ["naver.com", "gmail.com", "kakao.com"];
+// 이메일
 const emailCheckRegex =
 	/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+// 비밀번호
+const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
-// 이메일 도메인 확인 유틸리티 함수
-const isAllowedDomain = (email: string, allowedDomains: string[]) => {
-	const domain = email.split("@")[1];
-	return allowedDomains.some((allowedDomain) => domain === allowedDomain);
-};
+export const signupValidation = z
+	.object({
+		// profileImage: z.instanceof(File).nullable().optional(),
+		profileImage: z.string().optional(),
+		about: z.string().min(2, {
+			message: "소개글은 2글자 이상이어야 합니다.",
+		}),
+		email: z
+			.string()
+			.min(1, "이메일을 입력하세요.")
+			.regex(emailCheckRegex, "이메일 형식에 맞지 않습니다"),
 
-export const FormSchema = z.object({
-	profileImage: z.instanceof(File).nullable().optional(),
-	about: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
-	}),
-	email: z
-		.string()
-		.min(1, "이메일을 입력하세요.")
-		.regex(emailCheckRegex, "이메일 형식에 맞지 않습니다")
-		.refine(
-			(email) => isAllowedDomain(email, allowedDomains),
-			"지원되는 도메인의 이메일을 사용하세요",
-		),
+		nickname: z
+			.string()
+			.min(2, { message: "닉네임은 2글자 이상이어야 합니다." }),
 
-	nickname: z.string().min(2, { message: "이름은 2글자 이상이어야 합니다." }),
-
-	password: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
-	}),
-	confirmPassword: z.string().min(2).equalTo([FormSchema.fields.password], {
+		password: z
+			.string()
+			.min(8, "비밀번호는 8글자 이상이어야 합니다.")
+			.regex(
+				passwordRegex,
+				"비밀번호는 영문, 숫자, 특수문자를 포함해야 합니다.",
+			),
+		confirmPassword: z
+			.string()
+			.min(8, "비밀번호 확인은 8글자 이상이어야 합니다."),
+		age: z
+			.number()
+			.int({ message: "나이는 정수여야 합니다." })
+			.min(1, { message: "나이는 1세 이상이어야 합니다." })
+			.max(100, { message: "나이는 100세 이하여야 합니다." }),
+		gender: z.enum(["male", "female"], {
+			required_error: "성별을 선택하세요.",
+		}),
+		savePurpose: z.string().min(2, {
+			message: "절약의 목적은 2글자 이상이어야 합니다.",
+		}),
+		interests: z.array(z.number()),
+	})
+	.refine((data) => data.password === data.confirmPassword, {
 		message: "비밀번호가 일치하지 않습니다.",
-	}),
-	age: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
-	}),
-	gender: z.enum(["male", "female"], {
-		required_error: "You need to select a notification type.",
-	}),
-	savePurpose: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
-	}),
-	interests: z.array(z.string()),
-});
+		path: ["confirmPassword"],
+	});

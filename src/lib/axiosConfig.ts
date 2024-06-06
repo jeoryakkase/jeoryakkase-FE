@@ -6,9 +6,11 @@ import {
 	responseInterceptor,
 } from "@lib/interceptor";
 
+import { envConfig } from "./envConfig";
+
 const apiClient: AxiosInstance = Axios.create({
 	withCredentials: true,
-	// baseURL:
+	baseURL: `${envConfig.BASE_URL}/api`,
 	headers: {
 		"Content-Type": "application/json",
 	},
