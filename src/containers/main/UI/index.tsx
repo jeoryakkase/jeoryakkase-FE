@@ -13,16 +13,12 @@ import Goal from "./GoalSection/Goal";
 import HotPost from "./HotPostSection/HotPost";
 import BlankStatistics from "./StatisticsSection/BlankStatistics";
 import Statistics from "./StatisticsSection/Statistics";
+import {
+	backgroundColors,
+	titleColors,
+	subTitleColors,
+} from "../assets/colors.assets";
 import mainBannerData from "../assets/mainBannerData";
-
-const backgroundColors = [
-	"bg-main-lightblue",
-	"bg-main-darkblue",
-	"bg-main-midblue",
-];
-
-const titleColors = ["", "text-white", ""];
-const subTitleColors = ["text-main-darkgray", "text-sub-gray2", "text-white"];
 
 const banners = mainBannerData.map((banner, index) => ({
 	...banner,

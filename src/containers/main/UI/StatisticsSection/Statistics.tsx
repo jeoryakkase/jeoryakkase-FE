@@ -6,9 +6,12 @@ import DoughnutChart from "@components/DoughnutChart";
 import Flex from "@components/Flex";
 import { Badge } from "@components/shadcn/ui/Badge";
 import doughtnutData from "@containers/main/assets/doughtnutData";
+import { getFullDate, getLastMonth } from "@utils/dates.utils";
 
 const Statistics = ({ userStatistics }) => {
 	const { todayDate, lastMonth, logo } = userStatistics;
+	const formattedTodayDate = getFullDate(new Date());
+	const formattedLastMonth = getLastMonth(new Date());
 
 	return (
 		<ContentSection
@@ -16,17 +19,13 @@ const Statistics = ({ userStatistics }) => {
 			childrenClassName="flex flex-row justify-center space-x-10"
 		>
 			<Card
-				highlight
-				className="flex-grow w-[400px] bg-main-lightyellow border-transparent"
+				highlight=""
+				className="flex-grow w-[400px] items-center bg-main-lightyellow border-transparent"
 			>
-				<Card.Header title={todayDate.date} />
-				<Card.Content>
-					<Flex direction="column" align="center">
-						<span>
-							{" "}
-							서비스에 가입하시고 당신의 짠맛 히스토리를 기록해보세요
-						</span>
-						<div className="mt-5 text-base">
+				<Card.Header title={formattedTodayDate} className="mt-6" />
+				<Card.Content className="flex h-full items-center justify-center">
+					<Flex direction="row" align="center" justify="center">
+						<div className="text-base">
 							{" "}
 							현재{" "}
 							{todayDate.badges.map((badge) => (
@@ -44,10 +43,10 @@ const Statistics = ({ userStatistics }) => {
 				</Card.Content>
 			</Card>
 			<Card
-				highlight
+				highlight=""
 				className=" flex-grow w-[400px]  bg-main-lightyellow  border-transparent"
 			>
-				<Card.Header title={lastMonth.date} />
+				<Card.Header title={formattedLastMonth} className="mt-6 mb-3" />
 				<Card.Content>
 					<Flex direction="row">
 						<div className="w-[250px]">
@@ -58,7 +57,11 @@ const Statistics = ({ userStatistics }) => {
 								지난 한달 총 {lastMonth.totalSavings.toLocaleString()}원 절약
 							</div>
 							{lastMonth.badges.map((badge) => (
-								<Badge key={badge} bgColor="yellow" className="mb-2">
+								<Badge
+									key={badge}
+									bgColor="yellow"
+									className="mb-2 text-sm font-semibold"
+								>
 									{badge}
 								</Badge>
 							))}
@@ -67,14 +70,22 @@ const Statistics = ({ userStatistics }) => {
 				</Card.Content>
 			</Card>
 			<Card
-				highlight
-				className="flex-grow w-[100px]  bg-main-lightyellow  border-transparent"
+				highlight=""
+				className="flex flex-grow w-[100px]  bg-main-lightyellow  border-transparent p-2"
 			>
-				<Card.Content>
-					<Flex direction="column" align="center">
-						<Image alt="이모티콘" src={logo.src} />
-						<span> 저략카세로 절약한 금액 </span>
-						<span>총 {logo.message} 원 </span>
+				<Card.Content className="w-full flex justify-center items-center mt-8">
+					<Flex
+						direction="column"
+						align="center"
+						justify="center"
+						className="w-full"
+					>
+						<Image alt="이모티콘" src={logo.src} width={100} height={100} />
+						<span className="w-full text-sm text-center mt-2">
+							{" "}
+							저략카세로 절약한 금액{" "}
+						</span>
+						<span className="mt-4 font-semibold">총 {logo.message} 원 </span>
 					</Flex>
 				</Card.Content>
 			</Card>
