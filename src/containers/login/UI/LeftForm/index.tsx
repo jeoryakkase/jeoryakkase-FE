@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { z } from "zod";
@@ -14,20 +15,45 @@ import {
 	FormMessage,
 } from "@components/shadcn/ui/Form";
 import { Input } from "@components/shadcn/ui/Input";
-import { loginDefault } from "@containers/login/loginValidation";
-import { FormSchema } from "@containers/signup/signupValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import postLogin from "@services/api/user/login";
+import { useMutation } from "@tanstack/react-query";
 
+import { loginDefault, loginValidation } from "./loginValidation";
 import SocialLogin from "../SocialLogin";
 
 const LeftForm = () => {
-	const form = useForm<z.infer<typeof FormSchema>>({
-		resolver: zodResolver(FormSchema),
+	const router = useRouter();
+	const form = useForm<z.infer<typeof loginValidation>>({
+		resolver: zodResolver(loginValidation),
 		defaultValues: loginDefault,
 	});
+	const { mutate } = useMutation({
+		mutationFn: postLogin,
+	});
+	const onSubmit = (data: z.infer<typeof loginValidation>) => {
+		mutate(data, {
+			onSuccess: () => {
+				// const accessToken = data.headers.authorization;
+				// const refreshToken = data.data;
+				// setAccessToken(accessToken);
+				// setRefreshToken(refreshToken);
+				// const { accessToken, refreshToken } = data;
+				// await signIn("credentials", {
+				// username: email,
+				// password
+				// 	redirect: false,
+				// 	accessToken,
+				// 	refreshToken,
+				// });
+				toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
+				router.push("/");
+			},
+			onError: () => {
+				toast.error("로그인에 실패하였습니다.", { autoClose: 2000 });
+			},
+		});
 
-	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
 		console.log(data);
 	};
 
