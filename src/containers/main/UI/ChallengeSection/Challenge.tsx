@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { ContentSection } from "@components/ContentSection";
 import TagCard from "@components/TagCard";
 import { UserChallenge } from "@stores/UserChallenge/useUserChallenge";
@@ -14,16 +16,17 @@ const Challenge = ({ challenges }: ChallengeProps) => {
 			childrenClassName="flex flex-row justify-start space-x-10 overflow-x-auto whitespace-nowrap"
 		>
 			{challenges.map((challenge) => (
-				<TagCard
-					key={challenge.id}
-					title={challenge.title}
-					description={challenge.description}
-					startDate={challenge.startDate}
-					endDate={challenge.endDate}
-					today={challenge.today}
-					dueDate={challenge.dueDate}
-					className="w-[300px] h-[300px] inline-block"
-				/>
+				<Link href={`/challenge/${challenge.id}`} key={challenge.id}>
+					<TagCard
+						title={challenge.title}
+						description={challenge.description}
+						startDate={challenge.startDate}
+						endDate={challenge.endDate}
+						today={challenge.today}
+						dueDate={challenge.dueDate}
+						className="w-[300px] h-[300px] flex flex-col justify-center items-center"
+					/>
+				</Link>
 			))}
 		</ContentSection>
 	);

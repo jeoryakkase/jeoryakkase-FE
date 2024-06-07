@@ -1,5 +1,9 @@
 "use client";
 
+import { useState } from "react";
+
+import Image from "next/image";
+import { CldUploadButton } from "next-cloudinary";
 import { useForm, FormProvider } from "react-hook-form";
 
 import Flex from "@components/Flex";
@@ -15,15 +19,22 @@ import { Input } from "@components/shadcn/ui/Input";
 type FormValues = {
 	title: string;
 	category: string;
-	photo: FileList;
+	salternImage: FileList;
 	content: string;
 };
 
 const Write = () => {
+	const [imageURL, setImageURL] = useState<string | null>(null);
 	const methods = useForm<FormValues>();
 
 	const onSubmit = (data: FormValues) => {
 		console.log(data);
+	};
+
+	const handleUpload = (error: any, result: any) => {
+		if (result.event === "success") {
+			setImageURL(result.info.secure_url);
+		}
 	};
 
 	return (
@@ -67,18 +78,37 @@ const Write = () => {
 					/>
 				</Flex>
 				<FormField
-					name="photo"
+					name="salternImage"
 					control={methods.control}
 					render={({ field }) => (
 						<FormItem>
 							<FormLabel>사진</FormLabel>
 							<FormControl>
-								<Input
+								{/* <Input
 									type="file"
 									accept="image/*"
 									className="w-full p-2 border rounded"
 									onChange={(e) => field.onChange(e.target.files)}
-								/>
+								/> */}
+								<div className="flex items-center">
+									<CldUploadButton
+										onSuccess={handleUpload}
+										uploadPreset="salt_image_upload"
+									>
+										<div className="ml-2 bg-blue-500 text-white px-4 py-2 rounded">
+											이미지 업로드
+										</div>
+									</CldUploadButton>
+									{imageURL && (
+										<Image
+											src={imageURL}
+											alt="Uploaded"
+											width={100}
+											height={100}
+											className="ml-4 w-32 h-32 object-cover rounded"
+										/>
+									)}
+								</div>
 							</FormControl>
 							<FormMessage />
 						</FormItem>

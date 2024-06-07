@@ -11,7 +11,7 @@
 }
 
 .navitem {
-	@apply relative flex items-center  hover:text-main-darkblue cursor-pointer rounded;
+	@apply relative flex items-center  hover:text-main-darkblue cursor-pointer rounded z-select;
 }
 
 .tooltip {

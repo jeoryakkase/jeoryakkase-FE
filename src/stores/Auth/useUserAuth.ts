@@ -9,7 +9,7 @@ interface AuthState {
 }
 
 const useAuthStore = create<AuthState>((set) => ({
-	isLogined: false,
+	isLogined: true,
 	nickname: "",
 	login: (nickname) => set({ isLogined: true, nickname }),
 	logout: () => set({ isLogined: false, nickname: "" }),

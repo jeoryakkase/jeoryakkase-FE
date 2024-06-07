@@ -1,8 +1,5 @@
 import CardCarousels from "@components/CardCarousel";
 import { ContentSection } from "@components/ContentSection";
-// import Flex from "@components/Flex";
-
-// import GoalCard from "./GoalCard";
 
 interface GoalProps {
 	goals: Array<{

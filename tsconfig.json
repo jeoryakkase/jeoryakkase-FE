@@ -37,7 +37,8 @@
 			"@utils/*": ["src/utils/*"],
 			"@lib/*": ["src/lib/*"],
 			"shadcn-ui": ["node_modules/shadcn-ui"]
-		}
+		},
+		"typeRoots": ["./node_modules/@types", "./src/types"]
 	},
 	"include": [
 		"src",

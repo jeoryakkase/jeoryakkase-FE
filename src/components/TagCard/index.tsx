@@ -53,8 +53,8 @@ const TagCard = ({
 	return (
 		<Card highlight="" className={` ${backgroundColor} ${className}`}>
 			<div className="flex flex-col justify-center items-center p-2">
-				<div className="flex flex-col items-start">
-					<div className="flex justify-between items-center">
+				<div className="flex flex-col items-center">
+					<div className="flex justify-between items-center mb-2">
 						<Card.Header title={title} />
 						{countDay && <div>D +{countDay}</div>}
 					</div>
@@ -95,9 +95,9 @@ const TagCard = ({
 				</div>
 				<Card.Footer>
 					{startDate && endDate && (
-						<>
+						<div className="font-semibold mt-3">
 							<span>{startDate}</span> - <span>{endDate}</span>
-						</>
+						</div>
 					)}
 				</Card.Footer>
 			</div>
