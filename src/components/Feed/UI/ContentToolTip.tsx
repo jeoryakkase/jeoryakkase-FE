@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import VerticalDot from "@assets/svgs/VerticalDot";
 import {
 	DropdownMenuTrigger,
@@ -5,6 +7,7 @@ import {
 	DropdownMenuItem,
 	DropdownMenuContent,
 } from "@components/shadcn/ui/DropdownMenu";
+import { initializeKakao, shareKakao } from "@lib/kakaoShare";
 import { DropdownMenuGroup } from "@radix-ui/react-dropdown-menu";
 
 interface MenuItem {
@@ -15,10 +18,26 @@ interface MenuItem {
 interface ContentToolTipProps {
 	isOwner: boolean;
 	isChallenge: boolean;
+	title: string;
+	img?: string;
 }
 
-const ContentToolTip = ({ isOwner, isChallenge }: ContentToolTipProps) => {
+const ContentToolTip = ({
+	isOwner,
+	isChallenge,
+	title,
+	img,
+}: ContentToolTipProps) => {
 	const menuItems: MenuItem[] = [];
+
+	useEffect(() => {
+		initializeKakao();
+	}, []);
+
+	const handleShare = (description: string) => {
+		const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+		shareKakao(shareUrl, description, title, img);
+	};
 
 	if (isOwner) {
 		if (isChallenge) {
@@ -28,7 +47,7 @@ const ContentToolTip = ({ isOwner, isChallenge }: ContentToolTipProps) => {
 			});
 			menuItems.push({
 				text: "공유",
-				onMenuItemClick: () => console.log("챌린지 공유 클릭"),
+				onMenuItemClick: () => handleShare("오늘의 챌린지 공유"),
 			});
 		} else {
 			menuItems.push({
@@ -41,13 +60,13 @@ const ContentToolTip = ({ isOwner, isChallenge }: ContentToolTipProps) => {
 			});
 			menuItems.push({
 				text: "공유",
-				onMenuItemClick: () => console.log("염전 공유 클릭"),
+				onMenuItemClick: () => handleShare("내 커뮤니티 글 공유"),
 			});
 		}
 	} else {
 		menuItems.push({
 			text: "공유",
-			onMenuItemClick: () => console.log("공유 클릭"),
+			onMenuItemClick: () => handleShare("소금쟁이들의 글 공유"),
 		});
 	}
 

@@ -12,7 +12,9 @@ const CardHeader = ({ title, icon, className }: CardHeaderProps) => (
 	>
 		<div className="flex items-center w-full">
 			{icon && <span className="mr-2">{icon}</span>}
-			<h2 className="text-lg font-semibold truncate text-center w-full">
+			<h2
+				className={`text-lg font-semibold truncate text-center w-full ${className}`}
+			>
 				{title}
 			</h2>
 		</div>

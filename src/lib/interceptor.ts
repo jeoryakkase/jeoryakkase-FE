@@ -7,7 +7,6 @@ import {
 
 import apiClient from "@lib/axiosConfig";
 import showToast from "@lib/toastConfig";
-import { logout } from "@utils/auth.utils";
 import {
 	getAccessToken,
 	getRefreshToken,
@@ -67,7 +66,7 @@ const handleTokenRefresh = async (
 	config: InternalAxiosRequestConfig | undefined,
 ): Promise<AxiosResponse | void> => {
 	if (!config) {
-		logout();
+		// logout();
 		showToast({
 			type: "error",
 			message: "토큰 갱신을 위한 설정이 없습니다.",
@@ -90,7 +89,7 @@ const handleTokenRefresh = async (
 						type: "error",
 						message: "새 액세스 토큰을 받아오는 데 실패했습니다.",
 					});
-					logout();
+					// logout();
 				}
 
 				// 로컬 스토리지에 access 갱신
@@ -102,7 +101,7 @@ const handleTokenRefresh = async (
 				}
 				return await apiClient(config);
 			}
-			logout();
+			// logout();
 			showToast({
 				type: "error",
 				message: "세션 만료. 다시 로그인 해주세요.",

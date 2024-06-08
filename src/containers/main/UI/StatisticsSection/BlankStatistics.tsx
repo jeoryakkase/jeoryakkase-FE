@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,10 +7,13 @@ import doughtnutData from "src/containers/main/assets/doughtnutData";
 import { Button } from "@components/Button";
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
-import DoughnutChart from "@components/DoughnutChart";
 import Flex from "@components/Flex";
 import { Badge } from "@components/shadcn/ui/Badge";
 import { getFullDate, getLastMonth } from "@utils/dates.utils";
+
+const DoughnutChart = dynamic(() => import("@components/DoughnutChart"), {
+	ssr: false,
+});
 
 const BlankStatistics = () => {
 	const todayDate = getFullDate(new Date());
