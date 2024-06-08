@@ -31,13 +31,13 @@ const LeftForm = () => {
 
 	const onSubmit = async (data: z.infer<typeof loginValidation>) => {
 		try {
-			await signIn("Credentials", {
+			console.log("data: ", data);
+			await signIn("credentials", {
 				email: data.email,
 				password: data.password,
 				redirect: false,
 				callbackUrl: `${envConfig.NEXTAUTH_URL}`,
 			});
-			console.log("data: ", data);
 			toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
 			router.replace("/");
 		} catch (error) {
