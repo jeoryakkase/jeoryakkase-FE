@@ -20,6 +20,11 @@ import { RadioGroup, RadioGroupItem } from "@components/shadcn/ui/Radio-group/";
 import TagGroup from "@components/TagGroup";
 import { Textarea } from "@components/Textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
+import showToast from "@lib/toastConfig";
+import {
+	getDuplicationEmail,
+	getDuplicationNickName,
+} from "@services/api/user/duplication";
 import postSignUp from "@services/api/user/signup";
 import { useMutation } from "@tanstack/react-query";
 
@@ -55,7 +60,44 @@ const SignupForm = () => {
 		console.log(data);
 		// 주스탠드 스토어 연결
 	};
-
+	// 이메일 중복검사
+	const handleCheckEmail = async () => {
+		const email = form.getValues("email");
+		const response = await getDuplicationEmail({ email });
+		if (response.status === 200) {
+			showToast({
+				type: "success",
+				message: "사용 가능한 이메일 입니다.",
+			});
+		} else if (
+			response.status === 409 &&
+			response.data === "Member with this email already exists."
+		) {
+			showToast({
+				type: "error",
+				message: "이미 사용중인 이메일 입니다.",
+			});
+		}
+	};
+	// 닉네임 중복검사
+	const handleCheckNickName = async () => {
+		const nickname = form.getValues("nickname");
+		const response = await getDuplicationNickName({ nickname });
+		if (response.status === 200) {
+			showToast({
+				type: "success",
+				message: "사용 가능한 닉네임 입니다.",
+			});
+		} else if (
+			response.status === 409 &&
+			response.data === "Member with this nickname already exists.."
+		) {
+			showToast({
+				type: "error",
+				message: "이미 사용중인 닉네임 입니다.",
+			});
+		}
+	};
 	return (
 		<Form {...form}>
 			<form
@@ -101,7 +143,7 @@ const SignupForm = () => {
 										{...field}
 									/>
 								</FormControl>
-								<Button type="button" onClick={() => {}}>
+								<Button type="button" onClick={handleCheckEmail}>
 									중복확인
 								</Button>
 							</div>
@@ -125,7 +167,7 @@ const SignupForm = () => {
 										{...field}
 									/>
 								</FormControl>
-								<Button type="button" onClick={() => {}}>
+								<Button type="button" onClick={handleCheckNickName}>
 									중복확인
 								</Button>
 							</div>
@@ -205,13 +247,13 @@ const SignupForm = () => {
 										<FormItem className="flex items-center space-x-3 space-y-0">
 											<FormLabel className="font-normal">남성</FormLabel>
 											<FormControl>
-												<RadioGroupItem value="male" />
+												<RadioGroupItem value="MALE" />
 											</FormControl>
 										</FormItem>
 										<FormItem className="flex items-center space-x-3 space-y-0">
 											<FormLabel className="font-normal">여성</FormLabel>
 											<FormControl>
-												<RadioGroupItem value="female" />
+												<RadioGroupItem value="FEMALE" />
 											</FormControl>
 										</FormItem>
 									</RadioGroup>

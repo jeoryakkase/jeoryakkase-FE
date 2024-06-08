@@ -1,12 +1,12 @@
 import apiClient from "@lib/axiosConfig";
 
-async function getDuplicationEmail({ email }: { email: string }) {
-	const response = await apiClient.get(`api/check-email/${email}`);
+const getDuplicationEmail = async ({ email }: { email: string }) => {
+	const response = await apiClient.get(`/check-email?email=${email}`);
 	return response.data;
-}
+};
 
-async function getDuplicationNickName({ nickname }: { nickname: string }) {
-	const response = await apiClient.get(`/api/check-nickname/${nickname}`);
+const getDuplicationNickName = async ({ nickname }: { nickname: string }) => {
+	const response = await apiClient.get(`/check-nickname?nickname=${nickname}`);
 	return response.data;
-}
+};
 export { getDuplicationEmail, getDuplicationNickName };

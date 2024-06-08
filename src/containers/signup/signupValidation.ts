@@ -22,7 +22,7 @@ export interface SignUpFormType {
 	password: string;
 	confirmPassword: string;
 	age: number;
-	gender: "male" | "female";
+	gender: string;
 	savePurpose: string;
 	interests: number[];
 }
@@ -34,7 +34,7 @@ export const signUpDefault = {
 	password: "",
 	confirmPassword: "",
 	age: 0,
-	gender: "male",
+	gender: "",
 	savePurpose: "",
 	interests: [],
 };
@@ -75,7 +75,7 @@ export const signupValidation = z
 			.int({ message: "나이는 정수여야 합니다." })
 			.min(1, { message: "나이는 1세 이상이어야 합니다." })
 			.max(100, { message: "나이는 100세 이하여야 합니다." }),
-		gender: z.enum(["male", "female"], {
+		gender: z.enum(["MALE", "FEMALE"], {
 			required_error: "성별을 선택하세요.",
 		}),
 		savePurpose: z.string().min(2, {
