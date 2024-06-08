@@ -10,7 +10,7 @@ import { envConfig } from "./envConfig";
 
 const apiClient: AxiosInstance = Axios.create({
 	withCredentials: true,
-	baseURL: `${envConfig.BASE_URL}`,
+	baseURL: `${envConfig.BASE_URL}/api`,
 	headers: {
 		"Content-Type": "application/json",
 	},

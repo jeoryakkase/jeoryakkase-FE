@@ -1,8 +1,8 @@
 // eslint-disable-next-line import/prefer-default-export
 export const envConfig = {
 	BASE_URL: process.env.NEXT_PUBLIC_BASE_URL!,
-	NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET!,
-	NEXTAUTH_URL: process.env.NEXTAUTH_URL!,
+	NEXTAUTH_URL: process.env.NEXT_PUBLIC_NEXTAUTH_URL!,
+	NEXTAUTH_SECRET: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET!,
 	KAKAO_CLIENT_ID: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID!,
 	KAKAO_CLIENT_SECRET: process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET!,
 	KAKAO_REDIRECT_URI: process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI!,

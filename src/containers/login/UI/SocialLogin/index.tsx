@@ -23,11 +23,15 @@ const SocialLogin = () => {
 		}
 	};
 	const handleKakao = async () => {
-		const result = await signIn("kakao", {
-			redirect: false,
-			callbackUrl: "/",
-		});
-		console.log(result);
+		try {
+			const result = await signIn("kakao", {
+				redirect: false,
+			});
+			router.replace("/");
+			console.log(result);
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	return (
