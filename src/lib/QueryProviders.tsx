@@ -1,5 +1,7 @@
 "use client";
 
+import "react-toastify/dist/ReactToastify.css";
+
 import { ToastContainer } from "react-toastify";
 
 import {
@@ -11,7 +13,6 @@ import {
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ReactQueryStreamedHydration } from "@tanstack/react-query-next-experimental";
 
-import AuthProvider from "./authProvider";
 import showToast from "./toastConfig";
 
 const makeQueryClient = () => {
@@ -55,11 +56,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 			{/* experimental 기능이긴 하지만, 복잡하지 않은 쿼리 사용하거나 DX 경험 측면에서
 			사용하기 좋아보임. suspense 감싸서 dehydrate하는 건 너무
 			복잡해보임 */}
-			<AuthProvider>
-				<ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>
-				<ToastContainer />
-				<ReactQueryDevtools initialIsOpen={false} />
-			</AuthProvider>
+			<ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>
+			<ToastContainer />
+			<ReactQueryDevtools initialIsOpen={false} />
 		</QueryClientProvider>
 	);
 };

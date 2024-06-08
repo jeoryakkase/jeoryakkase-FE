@@ -14,6 +14,7 @@ const mainBannerData = [
 				width={200}
 				height={200}
 				alt="배너에 들어가는 체인 아이콘"
+				style={{ width: "auto", height: "auto" }}
 			/>
 		),
 	},
