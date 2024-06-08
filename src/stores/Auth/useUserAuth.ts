@@ -10,7 +10,7 @@ interface AuthState {
 
 const useAuthStore = create<AuthState>((set) => ({
 	isLogined: true,
-	nickname: "",
+	nickname: "zl존민혁",
 	login: (nickname) => set({ isLogined: true, nickname }),
 	logout: () => set({ isLogined: false, nickname: "" }),
 }));

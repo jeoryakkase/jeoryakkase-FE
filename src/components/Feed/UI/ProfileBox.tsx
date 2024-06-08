@@ -22,6 +22,8 @@ interface ProfileBoxProps {
 	badge?: BadgeProps;
 	writeHour?: string;
 	progressDate?: string;
+	title: string;
+	img?: string;
 }
 
 const ProfileBox = ({
@@ -33,6 +35,8 @@ const ProfileBox = ({
 	progressDate,
 	isOwner,
 	isChallenge,
+	title,
+	img,
 }: ProfileBoxProps) => {
 	return (
 		<section className="flex flex-row w-full items-center justify-between mb-16">
@@ -44,10 +48,9 @@ const ProfileBox = ({
 				/>
 				<div className="flex flex-col ml-24">
 					<div className="flex mb-3 text-sub-gray4">
-
-					{writeHour && <div className="ml-5">{writeHour}시간 전 작성</div>}
-					{/* date는 날짜 변환하는 함수 넣어줘야지뭐 */}
-					{writeHour! && date && <div className="ml-5"> {date} </div>}
+						{writeHour && <div className="ml-5">{writeHour}시간 전 작성</div>}
+						{/* date는 날짜 변환하는 함수 넣어줘야지뭐 */}
+						{writeHour! && date && <div className="ml-5"> {date} </div>}
 					</div>
 					{progressDate && (
 						<Badge
@@ -61,7 +64,12 @@ const ProfileBox = ({
 					)}
 				</div>
 			</Flex>
-			<ContentToolTip isOwner={isOwner} isChallenge={isChallenge} />
+			<ContentToolTip
+				isOwner={isOwner}
+				isChallenge={isChallenge}
+				title={title}
+				img={img}
+			/>
 		</section>
 	);
 };

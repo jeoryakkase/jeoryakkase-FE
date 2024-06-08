@@ -16,7 +16,7 @@ const HeaderItem = ({ label, href, showTooltip }: HeaderItemProps) => {
 				<div className={`${styles.tooltip} opacity-0 group-hover:opacity-100`}>
 					<Link href="/saltern/vote">허불허</Link>
 					<Link href="/saltern/tips">짠팁</Link>
-					<Link href="/saltern/fame">소금 모아 태산</Link>
+					<Link href="/saltern/taesan">소금 모아 태산</Link>
 				</div>
 			)}
 		</li>

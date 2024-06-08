@@ -1,7 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
-
 import {
 	Chart as ChartJS,
 	BarElement,
@@ -49,9 +47,7 @@ const options = {
 };
 
 const ProgressBarChart = ({ data }) => {
-	const memoizedData = useMemo(() => data, [data]);
-
-	return <Bar data={memoizedData} options={options} />;
+	return <Bar data={data} options={options} />;
 };
 
 export default ProgressBarChart;

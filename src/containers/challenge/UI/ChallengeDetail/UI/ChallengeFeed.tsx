@@ -12,7 +12,10 @@ const ChallengeFeed = ({ feedDatas, joinedCounts }) => {
 					<div className="mr-10 font-bold">오늘의 인증</div>
 					<div className="text-sub-gray4">{formattedDate}</div>
 				</div>
-				<div>+{joinedCounts} 소금이 인증 완료</div>
+				<div className="text-main-midblue flex flex-row">
+					+{joinedCounts} 소금이{" "}
+					<div className="text-main-darkgray ml-2">인증 완료</div>
+				</div>
 			</Flex>
 			<div className="w-full h-0.5 bg-sub-gray1 mt-4 mb-5" />
 			{feedDatas.map((challengeFeedData) => (
