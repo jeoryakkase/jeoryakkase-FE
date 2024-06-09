@@ -33,18 +33,19 @@ const LeftForm = () => {
 		try {
 			console.log("data: ", data);
 			await signIn("credentials", {
-				email: data.email,
+				username: data.email,
 				password: data.password,
 				redirect: false,
 				callbackUrl: `${envConfig.NEXTAUTH_URL}`,
 			});
+			// const response = postLogin(data);
+			// console.log(response);
+
 			toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
 			router.replace("/");
 		} catch (error) {
 			toast.error("로그인에 실패하였습니다.", { autoClose: 2000 });
 		}
-
-		console.log(data);
 	};
 
 	return (

@@ -75,7 +75,7 @@ const ImgInput = ({
 						width={0}
 						height={0}
 						sizes="100vw"
-						className="relative object-cover rounded-full w-[100%] "
+						className="relative object-cover rounded-full w-[200px] h-[200px] "
 					/>
 				) : (
 					<ImageWithDefault
