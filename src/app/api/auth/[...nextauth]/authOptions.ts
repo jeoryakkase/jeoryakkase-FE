@@ -59,18 +59,8 @@ const authOptions: NextAuthOptions = {
 				return null;
 			},
 		}),
-		GoogleProvider({
-			clientId: envConfig.GOOGLE_CLIENT_ID,
-			clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
-			// 구글은 refresh_token을 위해 access_type: "offline"이 필요
-			authorization: { params: { access_type: "offline", prompt: "consent" } },
-		}),
-		KakaoProvider({
-			clientId: envConfig.KAKAO_CLIENT_ID,
-			clientSecret: envConfig.KAKAO_CLIENT_SECRET,
-		}),
 	],
-	secret: envConfig.NEXTAUTH_SECRET,
+	secret: process.env.NEXTAUTH_SECRET,
 	callbacks: {
 		async jwt({
 			token,

@@ -78,8 +78,10 @@ const ReplyBox = ({ onReplyCommentSubmit, onCommentCancel }: ReplyBoxProps) => {
 					)}
 				/>
 				<div className="mt-1 flex space-x-2">
-					<Button type="submit">답글 달기</Button>
-					<Button type="button" onClick={onCommentCancel}>
+					<Button type="submit" bgColor="white">
+						작성 완료
+					</Button>
+					<Button type="button" bgColor="lightyellow" onClick={onCommentCancel}>
 						취소
 					</Button>
 				</div>

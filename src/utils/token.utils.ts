@@ -1,18 +1,17 @@
-const ACCESS_TOKEN_KEY = "accessToken";
-const REFRESH_TOKEN_KEY = "refreshToken";
+import { getSession } from "next-auth/react";
 
-export const getAccessToken = () => {
-	return (localStorage.getItem(ACCESS_TOKEN_KEY) as string) || null;
+export const getAccessToken = async () => {
+	const session = await getSession();
+	if (session && session.user.access_token) {
+		return session.user.access_token as string;
+	}
+	return null;
 };
 
-export const setAccessToken = (token: string) => {
-	return localStorage.setItem(ACCESS_TOKEN_KEY, token);
-};
-
-export const getRefreshToken = () => {
-	return localStorage.getItem(REFRESH_TOKEN_KEY) || null;
-};
-
-export const setRefreshToken = (token: string) => {
-	return localStorage.setItem(REFRESH_TOKEN_KEY, token);
+export const getRefreshToken = async () => {
+	const session = await getSession();
+	if (session && session.user.refreshToken) {
+		return session.user.refreshToken as string;
+	}
+	return null;
 };
