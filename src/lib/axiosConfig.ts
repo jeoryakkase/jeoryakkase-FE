@@ -92,7 +92,6 @@ const handleTokenRefresh = async (
 				}
 
 				// 로컬 스토리지에 access 갱신
-				setAccessToken(accessToken);
 
 				// 가져온 응답으로 헤더 갱신
 				if (config.headers) {

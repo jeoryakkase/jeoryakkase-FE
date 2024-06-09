@@ -15,7 +15,7 @@ export const interestTags = [
 	{ id: 12, name: "공과금" },
 ];
 export interface SignUpFormType {
-	profileImage?: string | undefined;
+	profileImage?: File | null; // 프로필
 	about: string;
 	email: string;
 	nickname: string;
@@ -27,7 +27,7 @@ export interface SignUpFormType {
 	interests: number[];
 }
 export const signUpDefault = {
-	profileImage: "",
+	profileImage: null,
 	about: "",
 	email: "",
 	nickname: "",
@@ -46,8 +46,8 @@ const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
 export const signupValidation = z
 	.object({
-		// profileImage: z.instanceof(File).nullable().optional(),
-		profileImage: z.string().optional(),
+		profileImage: z.instanceof(File).nullable().optional(),
+		// profileImage: z.string().optional(),
 		about: z.string().min(2, {
 			message: "소개글은 2글자 이상이어야 합니다.",
 		}),
