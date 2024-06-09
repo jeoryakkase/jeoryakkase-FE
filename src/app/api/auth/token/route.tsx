@@ -4,14 +4,14 @@ import { getToken } from "next-auth/jwt";
 import { envConfig } from "@lib/envConfig";
 // eslint-disable-next-line import/prefer-default-export
 export async function GET(request: NextRequest) {
-	const secret = envConfig.NEXTAUTH_SECRET;
-	if (!secret) {
-		console.error("NEXTAUTH_SECRET is not set");
-		return NextResponse.json(
-			{ error: "Internal server error" },
-			{ status: 500 },
-		);
-	}
+	// const secret = envConfig.NEXTAUTH_SECRET;
+	// if (!secret) {
+	// 	console.error("NEXTAUTH_SECRET is not set");
+	// 	return NextResponse.json(
+	// 		{ error: "Internal server error" },
+	// 		{ status: 500 },
+	// 	);
+	// }
 
 	const token = await getToken({
 		req: request,

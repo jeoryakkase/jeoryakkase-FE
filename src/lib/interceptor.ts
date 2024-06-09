@@ -7,11 +7,8 @@ import {
 
 import apiClient from "@lib/axiosConfig";
 import showToast from "@lib/toastConfig";
-import {
-	getAccessToken,
-	getRefreshToken,
-	setAccessToken,
-} from "@utils/token.utils";
+import { getAccessToken, getRefreshToken } from "@utils/token.utils";
+import { NextRequest } from "next/server";
 
 interface AuthResponse {
 	accessToken?: string;
@@ -24,7 +21,8 @@ interface AuthResponse {
 export const requestInterceptor = (config: InternalAxiosRequestConfig) => {
 	const headers: AxiosRequestHeaders =
 		(config.headers as AxiosRequestHeaders) || {};
-	const accessToken = getAccessToken();
+	const req = new NextRequest(new Request(config.url!));
+	const accessToken = getAccessToken(req);
 	headers.Authorization = `Bearer ${accessToken}`;
 	config.headers = headers;
 	return Promise.resolve(config);
@@ -77,9 +75,10 @@ const handleTokenRefresh = async (
 	try {
 		// 리프레시 만료되었는지 확인
 		// /user/createAccessByRefresh
-		const refreshToken = getRefreshToken();
+		const req = new NextRequest(new Request(config.url!));
+		const refreshToken = await getRefreshToken(req);
 		if (refreshToken) {
-			const tokenRefreshResult = await apiClient.post("/api/token", {
+			const tokenRefreshResult = await apiClient.post("/token", {
 				refreshToken,
 			});
 			if (tokenRefreshResult.status === 200) {
@@ -92,8 +91,8 @@ const handleTokenRefresh = async (
 					// logout();
 				}
 
-				// 로컬 스토리지에 access 갱신
-				setAccessToken(accessToken);
+				// // 로컬 스토리지에 access 갱신
+				// setAccessToken(accessToken);
 
 				// 가져온 응답으로 헤더 갱신
 				if (config.headers) {
