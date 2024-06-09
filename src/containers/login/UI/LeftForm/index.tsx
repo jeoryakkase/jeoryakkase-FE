@@ -35,7 +35,7 @@ const LeftForm = () => {
 		try {
 			console.log("data: ", data);
 			await signIn("credentials", {
-				email: data.email,
+				username: data.email,
 				password: data.password,
 				redirect: false,
 				callbackUrl: `${envConfig.NEXTAUTH_URL}`,

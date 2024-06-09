@@ -43,7 +43,8 @@ const handler = NextAuth({
 					placeholder: "비밀번호를 입력해주세요.",
 				},
 			},
-			async authorize(credentials, req) {
+			async authorize(credentials) {
+				console.log("credentials", credentials);
 				try {
 					const res = await fetch(
 						`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`,
@@ -72,21 +73,24 @@ const handler = NextAuth({
 				}
 			},
 		}),
-		GoogleProvider({
-			clientId: envConfig.GOOGLE_CLIENT_ID,
-			clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
-			// 구글은 refresh_token을 위해 access_type: "offline"이 필요
-			authorization: {
-				params: { access_type: "offline", prompt: "consent" },
-			},
-		}),
-		KakaoProvider({
-			clientId: envConfig.KAKAO_CLIENT_ID,
-			clientSecret: envConfig.KAKAO_CLIENT_SECRET,
-		}),
+		// GoogleProvider({
+		// 	clientId: envConfig.GOOGLE_CLIENT_ID,
+		// 	clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
+		// 	// 구글은 refresh_token을 위해 access_type: "offline"이 필요
+		// 	authorization: {
+		// 		params: { access_type: "offline", prompt: "consent" },
+		// 	},
+		// }),
+		// KakaoProvider({
+		// 	clientId: envConfig.KAKAO_CLIENT_ID,
+		// 	clientSecret: envConfig.KAKAO_CLIENT_SECRET,
+		// }),
 	],
 	secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
 	callbacks: {
+		// async signIn() {
+
+		// },
 		async jwt({ token, user }) {
 			if (user) {
 				token.access_token = user.access_token!;
@@ -101,11 +105,7 @@ const handler = NextAuth({
 				// eslint-disable-next-line no-param-reassign
 				session.user = token.user as User;
 			}
-
-			// token 객체에서 사용자 정보를 세션에 복사합니다.
-			session.accessToken = token.access_token;
-			session.expiresAt = token.expires_at;
-			session.refreshToken = token.refresh_token;
+			console.log("session", session);
 			return session;
 		},
 		async redirect() {

@@ -8,6 +8,8 @@ const KakaoLogin = () => {
 	const router = useRouter();
 	const params = new URLSearchParams(window.location.search);
 	const code = params.get("code");
+	console.log("params", params);
+	console.log("code", code);
 	if (!code) {
 		return <>Loading</>;
 	}
