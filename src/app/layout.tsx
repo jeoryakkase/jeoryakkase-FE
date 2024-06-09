@@ -4,7 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Layout from "@components/Layout";
 import AuthProvider from "@lib/authProvider";
 import KakaoScript from "@lib/kakaoShare/KakaoScript";
-import Providers from "@lib/QueryProviders";
+import QueryProviders from "@lib/QueryProviders";
 import pretandard from "@styles/fonts";
 
 import "./globals.css";
@@ -31,9 +31,9 @@ const RootLayout = ({ children }: LayoutProps) => {
 		<html lang="ko" className={pretandard.variable}>
 			<body className="h-[100dvh] flex flex-col justify-between">
 				<AuthProvider>
-					<Providers>
+					<QueryProviders>
 						<Layout>{children}</Layout>
-					</Providers>
+					</QueryProviders>
 				</AuthProvider>
 				<KakaoScript />
 			</body>

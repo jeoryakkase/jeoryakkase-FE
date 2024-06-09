@@ -48,14 +48,11 @@ const getQueryClient = () => {
 	return browserQueryClient;
 };
 
-const Providers = ({ children }: { children: React.ReactNode }) => {
+const QueryProviders = ({ children }: { children: React.ReactNode }) => {
 	const queryClient = getQueryClient();
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			{/* experimental 기능이긴 하지만, 복잡하지 않은 쿼리 사용하거나 DX 경험 측면에서
-			사용하기 좋아보임. suspense 감싸서 dehydrate하는 건 너무
-			복잡해보임 */}
 			<ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>
 			<ToastContainer />
 			<ReactQueryDevtools initialIsOpen={false} />
@@ -63,4 +60,4 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
 	);
 };
 
-export default Providers;
+export default QueryProviders;
