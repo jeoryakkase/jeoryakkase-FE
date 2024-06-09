@@ -1,11 +1,17 @@
 "use client";
+
+import { useRouter } from "next/navigation";
+
 import showToast from "@lib/toastConfig";
 import userQueryOption from "@services/api/user";
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 
-const KakaoLogin = () => {
+const GooleLogin = () => {
 	const router = useRouter();
+	if (typeof window === "undefined") {
+		return <>Loading</>;
+	}
+
 	const params = new URLSearchParams(window.location.search);
 	const code = params.get("code");
 	console.log("params", params);
@@ -14,13 +20,18 @@ const KakaoLogin = () => {
 		return <>Loading</>;
 	}
 
-	const { data } = useQuery(userQueryOption.getKakaoAuthToken({ code }));
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const { data } = useQuery(userQueryOption.getGoogleAuthToken({ code }));
 	if (data) {
-		const accessToken = data.headers.authorization;
-		const refreshToken = data.data;
+		// signIn("social-credentials", {
+		// 	accessToken: data.accessToken,
+		// 	refreshToken: data.refreshToken,
+		// });
+		// const accessToken = data.headers.authorization;
+		// const refreshToken = data.data;
 		// setAccessToken(accessToken);
 		// setRefreshToken(refreshToken);
-		console.log(accessToken);
+		console.log(data);
 		showToast({
 			type: "success",
 			message: "로그인이 완료되었습니다.",
@@ -30,4 +41,4 @@ const KakaoLogin = () => {
 	return <>Loading</>;
 };
 
-export default KakaoLogin;
+export default GooleLogin;

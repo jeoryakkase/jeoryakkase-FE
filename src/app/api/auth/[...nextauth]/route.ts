@@ -1,8 +1,7 @@
-import { envConfig } from "@lib/envConfig";
 import NextAuth, { User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
-import KakaoProvider from "next-auth/providers/kakao";
+// import GoogleProvider from "next-auth/providers/google";
+// import KakaoProvider from "next-auth/providers/kakao";
 declare module "next-auth" {
 	interface User {
 		access_token?: string;
@@ -64,15 +63,15 @@ const handler = NextAuth({
 					console.log("user", user);
 					if (user) {
 						return user;
-					} else {
-						return null;
 					}
+					return null;
 				} catch (error) {
 					console.error("Authorize error:", error);
 					return null;
 				}
 			},
 		}),
+
 		// GoogleProvider({
 		// 	clientId: envConfig.GOOGLE_CLIENT_ID,
 		// 	clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
@@ -88,15 +87,15 @@ const handler = NextAuth({
 	],
 	secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
 	callbacks: {
-		// async signIn() {
-
-		// },
 		async jwt({ token, user }) {
 			if (user) {
-				token.access_token = user.access_token!;
-				token.expires_at = user.expires_at!;
-				token.refresh_token = user.refresh_token!;
-				token.user = user;
+				return {
+					...token,
+					access_token: user.access_token!,
+					expires_at: user.expires_at!,
+					refresh_token: user.refresh_token!,
+					user,
+				};
 			}
 			return token;
 		},

@@ -4,11 +4,11 @@ import {
 	AxiosResponse,
 	InternalAxiosRequestConfig,
 } from "axios";
+import { NextRequest } from "next/server";
 
 import apiClient from "@lib/axiosConfig";
 import showToast from "@lib/toastConfig";
 import { getAccessToken, getRefreshToken } from "@utils/token.utils";
-import { NextRequest } from "next/server";
 
 interface AuthResponse {
 	accessToken?: string;
