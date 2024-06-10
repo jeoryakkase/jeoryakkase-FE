@@ -101,8 +101,8 @@ const handler = NextAuth({
 		async jwt({ token, user }) {
 			try {
 				if (user) {
-					token.access_token = user.accessToken!;
-					token.refresh_token = user.refreshToken!;
+					token.access_token = user.access_token!;
+					token.refresh_token = user.refresh_token!;
 					token.expires_at = Date.now() + 36 * 1000;
 					return token;
 				}

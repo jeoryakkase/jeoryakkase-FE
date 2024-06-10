@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -22,7 +22,6 @@ import { loginDefault, loginValidation } from "./loginValidation";
 import SocialLogin from "../SocialLogin";
 
 const LeftForm = () => {
-	const { data: session, status } = useSession();
 	const router = useRouter();
 	const form = useForm<z.infer<typeof loginValidation>>({
 		resolver: zodResolver(loginValidation),
@@ -47,11 +46,6 @@ const LeftForm = () => {
 			showToast({ type: "error", message: "로그인에 실패하였습니다." });
 		}
 	};
-
-	// if (session?.user) {
-	// 	router.replace("/");
-	// 	return null;
-	// }
 
 	return (
 		<Form {...form}>
