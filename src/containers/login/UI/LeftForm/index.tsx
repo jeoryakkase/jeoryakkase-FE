@@ -37,6 +37,7 @@ const LeftForm = () => {
 				redirect: false,
 				callbackUrl: "/",
 			});
+			// 주스탠드 스토어 연결 (닉네임, 프로필 이미지, 뱃지 )
 			// const response = postLogin(data);
 			// console.log(response);
 
