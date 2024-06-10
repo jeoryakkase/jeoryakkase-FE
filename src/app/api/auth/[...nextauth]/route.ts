@@ -1,7 +1,10 @@
 import NextAuth, { User } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import GoogleProvider from "next-auth/providers/google";
-// import KakaoProvider from "next-auth/providers/kakao";
+import GoogleProvider from "next-auth/providers/google";
+import KakaoProvider from "next-auth/providers/kakao";
+
+import showToast from "@lib/toastConfig";
+
 declare module "next-auth" {
 	interface User {
 		accessToken?: string;
@@ -59,57 +62,46 @@ const handler = NextAuth({
 						},
 					);
 					const authorizationHeader = res.headers.get("Authorization");
-					console.log("authorizationHeader", authorizationHeader);
 					const user = await res.json();
 					console.log("user", user);
 					if (user) {
 						user.accessToken = authorizationHeader;
 						return user;
 					}
+					showToast({ type: "success", message: "로그인이 완료되었습니다." });
 					return null;
 				} catch (error) {
 					console.error("Authorize error:", error);
+					showToast({ type: "error", message: "로그인에 실패했습니다." });
 					return null;
 				}
 			},
 		}),
 
-		// GoogleProvider({
-		// 	clientId: envConfig.GOOGLE_CLIENT_ID,
-		// 	clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
-		// 	// 구글은 refresh_token을 위해 access_type: "offline"이 필요
-		// 	authorization: {
-		// 		params: { access_type: "offline", prompt: "consent" },
-		// 	},
-		// }),
-		// KakaoProvider({
-		// 	clientId: envConfig.KAKAO_CLIENT_ID,
-		// 	clientSecret: envConfig.KAKAO_CLIENT_SECRET,
-		// }),
+		GoogleProvider({
+			clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+			clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
+			// 구글은 refresh_token을 위해 access_type: "offline"이 필요
+			authorization: {
+				params: { access_type: "offline", prompt: "consent" },
+			},
+		}),
+		KakaoProvider({
+			clientId: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID!,
+			clientSecret: process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET!,
+			authorization: {
+				params: { access_type: "offline", prompt: "consent" },
+			},
+		}),
 	],
-	secret: process.env.NEXTAUTH_SECRET,
-	// cookies: {
-	// 	sessionToken: {
-	// 		name: `next-auth.session-token`,
-	// 		options: {
-	// 			domain: "localhost",
-	// 			httpOnly: true,
-	// 			sameSite: "Lax",
-	// 			path: "/",
-	// 			secure: false,
-	// 		},
-	// 	},
-	// },
+	secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
 	callbacks: {
 		async jwt({ token, user }) {
+			console.log("시작 token :", token);
 			try {
-				console.log("받은 user값", user);
+				// 일반 로그인
 				if (user) {
-					// token.access_token = user.access_token!;
-					// token.refresh_token = user.refresh_token!;
-					// token.expires_at = Date.now() + 36 * 1000;
-					// console.log("token 리프래쉬 후 ", token);
-					// return token;
+					console.log("if user", user);
 					return {
 						...token,
 						accessToken: user.accessToken!,
@@ -118,6 +110,34 @@ const handler = NextAuth({
 						user,
 					};
 				}
+				console.log("일반 user :", user);
+				// let response: Response;
+				// if (token?.provider === "google") {
+				// 	response = await fetch("https://oauth2.googleapis.com/token", {
+				// 		headers: { "Content-Type": "application/x-www-form-urlencoded" },
+				// 		body: new URLSearchParams({
+				// 			client_id: process.env.GOOGLE_CLIENT_ID!,
+				// 			client_secret: process.env.GOOGLE_CLIENT_SECRET!,
+				// 			grant_type: "refresh_token",
+				// 			refresh_token: token.refreshToken!,
+				// 		}),
+				// 		method: "POST",
+				// 	});
+				// } else if (token?.provider === "kakao") {
+				// 	response = await fetch("https://kauth.kakao.com/oauth/token", {
+				// 		headers: { "Content-Type": "application/x-www-form-urlencoded" },
+				// 		body: new URLSearchParams({
+				// 			client_id: process.env.KAKAO_CLIENT_ID!,
+				// 			client_secret: process.env.KAKAO_CLIENT_SECRET!,
+				// 			grant_type: "refresh_token",
+				// 			refresh_token: token.refreshToken!,
+				// 		}),
+				// 		method: "POST",
+				// 	});
+				// }
+
+				// const responseTokens = await response!.json();
+
 				console.log("token 리프래쉬 후 ", token);
 				const nowTime = Math.round(Date.now() / 1000);
 				// 토큰 만료 10분전인지 계산
@@ -140,6 +160,8 @@ const handler = NextAuth({
 				session.error = "RefreshTokenError";
 			} else if (token) {
 				session.user = token.user as User;
+				session.accessToken = token.accessToken;
+				session.refreshToken = token.refreshToken;
 				session.expiresAt = token.expires_at;
 				console.log("session 마지막", session);
 				return session;

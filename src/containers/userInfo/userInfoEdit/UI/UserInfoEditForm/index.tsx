@@ -24,8 +24,9 @@ import { interestTags } from "@containers/signup/signupValidation";
 import mockMemberData from "@containers/userInfo/assets/userinfoData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import showToast from "@lib/toastConfig";
-import userQueryOption from "@services/api/user";
-import patchUserInfo from "@services/api/user/pathchUserInfo";
+import { getDuplicationNickName } from "@services/login/duplication";
+import userQueryOption from "@services/user";
+import patchUserInfo from "@services/user/pathchUserInfo";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import FormSchema from "../../userInfoEditValidation";
@@ -103,7 +104,25 @@ const UserInfoEditForm = () => {
 			},
 		});
 	};
-
+	// 닉네임 중복검사
+	const handleCheckNickName = async () => {
+		const nickname = form.getValues("nickname");
+		const response = await getDuplicationNickName({ nickname });
+		if (response.status === 200) {
+			showToast({
+				type: "success",
+				message: "사용 가능한 닉네임 입니다.",
+			});
+		} else if (
+			response.status === 409 &&
+			response.data === "Member with this nickname already exists.."
+		) {
+			showToast({
+				type: "error",
+				message: "이미 사용중인 닉네임 입니다.",
+			});
+		}
+	};
 	return (
 		<Form {...form}>
 			<form
@@ -171,7 +190,7 @@ const UserInfoEditForm = () => {
 										{...field}
 									/>
 								</FormControl>
-								<Button type="button" onClick={() => {}}>
+								<Button type="button" onClick={handleCheckNickName}>
 									중복확인
 								</Button>
 							</div>

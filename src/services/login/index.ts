@@ -1,10 +1,9 @@
 import { queryOptions } from "@tanstack/react-query";
 
 import { getDuplicationEmail, getDuplicationNickName } from "./duplication";
-import getUserInfo from "./getUserInfo";
 import { getGoogleAuthCode, getKakaoAuthCode } from "./social";
 
-const userQueryOption = {
+const loginQueryOption = {
 	getDuplicationEmail: ({ email }: { email: string }) =>
 		queryOptions({
 			queryKey: ["email", email],
@@ -25,11 +24,6 @@ const userQueryOption = {
 			queryKey: ["googlecode", code],
 			queryFn: () => getGoogleAuthCode({ code }),
 		}),
-	getUserInfo: () =>
-		queryOptions({
-			queryKey: ["userInfo"],
-			queryFn: () => getUserInfo(),
-		}),
 };
 
-export default userQueryOption;
+export default loginQueryOption;

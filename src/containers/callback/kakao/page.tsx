@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import showToast from "@lib/toastConfig";
-import userQueryOption from "@services/api/user";
+import loginQueryOption from "@services/login";
 import { useQuery } from "@tanstack/react-query";
 
 const KakaoLogin = () => {
@@ -17,7 +17,7 @@ const KakaoLogin = () => {
 	}
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const { data } = useQuery(userQueryOption.getKakaoAuthToken({ code }));
+	const { data } = useQuery(loginQueryOption.getKakaoAuthToken({ code }));
 	if (data) {
 		// const accessToken = data.headers.authorization;
 		// const refreshToken = data.data;

@@ -1,11 +1,10 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import { RiKakaoTalkFill } from "react-icons/ri";
 
 import { Button } from "@components/Button";
-import { handleGoogleLogin } from "@constants/getGoogleAuthUrl";
-import { handleKakaoLogin } from "@constants/getKakaoAuthUrl";
 
 const SocialLogin = () => {
 	return (
@@ -18,14 +17,14 @@ const SocialLogin = () => {
 			<div className="flex items-center justify-center gap-[20px]">
 				<Button
 					type="button"
-					onClick={handleGoogleLogin}
+					onClick={() => signIn("google")}
 					className="rounded-full  border border-sub-gray3 bg-[#fff] text-[20px]"
 				>
 					<FcGoogle />
 				</Button>
 				<Button
 					type="button"
-					onClick={handleKakaoLogin}
+					onClick={() => signIn("kakao")}
 					className="rounded-full  border border-[#FDE501] bg-[#FDE501] text-[20px]"
 				>
 					<RiKakaoTalkFill />

@@ -3,9 +3,10 @@
 import { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 import showToast from "@lib/toastConfig";
-import userQueryOption from "@services/api/user";
+import loginQueryOption from "@services/login";
 import { useQuery } from "@tanstack/react-query";
 
 const GooleLogin = () => {
@@ -23,7 +24,7 @@ const GooleLogin = () => {
 	}
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
-	const { data } = useQuery(userQueryOption.getGoogleAuthToken({ code }));
+	const { data } = useQuery(loginQueryOption.getGoogleAuthToken({ code }));
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	useEffect(() => {
 		if (data) {
@@ -36,6 +37,9 @@ const GooleLogin = () => {
 			// setAccessToken(accessToken);
 			// setRefreshToken(refreshToken);
 			console.log(data);
+			// signIn("credentials", {
+			// 	data,
+			// });
 			showToast({
 				type: "success",
 				message: "로그인이 완료되었습니다.",

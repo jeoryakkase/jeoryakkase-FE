@@ -24,8 +24,8 @@ import showToast from "@lib/toastConfig";
 import {
 	getDuplicationEmail,
 	getDuplicationNickName,
-} from "@services/api/user/duplication";
-import postSignUp from "@services/api/user/signup";
+} from "@services/login/duplication";
+import postSignUp from "@services/signup";
 import { useMutation } from "@tanstack/react-query";
 
 import {
