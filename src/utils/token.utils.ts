@@ -1,28 +1,12 @@
-import { getToken } from "next-auth/jwt";
-import { NextRequest } from "next/server";
+import { getSession } from "next-auth/react";
 
-interface Token {
-	accessToken?: string;
-	refreshToken?: string;
-}
-// 세션에서 액세스 토큰 가져오기
-export const getAccessToken = async (
-	req: NextRequest,
-): Promise<string | null> => {
-	const token = (await getToken({
-		req,
-		secret: process.env.NEXTAUTH_SECRET,
-	})) as Token;
-	return token?.accessToken || null;
+const getAccessToken = async () => {
+	const session = await getSession();
+	if (session && session.user.access_token) {
+		return session.user.access_token as string;
+	}
+	console.log(session, "interceptor session 찍히냐");
+	return null;
 };
 
-// 세션에서 리프레시 토큰 가져오기
-export const getRefreshToken = async (
-	req: NextRequest,
-): Promise<string | null> => {
-	const token = (await getToken({
-		req,
-		secret: process.env.NEXTAUTH_SECRET,
-	})) as Token;
-	return token?.refreshToken || null;
-};
+export default getAccessToken;
