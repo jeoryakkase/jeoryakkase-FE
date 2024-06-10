@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { useRouter } from "next/navigation";
 
 import showToast from "@lib/toastConfig";
@@ -22,22 +24,26 @@ const GooleLogin = () => {
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	const { data } = useQuery(userQueryOption.getGoogleAuthToken({ code }));
-	if (data) {
-		// signIn("social-credentials", {
-		// 	accessToken: data.accessToken,
-		// 	refreshToken: data.refreshToken,
-		// });
-		// const accessToken = data.headers.authorization;
-		// const refreshToken = data.data;
-		// setAccessToken(accessToken);
-		// setRefreshToken(refreshToken);
-		console.log(data);
-		showToast({
-			type: "success",
-			message: "로그인이 완료되었습니다.",
-		});
-		router.replace("/");
-	}
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	useEffect(() => {
+		if (data) {
+			// signIn("social-credentials", {
+			// 	accessToken: data.accessToken,
+			// 	refreshToken: data.refreshToken,
+			// });
+			// const accessToken = data.headers.authorization;
+			// const refreshToken = data.data;
+			// setAccessToken(accessToken);
+			// setRefreshToken(refreshToken);
+			console.log(data);
+			showToast({
+				type: "success",
+				message: "로그인이 완료되었습니다.",
+			});
+			router.replace("/");
+		}
+	}, [data]);
+
 	return <>Loading</>;
 };
 

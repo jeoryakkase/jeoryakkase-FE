@@ -4,9 +4,9 @@ import CredentialsProvider from "next-auth/providers/credentials";
 // import KakaoProvider from "next-auth/providers/kakao";
 declare module "next-auth" {
 	interface User {
-		access_token?: string;
+		accessToken?: string;
 		expires_at?: number;
-		refresh_token?: string;
+		refreshToken?: string;
 	}
 
 	interface Session {
@@ -20,9 +20,9 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
 	interface JWT {
-		access_token: string;
+		accessToken: string;
 		expires_at: number;
-		refresh_token: string;
+		refreshToken: string;
 		user: User;
 		error?: "RefreshAccessTokenError";
 	}
@@ -58,9 +58,12 @@ const handler = NextAuth({
 							}),
 						},
 					);
-
+					const authorizationHeader = res.headers.get("Authorization");
+					console.log("authorizationHeader", authorizationHeader);
 					const user = await res.json();
+					console.log("user", user);
 					if (user) {
+						user.accessToken = authorizationHeader;
 						return user;
 					}
 					return null;
@@ -85,28 +88,37 @@ const handler = NextAuth({
 		// }),
 	],
 	secret: process.env.NEXTAUTH_SECRET,
-	cookies: {
-		sessionToken: {
-			name: `next-auth.session-token`,
-			options: {
-				domain: "localhost",
-				httpOnly: true,
-				sameSite: "Lax",
-				path: "/",
-				secure: false,
-			},
-		},
-	},
+	// cookies: {
+	// 	sessionToken: {
+	// 		name: `next-auth.session-token`,
+	// 		options: {
+	// 			domain: "localhost",
+	// 			httpOnly: true,
+	// 			sameSite: "Lax",
+	// 			path: "/",
+	// 			secure: false,
+	// 		},
+	// 	},
+	// },
 	callbacks: {
 		async jwt({ token, user }) {
 			try {
+				console.log("받은 user값", user);
 				if (user) {
-					token.access_token = user.access_token!;
-					token.refresh_token = user.refresh_token!;
-					token.expires_at = Date.now() + 36 * 1000;
-					return token;
+					// token.access_token = user.access_token!;
+					// token.refresh_token = user.refresh_token!;
+					// token.expires_at = Date.now() + 36 * 1000;
+					// console.log("token 리프래쉬 후 ", token);
+					// return token;
+					return {
+						...token,
+						accessToken: user.accessToken!,
+						expires_at: Date.now() + 36 * 1000!,
+						refreshToken: user.refreshToken!,
+						user,
+					};
 				}
-
+				console.log("token 리프래쉬 후 ", token);
 				const nowTime = Math.round(Date.now() / 1000);
 				// 토큰 만료 10분전인지 계산
 				const shouldRefreshTime =
@@ -127,10 +139,9 @@ const handler = NextAuth({
 			if (token.error === "RefreshAccessTokenError") {
 				session.error = "RefreshTokenError";
 			} else if (token) {
-				// session.user = token.user as User;
-				session.accessToken = token.access_token;
+				session.user = token.user as User;
 				session.expiresAt = token.expires_at;
-				session.refreshToken = token.refresh_token;
+				console.log("session 마지막", session);
 				return session;
 			}
 			return session;
@@ -162,7 +173,7 @@ async function refreshAccessToken(
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({
-					refresh_token: token.refresh_token,
+					refreshToken: token.refreshToken,
 				}),
 			},
 		);
@@ -175,9 +186,9 @@ async function refreshAccessToken(
 
 		return {
 			...token,
-			access_token: refreshedTokens.access_token,
+			accessToken: refreshedTokens.accessToken,
 			expires_at: Date.now() + refreshedTokens.expires_in * 1000,
-			refresh_token: refreshedTokens.refresh_token ?? token.refresh_token,
+			refreshToken: refreshedTokens.refreshToken ?? token.refreshToken,
 		};
 	} catch (error) {
 		// 액세스 토큰 갱신 에러 시 2번까지는 시도하도록 retry 추가

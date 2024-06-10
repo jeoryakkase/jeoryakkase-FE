@@ -5,10 +5,9 @@ import Axios, {
 	AxiosResponse,
 	InternalAxiosRequestConfig,
 } from "axios";
-import { signOut } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 
 import showToast from "@lib/toastConfig";
-import getAccessToken from "@utils/token.utils";
 
 import { envConfig } from "./envConfig";
 
@@ -21,11 +20,17 @@ interface AuthResponse {
 }
 
 // 헤더에 액세스 토큰 넣어주기
-export const requestInterceptor = (config: InternalAxiosRequestConfig) => {
+export const requestInterceptor = async (
+	config: InternalAxiosRequestConfig,
+) => {
 	const headers: AxiosRequestHeaders =
 		(config.headers as AxiosRequestHeaders) || {};
-	const accessToken = getAccessToken();
-	headers.Authorization = `Bearer ${accessToken}`;
+	// const accessToken = await getAccessToken();
+	const session = await getSession();
+	console.log("accessToken 헤더", session?.user.accessToken);
+
+	headers.Authorization = `${session?.user.accessToken}`;
+
 	config.headers = headers;
 	return Promise.resolve(config);
 };
