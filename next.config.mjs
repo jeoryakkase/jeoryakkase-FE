@@ -49,26 +49,13 @@ const nextConfig = {
 	async rewrites() {
 		return [
 			{
-				source: "/_next/static/chunks/app/react-toastify.esm.mjs.map",
+				source: "/_next/static/chunks/app/:path*/react-toastify.esm.mjs.map",
 				destination: "/react-toastify/react-toastify.esm.mjs.map",
 			},
 			{
-				source: "/_next/static/chunks/app/saltern/:paht*/react-toastify.esm.mjs.map",
-				destination: "/react-toastify/react-toastify.esm.mjs.map",
-			},
-			{
-				source: "/_next/static/css/app/ReactToastify.css.map",
+				source: "/_next/static/css/app/:path*/ReactToastify.css.map",
 				destination: "/react-toastify/ReactToastify.css.map",
 			},
-			{
-				source: "/_next/static/css/app/challenge/:path*/ReactToastify.css.map",
-				destination: "/react-toastify/ReactToastify.css.map",
-			},
-			{
-				source: "/_next/static/css/app/saltern/:path*/ReactToastify.css.map",
-				destination: "/react-toastify/ReactToastify.css.map",
-			},
-			
 		];
 	},
 };

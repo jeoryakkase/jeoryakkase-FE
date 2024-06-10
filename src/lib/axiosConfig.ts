@@ -5,9 +5,10 @@ import Axios, {
 	AxiosResponse,
 	InternalAxiosRequestConfig,
 } from "axios";
+import { signOut } from "next-auth/react";
 
 import showToast from "@lib/toastConfig";
-import { getAccessToken, getRefreshToken } from "@utils/token.utils";
+import getAccessToken from "@utils/token.utils";
 
 import { envConfig } from "./envConfig";
 
@@ -47,10 +48,19 @@ export const rejectInterceptor = (
 
 	// 토큰 만료 시
 	if (status === 401) {
-		return handleTokenRefresh(error.config);
+		showToast({
+			type: "error",
+			message: "세션이 만료되었습니다. 다시 로그인해주세요.",
+		});
+		signOut({ callbackUrl: "/login" });
 	}
 
-	if (status === 400 && authData.message) {
+	if (
+		status === 409 &&
+		// 중복 에러 코드를 따로 받기
+		// ex. duplicated error
+		authData.message === "Member with this email already exists."
+	) {
 		showToast({ type: "error", message: authData.message[0] });
 	}
 
@@ -59,60 +69,6 @@ export const rejectInterceptor = (
 	}
 
 	return Promise.reject(error);
-};
-
-const handleTokenRefresh = async (
-	config: InternalAxiosRequestConfig | undefined,
-): Promise<AxiosResponse | void> => {
-	if (!config) {
-		// logout();
-		showToast({
-			type: "error",
-			message: "토큰 갱신을 위한 설정이 없습니다.",
-		});
-		throw new Error("토큰 갱신을 위한 설정이 없습니다.");
-	}
-
-	try {
-		// 리프레시 만료되었는지 확인
-		// /user/createAccessByRefresh
-		const refreshToken = getRefreshToken();
-		if (refreshToken) {
-			const tokenRefreshResult = await apiClient.post("/token", {
-				refreshToken,
-			});
-			if (tokenRefreshResult.status === 200) {
-				const accessToken = tokenRefreshResult.headers.authorization;
-				if (!accessToken) {
-					showToast({
-						type: "error",
-						message: "새 액세스 토큰을 받아오는 데 실패했습니다.",
-					});
-					// logout();
-				}
-
-				// 로컬 스토리지에 access 갱신
-
-				// 가져온 응답으로 헤더 갱신
-				if (config.headers) {
-					config.headers.Authorization = `Bearer ${accessToken}`;
-				}
-				return await apiClient(config);
-			}
-			// logout();
-			showToast({
-				type: "error",
-				message: "세션 만료. 다시 로그인 해주세요.",
-			});
-			return await Promise.reject(new Error("토큰 갱신에 실패했습니다."));
-		}
-	} catch (error) {
-		// logout();
-		showToast({
-			type: "error",
-			message: "세션 만료. 다시 로그인 해주세요.",
-		});
-	}
 };
 
 const apiClient: AxiosInstance = Axios.create({

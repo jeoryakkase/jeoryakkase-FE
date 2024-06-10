@@ -1,9 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { Button } from "@components/Button";
@@ -17,12 +16,13 @@ import {
 } from "@components/shadcn/ui/Form";
 import { Input } from "@components/shadcn/ui/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { envConfig } from "@lib/envConfig";
+import showToast from "@lib/toastConfig";
 
 import { loginDefault, loginValidation } from "./loginValidation";
 import SocialLogin from "../SocialLogin";
 
 const LeftForm = () => {
+	const { data: session, status } = useSession();
 	const router = useRouter();
 	const form = useForm<z.infer<typeof loginValidation>>({
 		resolver: zodResolver(loginValidation),
@@ -36,17 +36,22 @@ const LeftForm = () => {
 				username: data.email,
 				password: data.password,
 				redirect: false,
-				callbackUrl: `${envConfig.NEXTAUTH_URL}`,
+				callbackUrl: "/",
 			});
 			// const response = postLogin(data);
 			// console.log(response);
 
-			toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
+			showToast({ type: "success", message: "로그인이 완료되었습니다." });
 			router.replace("/");
 		} catch (error) {
-			toast.error("로그인에 실패하였습니다.", { autoClose: 2000 });
+			showToast({ type: "error", message: "로그인에 실패하였습니다." });
 		}
 	};
+
+	// if (session?.user) {
+	// 	router.replace("/");
+	// 	return null;
+	// }
 
 	return (
 		<Form {...form}>
