@@ -1,16 +1,10 @@
-import Link from "next/link";
-
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 import SuccessBadge from "@components/SuccessBadge";
-import badgeData from "@components/SuccessBadge/BadgeData";
 
-const BadgeCollection = () => {
+const NaegongBadge = () => {
 	return (
 		<ContentSection title="뱃지 컬렉션" childrenClassName="flex-col gap-[20px]">
-			<Link href="/userinfo/badges" className="self-end">
-				더 보기
-			</Link>
 			<Card className="flex flex-row gap-[20px] p-[20px]">
 				{badgeData
 					.filter((badge) => badge.id !== 0)
@@ -30,4 +24,4 @@ const BadgeCollection = () => {
 	);
 };
 
-export default BadgeCollection;
+export default NaegongBadge;

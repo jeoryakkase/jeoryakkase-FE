@@ -31,13 +31,12 @@ const LeftForm = () => {
 	const onSubmit = async (data: z.infer<typeof loginValidation>) => {
 		try {
 			console.log("data: ", data);
-			await signIn("credentials", {
+			const res = await signIn("credentials", {
 				username: data.email,
 				password: data.password,
 				redirect: false,
 				callbackUrl: "/",
 			});
-			// 주스탠드 스토어 연결 (닉네임, 프로필 이미지, 뱃지 )
 			router.replace("/");
 		} catch (error) {
 			showToast({ type: "error", message: "로그인에 실패하였습니다." });

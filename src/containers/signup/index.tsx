@@ -43,11 +43,17 @@ const SignupForm = () => {
 	const { mutate } = useMutation({
 		mutationFn: postSignUp,
 		onSuccess: () => {
-			toast.success("회원가입이 완료되었습니다.", { autoClose: 2000 });
+			showToast({
+				type: "success",
+				message: "회원가입이 완료되었습니다.",
+			});
 			router.push("/login");
 		},
 		onError: () => {
-			toast.error("회원가입에 실패하였습니다.", { autoClose: 2000 });
+			showToast({
+				type: "error",
+				message: "회원가입에 실패하였습니다.",
+			});
 		},
 	});
 	console.log(

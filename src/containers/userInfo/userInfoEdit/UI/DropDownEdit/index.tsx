@@ -11,6 +11,7 @@ interface DropdownMenuEditProps {
 	menuItems: { id: number; label: React.ReactNode }[];
 	className?: string;
 	childrenClassName?: string;
+	menuClick?: (item: number) => void;
 }
 
 const DropdownMenuEdit = ({
@@ -18,6 +19,7 @@ const DropdownMenuEdit = ({
 	menuItems,
 	className,
 	childrenClassName,
+	menuClick,
 }: DropdownMenuEditProps) => {
 	return (
 		<DropdownMenu>
@@ -27,7 +29,11 @@ const DropdownMenuEdit = ({
 			<DropdownMenuContent className="w-56 p-0">
 				<DropdownMenuGroup className={childrenClassName}>
 					{menuItems?.map((item) => (
-						<DropdownMenuItem key={item.id} className="justify-center ">
+						<DropdownMenuItem
+							key={item.id}
+							className="justify-center "
+							onClick={() => menuClick && menuClick(item.id)}
+						>
 							{item.label}
 						</DropdownMenuItem>
 					))}
