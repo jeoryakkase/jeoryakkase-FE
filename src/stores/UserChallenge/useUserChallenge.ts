@@ -13,7 +13,7 @@ export type UserChallenge = {
 	endDate: string;
 	imgs?: TagImgType;
 	today: boolean;
-	dueDate: boolean;
+	dueDate?: boolean;
 	countDay?: number;
 };
 

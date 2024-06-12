@@ -1,11 +1,3 @@
-export interface Challenge {
-	id: number;
-	title: string;
-	imgs: { id: string; img: string }[];
-	description: string;
-	messages: string[];
-}
-
 export interface Chunk {
 	chunkId: number;
 	challenges: Challenge[];
@@ -185,6 +177,15 @@ export const challengeDetail = {
 					},
 					{
 						id: 3,
+						nickname: "대댓글이지롱",
+						profileImg: "https://picsum.photos/60/60",
+						comment: "ㄱㄴㅇㄷㄹ!",
+						level: 2, // 원글 표시
+						depth: 2, // 댓글 깊이
+						isOwner: true,
+					},
+					{
+						id: 4,
 						nickname: "엘리스 매니저",
 						profileImg: "https://picsum.photos/60/60",
 						comment: "응원 감사감사리",
@@ -193,11 +194,11 @@ export const challengeDetail = {
 						isOwner: true,
 					},
 					{
-						id: 4,
+						id: 5,
 						nickname: "머랭쿠킼",
 						profileImg: "https://picsum.photos/60/60",
 						comment: "응원 감사감사리",
-						level: 1, // 원글 표시
+						level: 4, // 원글 표시
 						depth: 2, // 댓글 깊이
 						isOwner: false,
 					},

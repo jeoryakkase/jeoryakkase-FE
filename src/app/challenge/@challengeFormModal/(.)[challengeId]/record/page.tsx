@@ -1,10 +1,14 @@
-// "use client";
+"use client";
+
+import { useState } from "react";
+
+import ChallengeCertificateModal from "@containers/challenge/UI/ChallengeDetail/UI/ChallengeCertificateModal";
 
 // import { useParams, useRouter } from "next/navigation";
 
 // import ModalSadContent from "@components/ModalSadContent";
 
-const SadModal = () => {
+const ChallengeCertificate = () => {
 	// const router = useRouter();
 	// const { challengeId } = useParams();
 	// const challengeModalContent = "포기";
@@ -12,8 +16,9 @@ const SadModal = () => {
 	// const handleButtonAction = () => {
 	// 	router.replace(`/challenge/${challengeId}`);
 	// };
+	const [isOpen, setIsOpen] = useState(false);
 
-	return <div>폼 모달을 넣는 곳</div>;
+	return <ChallengeCertificateModal isOpen={isOpen} setIsOpen={setIsOpen} />;
 };
 
-export default SadModal;
+export default ChallengeCertificate;

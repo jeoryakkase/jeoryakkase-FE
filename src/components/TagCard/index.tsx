@@ -22,7 +22,7 @@ interface TagCardProps {
 	dueDate?: boolean;
 	className?: string;
 	countDay?: number;
-	tagMessage?: string[];
+	tagMessage?: string;
 }
 
 const TagCard = ({
@@ -76,22 +76,15 @@ const TagCard = ({
 				<div className="flex flex-col items-start space-y-2">
 					{today !== undefined
 						? messages && (
-								<>
-									<Badge variant="default" bgColor={badgeColor}>
-										{messages[0]}
-									</Badge>
-									<Badge variant="default" bgColor={badgeColor}>
-										{messages[1]}
-									</Badge>
-								</>
-							)
-						: tagMessage &&
-							tagMessage.map((msg, index) => (
-								// eslint-disable-next-line react/no-array-index-key
-								<Badge key={index} variant="default" bgColor="yellow">
-									{msg}
+								<Badge variant="default" bgColor={badgeColor}>
+									{messages}
 								</Badge>
-							))}
+							)
+						: tagMessage && (
+								<Badge variant="default" bgColor="yellow">
+									{tagMessage}
+								</Badge>
+							)}
 				</div>
 				<Card.Footer>
 					{startDate && endDate && (

@@ -1,5 +1,5 @@
 import TagCard from "@components/TagCard";
-import { Challenge } from "@containers/challenge/dummy/index";
+import { Challenge } from "@containers/challenge/types";
 
 interface ArrangedCardProps {
 	allChallenge: Challenge[];

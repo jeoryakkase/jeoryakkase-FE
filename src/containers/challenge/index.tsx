@@ -1,20 +1,46 @@
 "use client";
 
-import useUserChallenge from "@stores/UserChallenge/useUserChallenge";
+import {
+	transformAllChallenges,
+	transformChallenges,
+} from "src/viewModels/challenge/challengesViewModel";
 
-import { allChallenge, hotChallenge } from "./dummy/index";
+import challengeQueryOption from "@services/challenge";
+import { useQuery } from "@tanstack/react-query";
+
 import PreviewAllChallenge from "./UI/AllChallenge/UI/PreviewAllChallenge";
 import HotChallenge from "./UI/HotChallenge";
 import UserChallenges from "./UI/UserChallenges";
 
 const Challenge = () => {
-	const challenges = useUserChallenge((state) => state.challenges);
+	// const challenges = useUserChallenge((state) => state.challenges);
+	const { data: challengeData } = useQuery(
+		challengeQueryOption.getChallenges(),
+	);
+
+	if (!challengeData) {
+		return null;
+	}
+
+	const challenges = transformChallenges(
+		challengeData?.memberChallengesJoinResDto,
+	);
+
+	// const allChallenge = transformAllChallenges(
+	// 	challengeData.challengesReadResDto,
+	// );
+
+	const hotChallenges = transformAllChallenges(
+		challengeData.challengesPopularityReadResDto,
+	);
 
 	return (
 		<section>
-			<UserChallenges challenges={challenges} />
-			<PreviewAllChallenge allChallenge={allChallenge} />
-			<HotChallenge hotChallenges={hotChallenge} />
+			{challengeData.memberChallengesJoinResDto && (
+				<UserChallenges challenges={challenges} />
+			)}
+			{/* <PreviewAllChallenge allChallenge={allChallenge} /> */}
+			<HotChallenge hotChallenges={hotChallenges} />
 		</section>
 	);
 };

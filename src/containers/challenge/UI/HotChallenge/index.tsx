@@ -1,6 +1,13 @@
 import { ContentSection } from "@components/ContentSection";
 import TagCard from "@components/TagCard";
-import { Challenge } from "@containers/challenge/dummy/index";
+
+export interface Challenge {
+	id: string;
+	title: string;
+	imgs: { id: string; img: string }[];
+	description: string;
+	messages: string;
+}
 
 interface HotChallengeCardProps {
 	hotChallenges: Challenge[];
