@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-import UserInfoGoalPage from "@app/userinfo/[goalId]/page";
 import NaegongGiveUpModal from "@containers/naegong/UI/NaegongGiveUpModal";
 
 const NaegongGiveUpModalPage = () => {
@@ -12,7 +11,7 @@ const NaegongGiveUpModalPage = () => {
 		setIsOpen(true);
 	}, []);
 
-	return <>{isOpen && <NaegongGiveUpModal />}</>;
+	return <div>{isOpen && <NaegongGiveUpModal />}</div>;
 };
 
 export default NaegongGiveUpModalPage;

@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
 
 	const token = await getToken({
 		req: request,
-		secret: process.env.NEXTAUTH_SECRET,
+		secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
 		cookieName: "next-auth.session-token",
 	});
 	console.log("Request cookies:", request.cookies.getAll());

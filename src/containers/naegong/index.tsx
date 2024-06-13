@@ -2,6 +2,7 @@
 
 import { format } from "date-fns";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { SlOptionsVertical } from "react-icons/sl";
 
 import { Button } from "@components/Button";
@@ -11,13 +12,12 @@ import ProgressBarChart from "@components/ProgressBar";
 import { Badge } from "@components/shadcn/ui/Badge";
 import { progressGoalData } from "@containers/userInfo/assets/progressGoalData";
 import DropdownMenuEdit from "@containers/userInfo/userInfoEdit/UI/DropDownEdit";
-import goalsQueryOption from "@services/goals";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import goalsQueryOption from "@services/user/goals";
+import { useQuery } from "@tanstack/react-query";
 
 import { calculateDaysLeft, formatGoalAmount } from "./asset/cardCalculate";
 import statusColorClasses from "./asset/statusColorClasses";
 import { GoalItemType } from "./UI/NaegongValidation";
-import { useRouter } from "next/navigation";
 
 const Naegong = () => {
 	const router = useRouter();

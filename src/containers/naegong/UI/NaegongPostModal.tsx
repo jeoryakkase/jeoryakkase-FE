@@ -1,27 +1,25 @@
 "use client";
-import UrlModal from "@components/UrlModal";
-import { zodResolver } from "@hookform/resolvers/zod";
-import showToast from "@lib/toastConfig";
+
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import {
-	NaegongDefault,
-	NaegongFormType,
-	NaegongValidation,
-} from "./NaegongValidation";
+import { z } from "zod";
+
+import { Button } from "@components/Button";
 import ModalForm from "@components/ModalForm";
 import {
 	Form,
 	FormControl,
 	FormField,
 	FormItem,
-	FormLabel,
 	FormMessage,
 } from "@components/shadcn/ui/Form";
-import { Button } from "@components/Button";
-import { z } from "zod";
+import UrlModal from "@components/UrlModal";
+import { zodResolver } from "@hookform/resolvers/zod";
+import showToast from "@lib/toastConfig";
+import postGoals from "@services/user/goals/postGoals";
 import { useMutation } from "@tanstack/react-query";
-import postGoals from "@services/goals/postGoals";
+
+import { NaegongDefault, NaegongValidation } from "./NaegongValidation";
 
 const NaegongPostModal = () => {
 	const form = useForm<z.infer<typeof NaegongValidation>>({

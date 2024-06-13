@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-import UserInfoGoalPage from "@app/userinfo/[goalId]/page";
 import NaegongGiveUpModal from "@containers/naegong/UI/NaegongGiveUpModal";
 
 const NaegongGiveUpModalPage = () => {

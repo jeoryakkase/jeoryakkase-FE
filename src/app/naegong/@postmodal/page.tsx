@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 import NaegongPostModal from "@containers/naegong/UI/NaegongPostModal";
-import UserInfoGoalPage from "@app/userinfo/[goalId]/page";
 
 const NaegongPostModalPage = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -12,12 +11,7 @@ const NaegongPostModalPage = () => {
 		setIsOpen(true);
 	}, []);
 
-	return (
-		<>
-			{isOpen && <NaegongPostModal />}
-			<UserInfoGoalPage />
-		</>
-	);
+	return <div>{isOpen && <NaegongPostModal />}</div>;
 };
 
 export default NaegongPostModalPage;

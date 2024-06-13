@@ -31,7 +31,7 @@ const LeftForm = () => {
 	const onSubmit = async (data: z.infer<typeof loginValidation>) => {
 		try {
 			console.log("data: ", data);
-			const res = await signIn("credentials", {
+			await signIn("credentials", {
 				username: data.email,
 				password: data.password,
 				redirect: false,

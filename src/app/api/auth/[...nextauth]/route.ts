@@ -1,11 +1,11 @@
 import NextAuth, { Account, User } from "next-auth";
+import { AdapterUser } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import KakaoProvider from "next-auth/providers/kakao";
 
 import showToast from "@lib/toastConfig";
 import useAuthStore, { UserStoreData } from "@stores/Auth/useUserAuth";
-import { AdapterUser } from "next-auth/adapters";
 
 declare module "next-auth" {
 	interface User {
@@ -165,11 +165,13 @@ const handler = NextAuth({
 
 				return session;
 			}
+			console.log("session 저장된거니", session);
 			return session;
 		},
 		async redirect({ url, baseUrl }) {
-			if (url.startsWith(baseUrl)) {
-				return url;
+			// 로그인 성공 시 홈으로 리디렉션
+			if (url.startsWith(baseUrl) || url.startsWith("/login")) {
+				return baseUrl;
 			}
 			return baseUrl;
 		},
@@ -247,7 +249,7 @@ async function socialToken(account: Account) {
 		console.log("accessToken", account.access_token);
 		console.log("refreshToken", account.refresh_token);
 
-		//스토어 저장 name,badgeDesc,badgeImage
+		// 스토어 저장 name,badgeDesc,badgeImage
 		// useAuthStore.getState().login(res);
 		if (!res.ok) {
 			throw new Error(`API 호출 실패: ${res.status}`);

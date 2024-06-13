@@ -26,10 +26,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import showToast from "@lib/toastConfig";
 import { getDuplicationNickName } from "@services/login/duplication";
 import userQueryOption from "@services/user";
-import patchUserInfo from "@services/user/pathchUserInfo";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import FormSchema from "../../userInfoEditValidation";
+import patchUserInfo from "@services/user/pathchUserInfo";
 
 export interface UserEdit {
 	profileImage?: File | null;

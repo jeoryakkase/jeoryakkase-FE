@@ -1,10 +1,13 @@
 "use client";
+
 import Image from "next/image";
-import UrlModal from "@components/UrlModal";
-import giveUpGoalId from "@services/goals/giveUpGoalId";
-import SadCharacter from "@assets/images/character/character03.png";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
+
+import SadCharacter from "@assets/images/character/character03.png";
+import UrlModal from "@components/UrlModal";
+import giveUpGoalId from "@services/user/goals/giveUpGoalId";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
 type Params = {
 	goalId: string;
 };
@@ -22,7 +25,7 @@ const NaegongGiveUpModal = () => {
 	});
 	const handleGiveUp = () => {
 		if (goalId) {
-			giveUpGoalMutation({ goalId: parseInt(goalId) });
+			giveUpGoalMutation({ goalId: parseInt(goalId, 10) });
 		}
 	};
 
@@ -34,12 +37,7 @@ const NaegongGiveUpModal = () => {
 			className="pb-[40px]"
 		>
 			<div className="flex flex-col gap-[20px] items-center">
-				<Image
-					width={200}
-					height={200}
-					src={SadCharacter}
-					alt={"SadCharacter"}
-				/>
+				<Image width={200} height={200} src={SadCharacter} alt="SadCharacter" />
 				<div className="font-bold text-xxl mb-[20px]">
 					정말 포기하시겠습니까
 				</div>
