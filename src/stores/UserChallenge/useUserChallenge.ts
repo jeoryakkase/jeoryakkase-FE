@@ -1,9 +1,6 @@
 import { create } from "zustand";
 
-type TagImgType = {
-	id: string;
-	img: string;
-}[];
+type TagImgType = { id: string; img: string }[] | string;
 
 export type UserChallenge = {
 	id: string;
@@ -13,8 +10,9 @@ export type UserChallenge = {
 	endDate: string;
 	imgs?: TagImgType;
 	today: boolean;
-	dueDate: boolean;
+	dueDate?: boolean;
 	countDay?: number;
+	memeberChallengeId: number;
 };
 
 export type UserChallengeState = {

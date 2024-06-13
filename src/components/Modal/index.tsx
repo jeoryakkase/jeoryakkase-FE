@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 import { Button } from "@components/Button";
 import {
 	Dialog,
@@ -10,25 +12,34 @@ import {
 } from "@components/shadcn/ui/Dialog";
 
 interface ModalProps {
-	triggerChildren: React.ReactNode;
+	isOpen?: boolean;
+	onOpenChange?: (open: boolean) => void;
+	triggerChildren?: React.ReactNode;
 	title?: string;
 	children: React.ReactNode;
 	button?: React.ReactNode;
 	buttonAction?: () => void;
 	closeButton?: React.ReactNode;
+	closeAction?: () => void;
 	subText?: string;
 }
 const Modal = ({
+	isOpen,
+	onOpenChange,
 	triggerChildren,
 	title,
 	children,
 	button,
 	buttonAction,
 	closeButton,
+	closeAction,
 	subText,
 }: ModalProps) => {
+	useEffect(() => {
+		onOpenChange?.(isOpen || false);
+	}, [isOpen, onOpenChange]);
 	return (
-		<Dialog>
+		<Dialog open={isOpen} onOpenChange={onOpenChange}>
 			<DialogTrigger asChild>{triggerChildren}</DialogTrigger>
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
@@ -46,11 +57,18 @@ const Modal = ({
 							</DialogClose>
 						)}
 						{closeButton && (
-							<DialogClose asChild>
-								<Button type="button" bgColor="lightyellow">
-									{closeButton}
-								</Button>
-							</DialogClose>
+							// <DialogClose asChild>
+							<Button
+								type="button"
+								bgColor="lightyellow"
+								onClick={() => {
+									onOpenChange?.(false);
+									closeAction?.();
+								}}
+							>
+								{closeButton}
+							</Button>
+							// </DialogClose>
 						)}
 					</DialogFooter>
 				)}

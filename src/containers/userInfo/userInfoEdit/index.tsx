@@ -1,7 +1,9 @@
+"use client";
 import { IoMdSettings } from "react-icons/io";
 
 import DropdownMenuEdit from "./UI/DropDownEdit";
 import UserInfoEditForm from "./UI/UserInfoEditForm";
+import { Button } from "@components/Button";
 
 const UserInfoEdit = () => {
 	const item = [
@@ -10,7 +12,14 @@ const UserInfoEdit = () => {
 	];
 	return (
 		<div>
-			<DropdownMenuEdit trigger={<IoMdSettings />} menuItems={item} />
+			<DropdownMenuEdit
+				trigger={
+					<Button variant="ghost" bgColor="transparent" shadow="transparent">
+						<IoMdSettings />
+					</Button>
+				}
+				menuItems={item}
+			/>
 			<UserInfoEditForm />
 		</div>
 	);

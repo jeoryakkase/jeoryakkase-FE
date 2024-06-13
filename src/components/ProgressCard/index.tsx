@@ -1,8 +1,12 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 
 import Card from "@components/Card";
-import ProgressBarChart from "@components/ProgressBar";
 import progressBarData from "@containers/main/assets/progressBarData";
+
+const ProgressBarChart = dynamic(() => import("@components/ProgressBar"), {
+	ssr: false,
+});
 
 interface ProgressCardProps {
 	img?: string;

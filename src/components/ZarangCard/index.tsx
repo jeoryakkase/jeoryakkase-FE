@@ -46,11 +46,11 @@ const ZarangCard = ({
 				<div className="flex flex-col">
 					<Card.Content>
 						<UserProfileBox nickname={nickName} profileImg={profileImage} />
-						<div className="flex flex-col items-start space-y-2">
-							<Badge variant="default" bgColor="lightblue">
+						<div className="flex flex-col items-start space-y-3">
+							<Badge variant="default" bgColor="lightblue" className="mt-2">
 								{zarangContent[0]}
 							</Badge>
-							<div>{comment}</div>
+							<div className="bg-main-lightyellow">{comment}</div>
 							<div>총 절약 금액 {zarangContent[1]} 원</div>
 						</div>
 					</Card.Content>
@@ -58,9 +58,9 @@ const ZarangCard = ({
 			</div>
 
 			<Card.Footer>
-				<div className="flex items-center">
+				<div className="flex items-center text-sub-gray4">
 					<Image src={ClapIcon} alt="박수 이모티콘" className="mr-2" />
-					{cheers}이 박수를 쳤습니다
+					{cheers}명이 박수를 쳤습니다
 				</div>
 			</Card.Footer>
 		</Card>

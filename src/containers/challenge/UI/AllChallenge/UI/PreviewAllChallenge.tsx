@@ -2,12 +2,12 @@ import Link from "next/link";
 
 import { ContentSection } from "@components/ContentSection";
 import Flex from "@components/Flex";
-import { Chunk } from "@containers/challenge/dummy";
+import { Challenge } from "@containers/challenge/types";
 
 import ArrangedCard from "./ArrangedCard";
 
 interface AllChallengeProps {
-	allChallenge: Chunk[];
+	allChallenge: Challenge[];
 }
 
 const PreviewAllChallenge = ({ allChallenge }: AllChallengeProps) => {
@@ -23,10 +23,7 @@ const PreviewAllChallenge = ({ allChallenge }: AllChallengeProps) => {
 					</Link>
 				</div>
 
-				<ArrangedCard
-					key={allChallenge[0].chunkId}
-					allChallenge={allChallenge[0].challenges}
-				/>
+				<ArrangedCard allChallenge={allChallenge} />
 			</Flex>
 		</ContentSection>
 	);

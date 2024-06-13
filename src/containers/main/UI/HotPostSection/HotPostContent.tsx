@@ -18,22 +18,32 @@ const HotPostContent = ({
 	return (
 		<section className="flex flex-col">
 			<Card highlight="" className="flex-row items-center flex-grow mb-8 p-2">
-				<div className="m-4">
+				<div className="m-4 p-6">
 					<Image
 						src={questionIcon}
 						alt="Question Icon"
-						width={100}
-						height={100}
+						width={80}
+						height={80}
 					/>
 				</div>
-				<div>
-					<Card.Header title={voteTitle} />
+				<div className="flex flex-col items-start">
+					<Card.Header title={voteTitle} className="ml-6 mb-2 mt-3" />
 					<Card.Content>
-						<p>{voteContent}</p>
-						<Button bgColor="lightblue" className="mr-3">
+						<p className="mb-3">{voteContent}</p>
+						<Button
+							bgColor="lightblue"
+							className="mr-3 rounded-3xl text-s"
+							size="lg"
+						>
 							허
 						</Button>
-						<Button bgColor="red">불허</Button>
+						<Button
+							bgColor="red"
+							className="mr-5 rounded-3xl text-s text-white"
+							size="lg"
+						>
+							불허
+						</Button>
 						<Button bgColor="lightyellow">
 							다른 소금이들의 허불허 구경하러 가기
 						</Button>
@@ -53,10 +63,13 @@ const HotPostContent = ({
 						className="object-cover w-full h-150 rounded-lg"
 					/>
 				</div>
-				<div className="flex-grow ml-4 overflow-hidden">
-					<Card.Header title={tipTitle} />
+				<div className="flex flex-col flex-grow items-start">
+					<Card.Header
+						title={tipTitle}
+						className="flex flex-row justify-start ml-6 mb-3"
+					/>
 					<Card.Content>
-						<p>{tipContent}</p>
+						<p className="mb-3">{tipContent}</p>
 						<Button bgColor="lightyellow">짠맛나는 짠팁 보러가기</Button>
 					</Card.Content>
 				</div>

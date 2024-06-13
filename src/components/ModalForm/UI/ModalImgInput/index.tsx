@@ -80,7 +80,7 @@ const ModalImgInput = ({
 							width={0}
 							height={0}
 							sizes="100vw"
-							className="relative object-cover  rounded-md w-[100%] "
+							className="relative object-cover  rounded-md w-[100%] h-[200px]"
 						/>
 					) : (
 						<FaPlus

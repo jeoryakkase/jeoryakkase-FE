@@ -1,53 +1,90 @@
 {
-	"compilerOptions": {
-		"lib": ["dom", "dom.iterable", "esnext"],
-		"allowJs": true,
-		"skipLibCheck": true,
-		"strict": false,
-		"noEmit": true,
-		"incremental": true,
-		"module": "esnext",
-		"esModuleInterop": true,
-		"moduleResolution": "node",
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"jsx": "preserve",
-		"allowUmdGlobalAccess": true,
-		"plugins": [
-			{
-				"name": "next"
-			}
-		],
-		"strictNullChecks": true,
-		"allowSyntheticDefaultImports": true,
-		// 절대 경로 설정
-		"baseUrl": ".",
-		"paths": {
-			// "@/*": ["*"],
-			"@components/*": ["src/components/*"],
-			"@app/*": ["src/app/*"],
-			"@assets/*": ["src/assets/*"],
-			"@styles/*": ["src/styles/*"],
-			"@constants/*": ["src/constants/*"],
-			"@containers/*": ["src/containers/*"],
-			"@hooks/*": ["src/hooks/*"],
-			"@services/*": ["src/services/*"],
-			"@stores/*": ["src/stores/*"],
-			"@types/*": ["src/types/*"],
-			"@utils/*": ["src/utils/*"],
-			"@lib/*": ["src/lib/*"],
-			"shadcn-ui": ["node_modules/shadcn-ui"]
-		}
-	},
-	"include": [
-		"src",
-		"src/**/*",
-		"src/types",
-		"next-env.d.ts",
-		"next.config.mjs",
-		".next/types/**/*.ts",
-		"**/*.ts",
-		"**/*.tsx"
-	],
-	"exclude": ["node_modules", ".next"]
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "module": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "allowUmdGlobalAccess": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true,
+    "allowSyntheticDefaultImports": true,
+    // 절대 경로 설정
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@styles/*": [
+        "src/styles/*"
+      ],
+      "@constants/*": [
+        "src/constants/*"
+      ],
+      "@containers/*": [
+        "src/containers/*"
+      ],
+      "@hooks/*": [
+        "src/hooks/*"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@stores/*": [
+        "src/stores/*"
+      ],
+      "@types/*": [
+        "src/types/*"
+      ],
+      "@utils/*": [
+        "src/utils/*"
+      ],
+      "@lib/*": [
+        "src/lib/*"
+      ],
+      "shadcn-ui": [
+        "node_modules/shadcn-ui"
+      ]
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./src/types"
+    ]
+  },
+  "include": [
+    "src",
+    "src/**/*",
+    "src/*.d.ts",
+    "next-env.d.ts",
+    "next.config.mjs",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "postcss.config.mjs"
+  ],
+  "exclude": [
+    "node_modules",
+    ".next"
+  ]
 }

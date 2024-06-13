@@ -5,6 +5,8 @@ import ModalImgInput from "./UI/ModalImgInput";
 import ModalInput from "./UI/ModalInput";
 import ModalSelect from "./UI/ModalSelect";
 import ModalTextarea from "./UI/ModalTextarea";
+import ModalDateRange from "./UI/ModalDateRange";
+import ModalDate from "./UI/ModalDate";
 
 interface FormProps {
 	children: React.ReactNode;
@@ -24,5 +26,7 @@ ModalForm.Input = ModalInput;
 ModalForm.ImgInput = ModalImgInput;
 ModalForm.Textarea = ModalTextarea;
 ModalForm.Select = ModalSelect;
+ModalForm.ModalDate = ModalDate;
+ModalForm.DateRange = ModalDateRange;
 
 export default ModalForm;
