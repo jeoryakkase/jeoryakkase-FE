@@ -12,6 +12,7 @@ export type UserChallenge = {
 	today: boolean;
 	dueDate?: boolean;
 	countDay?: number;
+	memeberChallengeId: number;
 };
 
 export type UserChallengeState = {

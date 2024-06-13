@@ -7,6 +7,7 @@ import { Challenge } from "@containers/challenge/UI/HotChallenge";
 import showToast from "@lib/toastConfig";
 
 import {
+	AllChallengeList,
 	AllChallenges,
 	ChallengesJoined,
 	MemberChallengesJoined,
@@ -43,28 +44,43 @@ export const transformChallenges = (
 		id: userChallenge.id.toString(),
 		title: userChallenge.challengeTtile,
 		description: userChallenge.challengeTerm,
-		imgs: userChallenge.certificationChallengeDto.certificationChallengeImageDtos.map(
-			(img) => ({
+		imgs: userChallenge.certificationChallengeDtos.flatMap((certification) =>
+			certification.certificationChallengeImageDtos.map((img) => ({
 				id: img.id,
 				img: img.imageUrl,
-			}),
+			})),
 		),
 		startDate: userChallenge.startDate,
 		endDate: userChallenge.endDate,
 		today: userChallenge.isTodayCertification,
 		countDay: userChallenge.effectiveDate,
+		memeberChallengeId: userChallenge.certificationChallengeDtos.map(
+			(memeberId) => memeberId.id,
+		),
 	}));
 };
 
 export const transformAllChallenges = (
 	allChallengeData: AllChallenges[],
 ): Challenge[] => {
-	return allChallengeData.map((hotChallenge) => ({
-		id: hotChallenge.id.toString(),
-		title: hotChallenge.challengeTitle,
-		imgs: hotChallenge.badgeDto.badgeImage,
-		description: hotChallenge.authContent,
-		messages: hotChallenge.authContent,
+	return allChallengeData.map((allChallenge) => ({
+		id: allChallenge.id.toString(),
+		title: allChallenge.challengeTitle,
+		imgs: allChallenge.badgeDto.badgeImage,
+		description: allChallenge.authContent,
+		messages: allChallenge.authContent,
+	}));
+};
+
+export const transformAllChallengeList = (
+	allChallengeData: AllChallengeList,
+): Challenge[] => {
+	return allChallengeData.content.map((allChallenge) => ({
+		id: allChallenge.id.toString(),
+		title: allChallenge.challengeTitle,
+		imgs: allChallenge.badgeDto.badgeImage,
+		description: allChallenge.authContent,
+		messages: allChallenge.authContent,
 	}));
 };
 
@@ -83,12 +99,15 @@ export const transformChallengeInfoWithData = (
 			],
 			detail: challengeInfos.challengeDto.challengeDesc,
 			isJoined: challengeInfos.isTodayCertification,
-			percentage: 0,
-			// leftDay: ,
+			percentage: parseInt(challengeInfos.progressRate.replace("%", ""), 10),
+
+			// leftDay:
 			progressDay: challengeInfos.effectiveDate,
 			dayCount: challengeInfos.challengeDto.challengeCount,
+			badgeName: challengeInfos.challengeDto.badgeDto.name,
+			badgeDescription: challengeInfos.challengeDto.badgeDto.badgeDesc,
 		},
-		joinedCounts: 0,
+		joinedCounts: challengeInfos.numberOfParticipatingPeople,
 	};
 };
 
@@ -110,7 +129,6 @@ export const transformChallengeInfo = (
 				challengeInfo.challengeDifficulty,
 			],
 			detail: challengeInfo.challengeDesc,
-			percentage: 0,
 			// leftDay: ,
 			dayCount: challengeInfo.challengeCount,
 			badgeName: challengeInfo.badgeDto.name,

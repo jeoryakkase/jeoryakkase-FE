@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-
-import { useParams, usePathname, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -29,10 +27,11 @@ import {
 const ChallengeCertificateModal = () => {
 	const router = useRouter();
 	const { challengeId } = useParams();
+	const NumbChallengeId = Number(challengeId);
 	const queryClient = useQueryClient();
 
 	const { mutate: RecordCertificateMutate } = useMutation({
-		mutationFn: () => putAbandonChallenge({ challengeId }),
+		mutationFn: () => putAbandonChallenge({ userChallengeId: NumbChallengeId }),
 		onSuccess: () => {
 			queryClient.invalidateQueries({
 				queryKey: ["challengeInfo", "challengeInfos"],
@@ -65,9 +64,8 @@ const ChallengeCertificateModal = () => {
 						name="uploadFiles"
 						render={({ field }) => (
 							<FormItem className="w-10/12">
-								<FormLabel>사진 업로드</FormLabel>
 								<FormControl>
-									<ModalForm.ImgInput {...field} />
+									<ModalForm.ImgInput title="사진 업로드" {...field} />
 								</FormControl>
 							</FormItem>
 						)}

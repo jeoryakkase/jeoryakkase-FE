@@ -130,17 +130,16 @@ const InfoBox = ({ challengeDetail, isJoined, challengeId }) => {
 				<Card className="flex flex-col mt-10 w-[400px]">
 					<Card.Header title="획득 가능한 뱃지" />
 					<Card.Content className="flex flex-col items-center">
-						<div className="mt-5 font-semibold">
+						<div className="mt-5 mb-5 font-semibold">
 							{challengeDetail.badgeName}
 						</div>
-						<div className="w-[100px] h-[100px] mb-20">
-							<SuccessBadge
-								contentType="image"
-								content={challengeDetail.image}
-								fill="yellow"
-							/>
-						</div>
-						<div>{challengeDetail.badgeDescription}</div>
+						<SuccessBadge
+							contentType="image"
+							className="w-[100px] h-[100px]"
+							content={challengeDetail.image}
+							fill="yellow"
+						/>
+						<div className="mt-5 ">{challengeDetail.badgeDescription}</div>
 					</Card.Content>
 				</Card>
 			)}

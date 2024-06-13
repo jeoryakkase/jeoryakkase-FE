@@ -19,10 +19,13 @@ export interface Badge {
 	badgeImage: string;
 	badgeDesc: string;
 	badgeType: string;
+	stroke: string;
+	fill: string;
 }
 
 // 챌린지 타입
 export interface ChallengeCertification {
+	id: number;
 	certificationDate: string;
 	certificationChallengeImageDtos: {
 		id: string;
@@ -46,7 +49,7 @@ export interface ChallengesJoined {
 	successDate: string;
 	effectiveDate: number;
 	totalSaveMoney: number;
-	certificationChallengeDto: ChallengeCertification;
+	certificationChallengeDtos: ChallengeCertification[];
 }
 
 export interface AllChallenges {
@@ -62,6 +65,10 @@ export interface AllChallenges {
 	badgeDto: Badge;
 }
 
+export interface AllChallengeList {
+	content: AllChallenges[];
+}
+
 export interface MemberChallengesJoined {
 	id: number;
 	challengeTtile: string;
@@ -70,6 +77,8 @@ export interface MemberChallengesJoined {
 	startDate: string;
 	endDate: string;
 	successDate: string;
+	progressRate: string;
+	numberOfParticipatingPeople: number;
 	effectiveDate: number;
 	totalSaveMoney: number;
 	certificationChallengeDto: ChallengeCertification[];

@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 import ChallengeCertificateModal from "@containers/challenge/UI/ChallengeDetail/UI/ChallengeCertificateModal";
 
 // import { useParams, useRouter } from "next/navigation";
@@ -16,9 +14,8 @@ const ChallengeCertificate = () => {
 	// const handleButtonAction = () => {
 	// 	router.replace(`/challenge/${challengeId}`);
 	// };
-	const [isOpen, setIsOpen] = useState(true);
 
-	return <ChallengeCertificateModal isOpen={isOpen} setIsOpen={setIsOpen} />;
+	return <ChallengeCertificateModal />;
 };
 
 export default ChallengeCertificate;

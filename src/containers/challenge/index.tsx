@@ -13,7 +13,6 @@ import HotChallenge from "./UI/HotChallenge";
 import UserChallenges from "./UI/UserChallenges";
 
 const Challenge = () => {
-	// const challenges = useUserChallenge((state) => state.challenges);
 	const { data: challengeData } = useQuery(
 		challengeQueryOption.getChallenges(),
 	);

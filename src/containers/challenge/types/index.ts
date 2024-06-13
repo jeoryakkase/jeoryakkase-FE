@@ -18,6 +18,7 @@ export interface UserChallenges {
 	today: boolean;
 	dueDate?: boolean;
 	countDay?: number;
+	memeberChallengeId: number;
 }
 
 export interface ChallengeInfoBoxProps {

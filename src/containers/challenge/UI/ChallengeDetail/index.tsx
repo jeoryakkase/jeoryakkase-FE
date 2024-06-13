@@ -1,5 +1,5 @@
 // import ModalSadContent from "@components/ModalSadContent";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 import {
 	transformChallengeInfo,
@@ -30,12 +30,18 @@ const ChallengeDetail = () => {
 	// const handleCloseModal = () => {
 	// 	setIsModalOpen(false);
 	// };
-	const router = useRouter();
+	const params = useSearchParams();
+	const memberId = params.get("memeberChallengeId");
 	const { challengeId } = useParams();
+
 	const numberChallengeId = Number(challengeId);
+	const numberMemberId = Number(memberId);
+	console.log(numberMemberId);
+	console.log(typeof numberMemberId);
+	console.log(numberChallengeId);
 	const { data: challengeDetailData } = useQuery(
 		challengeQueryOption.getChallengeDetail({
-			challengeId: numberChallengeId,
+			challengeId: numberMemberId,
 		}),
 	);
 

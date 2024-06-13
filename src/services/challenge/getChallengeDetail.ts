@@ -8,7 +8,7 @@ export default async function getChallengeDetail({
 	challengeId: number;
 }) {
 	const response = await apiClient.get<ChallengeDetailInfo>(
-		`memebers/challenges/${challengeId}`,
+		`members/challenges/${challengeId}?challengeId=${challengeId}`,
 	);
 	return response.data;
 }
