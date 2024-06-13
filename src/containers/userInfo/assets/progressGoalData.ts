@@ -1,22 +1,21 @@
-const progressGoalData = {
-	labels: ["Progress"],
+const progressGoalData = (currentAmount: number, goalAmount: number) => ({
+	labels: ["목표금액"],
 	datasets: [
 		{
 			label: "진행도",
-			data: [45],
+			data: [currentAmount],
 			backgroundColor: ["#0A174E"],
 			borderWidth: 0.5,
 			barThickness: 20,
 		},
 		{
 			label: "총 진행도",
-			data: [100],
+			data: [goalAmount],
 			backgroundColor: ["#FDDB3A"],
 			barThickness: 20,
 		},
 	],
-};
-
+});
 const goalData = [
 	{
 		id: 1,

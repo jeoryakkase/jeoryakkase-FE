@@ -4,22 +4,22 @@ import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 import { Badge } from "@components/shadcn/ui/Badge";
 import SuccessBadge from "@components/SuccessBadge";
-import challengHistoryData from "@containers/userInfo/assets/challengHistoryData";
+import { calculateDaysLeft } from "@containers/naegong/asset/cardCalculate";
+import statusColorClasses from "@containers/userInfo/assets/challengeStatusColorClasses";
+import formatDate from "@containers/userInfo/assets/formatDate";
 
-const ChallengeHistory = () => {
-	const statusColorClasses = {
-		"인증 필요": "bg-point-lightred",
-		"인증 완료": "bg-yellow-100 ",
-		"진행 완료": "bg-blue-100 ",
-	};
-	const certificationNeeded = challengHistoryData
-		.filter((challenge) => challenge.status === "인증 필요")
+interface ChallengeHistoryProps {
+	challenges: MemberChallenge[];
+}
+const ChallengeHistory = ({ challenges = [] }: ChallengeHistoryProps) => {
+	const certificationNeeded = challenges
+		.filter((challenge) => challenge.challengeStatus === "IN_PROGRESS")
 		.slice(0, 2);
-	const certificationCompleted = challengHistoryData
-		.filter((challenge) => challenge.status === "인증 완료")
+	const certificationCompleted = challenges
+		.filter((challenge) => challenge.challengeStatus === "CANCELLED")
 		.slice(0, 2);
-	const progressCompleted = challengHistoryData
-		.filter((challenge) => challenge.status === "진행 완료")
+	const progressCompleted = challenges
+		.filter((challenge) => challenge.challengeStatus === "COMPLETED")
 		.slice(0, 4);
 	return (
 		<ContentSection
@@ -31,34 +31,40 @@ const ChallengeHistory = () => {
 			</Link>
 			<div className="flex justify-between">
 				<div className="w-[50%]">
-					<h2> 진행중</h2>
 					<div className="flex gap-[20px]">
 						<div className="flex flex-col gap-[20px]">
+							<h2> 진행중인 챌린지</h2>
 							{certificationNeeded.map((challenge) => {
-								const colorClasses = statusColorClasses[challenge.status];
+								const colorClasses =
+									statusColorClasses[challenge.challengeStatus];
 								return (
 									<Card
 										key={challenge.id}
-										highlight={false}
 										className={`flex flex-col gap-[10px] p-[20px] ${colorClasses}`}
 									>
 										<div className="flex gap-[20px] justify-between">
 											<h2 className="text-[20px] font-bold ">
-												{challenge.title}
+												{challenge.challengeDto.challengeTitle}
 											</h2>
-											<p>D + 25</p>
+											<p>
+												{calculateDaysLeft(
+													challenge.startDate,
+													challenge.endDate,
+												)}
+											</p>
 										</div>
 										<Card.Content className="p-0 flex flex-col gap-[30px]">
-											<p>한달</p>
 											<div className=" flex flex-col gap-[10px]">
-												{challenge.tags.map((tag) => (
-													<Badge key={tag} bgColor="darkblue">
-														<p>{tag}</p>
-													</Badge>
-												))}
+												<Badge bgColor="yellow">
+													<p>잘하고 있어요 👍</p>
+												</Badge>
+												<Badge bgColor="yellow">
+													<p>좀 더 힘내세요 👏</p>
+												</Badge>
 											</div>
 											<p>
-												{challenge.startDate} ~ {challenge.endDate}
+												{formatDate(challenge.startDate)} ~
+												{formatDate(challenge.endDate)}
 											</p>
 										</Card.Content>
 									</Card>
@@ -66,31 +72,38 @@ const ChallengeHistory = () => {
 							})}
 						</div>
 						<div className="flex flex-col gap-[20px]">
+							<h2> 포기한 챌린지</h2>
 							{certificationCompleted.map((challenge) => {
-								const colorClasses = statusColorClasses[challenge.status];
+								const colorClasses =
+									statusColorClasses[challenge.challengeStatus];
 								return (
 									<Card
 										key={challenge.id}
-										highlight={false}
 										className={`flex flex-col gap-[10px] p-[20px] ${colorClasses}`}
 									>
 										<div className="flex gap-[20px] justify-between">
 											<h2 className="text-[20px] font-bold ">
-												{challenge.title}
+												{challenge.challengeDto.challengeTitle}
 											</h2>
-											<p>D + 25</p>
+											<p>
+												{calculateDaysLeft(
+													challenge.startDate,
+													challenge.endDate,
+												)}
+											</p>
 										</div>
 										<Card.Content className="p-0 flex flex-col gap-[30px]">
-											<p>한달</p>
 											<div className=" flex flex-col gap-[10px]">
-												{challenge.tags.map((tag) => (
-													<Badge key={tag} bgColor="darkblue">
-														<p>{tag}</p>
-													</Badge>
-												))}
+												<Badge bgColor="red">
+													<p>포기하지 마세요 😵</p>
+												</Badge>
+												<Badge bgColor="red">
+													<p>다시 도전해보세요 🥹</p>
+												</Badge>
 											</div>
 											<p>
-												{challenge.startDate} ~ {challenge.endDate}
+												{formatDate(challenge.startDate)} ~
+												{formatDate(challenge.endDate)}
 											</p>
 										</Card.Content>
 									</Card>
@@ -103,38 +116,41 @@ const ChallengeHistory = () => {
 					<h2> 완료된 챌린지</h2>
 					<div className="flex flex-wrap gap-[20px] ">
 						{progressCompleted.map((challenge) => {
-							const colorClasses = statusColorClasses[challenge.status];
+							const colorClasses =
+								statusColorClasses[challenge.challengeStatus];
 							return (
 								<Card
 									key={challenge.id}
-									highlight={false}
 									className={`flex flex-col gap-[10px] p-[20px] w-[40%] relative border-none ${colorClasses}`}
 								>
 									<div className="flex gap-[20px] justify-between">
 										<h2 className="text-[20px] font-bold ">
-											{challenge.title}
+											{challenge.challengeDto.challengeTitle}
 										</h2>
-										<p>D + 25</p>
+										<p>
+											{calculateDaysLeft(
+												challenge.startDate,
+												challenge.endDate,
+											)}
+										</p>
 									</div>
 									<Card.Content className="p-0 flex flex-col gap-[30px]">
-										<p>한달</p>
 										<div className=" flex flex-col gap-[10px]">
-											{challenge.tags.map((tag) => (
-												<Badge key={tag} bgColor="darkblue">
-													<p>{tag}</p>
-												</Badge>
-											))}
+											<Badge bgColor="lightblue">
+												<p>정말 대단해요 👍</p>
+											</Badge>
+											<Badge bgColor="lightblue">
+												<p>수고하셨어요 😎</p>
+											</Badge>
 										</div>
 										<p>
-											{challenge.startDate} ~ {challenge.endDate}
+											{formatDate(challenge.startDate)} ~
+											{formatDate(challenge.endDate)}
 										</p>
 									</Card.Content>
-									{challenge.badge && (
+									{challenge.challengeDto.badgeDto && (
 										<div>
-											<Card
-												highlight={false}
-												className="absolute top-0 left-0 w-full h-full bg-black opacity-50 flex items-center justify-center border-none"
-											>
+											<Card className="absolute top-0 left-0 w-full h-full bg-black opacity-50 flex items-center justify-center border-none">
 												<div />
 											</Card>
 											<div className="absolute z-20 top-0 left-0 p-[20px] w-full">
@@ -144,8 +160,9 @@ const ChallengeHistory = () => {
 
 												<SuccessBadge
 													contentType="image"
-													fill="#FFFFE0"
-													content={challenge.badge}
+													fill={challenge.challengeDto.badgeDto.fill}
+													content={challenge.challengeDto.badgeDto.badgeImage}
+													alt={challenge.challengeDto.badgeDto.badgeDesc}
 													className="w-[120px] h-[120px]"
 													imageClassName="w-[72px] h-[72px]"
 												/>

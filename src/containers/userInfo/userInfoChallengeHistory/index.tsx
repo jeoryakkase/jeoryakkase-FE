@@ -1,28 +1,41 @@
+"use client";
+
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { SlOptionsVertical } from "react-icons/sl";
 
 import { Button } from "@components/Button";
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
-import Modal from "@components/Modal";
-import ProgressBarChart from "@components/ProgressBar";
 import { Badge } from "@components/shadcn/ui/Badge";
+import { calculateDaysLeft } from "@containers/naegong/asset/cardCalculate";
+import memberChallengesQueryOption from "@services/user/challenges";
+import { useQuery } from "@tanstack/react-query";
 
-import { goalData, progressGoalData } from "../assets/progressGoalData";
+import statusColorClasses from "../assets/challengeStatusColorClasses";
+import formatDate from "../assets/formatDate";
 import DropdownMenuEdit from "../userInfoEdit/UI/DropDownEdit";
 
-const userInfoChallengeHistory = () => {
-	const statusColorClasses = {
-		"진행중인 목표": "bg-main-lightyellow",
-		"완료된 목표": "bg-main-darkblue",
-	};
-	const inProgressGoals = goalData.filter(
-		(goal) => goal.status === "진행중인 목표",
-	);
-	const completedGoals = goalData.filter(
-		(goal) => goal.status === "완료된 목표",
-	);
+const UserInfoChallengeHistory = () => {
+	const router = useRouter();
+	const { data: memberChallenges } = useQuery<MemberChallenge[]>({
+		...memberChallengesQueryOption.getMemberChallenges(),
+	});
 
+	const inProgressChallenges =
+		memberChallenges?.filter(
+			(challenge) => challenge.challengeStatus === "IN_PROGRESS",
+		) || [];
+
+	const completedChallenges =
+		memberChallenges?.filter(
+			(challenge) => challenge.challengeStatus === "COMPLETED",
+		) || [];
+
+	const cancelledChallenges =
+		memberChallenges?.filter(
+			(challenge) => challenge.challengeStatus === "CANCELLED",
+		) || [];
 	const item = [
 		{ id: 1, label: "포기하기" },
 		{ id: 2, label: "공유하기" },
@@ -31,41 +44,70 @@ const userInfoChallengeHistory = () => {
 		<div>
 			<ContentSection title="진행중인 챌린지">
 				<div className="flex flex-wrap gap-[20px]">
-					{inProgressGoals.map((goal) => (
+					{inProgressChallenges?.map((challenge) => (
 						<Card
-							key={goal.id}
-							highlight={false}
-							className={`flex flex-col gap-[10px] p-[20px] w-[300px] relative ${statusColorClasses["진행중인 목표"]}`}
+							key={challenge.id}
+							className={`flex flex-col gap-[10px] p-[20px] w-[300px] relative ${statusColorClasses.IN_PROGRESS}`}
 						>
 							<Card.Header
-								title={`목표금액 : ${goal.goalAmount}원`}
+								title={challenge.challengeDto.challengeTitle}
 								className="p-0"
 							/>
-							<DropdownMenuEdit
-								trigger={<SlOptionsVertical />}
-								menuItems={item}
-								className="absolute top-[30px] right-[20px]"
-								childrenClassName="bg-main-lightyellow "
-							/>
-							<Card.Content className="p-0 flex flex-col gap-[10px]">
-								<p>한달</p>
-								<div className=" w-[250px] h-[20px]">
-									<ProgressBarChart data={progressGoalData} />
-								</div>
-								<p>
-									기간: {goal.startDate} ~ {goal.endDate}
-								</p>
 
-								<Modal
-									triggerChildren={
-										<Button variant="outline">Edit Profile</Button>
+							<Card.Content className="p-0 flex flex-col gap-[10px]">
+								<p>
+									{calculateDaysLeft(challenge.startDate, challenge.endDate)}
+								</p>
+								{challenge.certificationChallengeDtos.length > 0 &&
+									challenge.certificationChallengeDtos[0]
+										.certificationChallengeImageDtos.length > 0 && (
+										<Image
+											src={
+												challenge.certificationChallengeDtos[0]
+													.certificationChallengeImageDtos[0].imageUrl
+											}
+											alt=""
+											width={0}
+											height={0}
+											sizes="100vw"
+											className="relative object-cover rounded-md w-[130px] h-[130px]"
+										/>
+									)}
+
+								<p>
+									{challenge.challengeDto.challengeType === "COUNT"
+										? `인증 횟수: ${challenge.authCount} / ${challenge.challengeDto.challengeCount} 번`
+										: `목표 금액: ${challenge.totalSaveMoney} / ${challenge.challengeDto.challengeGoal} 원`}
+								</p>
+								<div>
+									{formatDate(challenge.startDate)} ~
+									{formatDate(challenge.endDate)}
+								</div>
+
+								<DropdownMenuEdit
+									trigger={
+										<Button
+											variant="ghost"
+											size="icon"
+											bgColor="transparent"
+											shadow="transparent"
+										>
+											<SlOptionsVertical />
+										</Button>
 									}
-									title="Edit profile"
-									button="확인"
-									closeButton="아니요"
-								>
-									내애애
-								</Modal>
+									menuItems={item}
+									className="absolute top-[30px] right-[20px]"
+									childrenClassName="bg-main-lightyellow "
+									menuClick={(itemId) => {
+										if (itemId === 1) {
+											router.push(
+												`/userinfo/challenge-history/${challenge.id}/giveupmodal`,
+											);
+										} else if (itemId === 2) {
+											// 공유하기 버튼 클릭 시 처리할 로직 추가
+										}
+									}}
+								/>
 							</Card.Content>
 						</Card>
 					))}
@@ -73,37 +115,57 @@ const userInfoChallengeHistory = () => {
 			</ContentSection>
 			<ContentSection title="완료된 챌린지">
 				<div className="flex flex-wrap gap-[20px]">
-					{completedGoals.map((goal) => (
+					{completedChallenges?.map((challenge) => (
 						<Card
-							key={goal.id}
-							highlight={false}
-							className={`flex flex-col gap-[10px] p-[20px] w-[300px] relative border-none ${statusColorClasses["완료된 목표"]}`}
+							key={challenge.id}
+							className={`flex flex-col gap-[10px] p-[20px] w-[300px] relative border-none ${statusColorClasses.COMPLETED}`}
 						>
 							<Card.Header
-								title={`목표금액: ${goal.goalAmount}원`}
+								title={challenge.challengeDto.challengeTitle}
 								className="p-0"
 							/>
 							<Card.Content className="p-0 flex flex-col gap-[10px]">
-								<p>한달</p>
 								<p>
-									기간: {goal.startDate} ~ {goal.endDate}
+									{calculateDaysLeft(challenge.startDate, challenge.endDate)}
 								</p>
+								{challenge.certificationChallengeDtos.length > 0 &&
+									challenge.certificationChallengeDtos[0]
+										.certificationChallengeImageDtos.length > 0 && (
+										<Image
+											src={
+												challenge.certificationChallengeDtos[0]
+													.certificationChallengeImageDtos[0].imageUrl
+											}
+											alt=""
+											width={0}
+											height={0}
+											sizes="100vw"
+											className="relative object-cover rounded-md w-[130px] h-[130px]"
+										/>
+									)}
+
+								<p>
+									{challenge.challengeDto.challengeType === "COUNT"
+										? `인증 횟수: ${challenge.authCount} / ${challenge.challengeDto.challengeCount} 번`
+										: `목표 금액: ${challenge.totalSaveMoney} / ${challenge.challengeDto.challengeGoal} 원`}
+								</p>
+								<div>
+									{formatDate(challenge.startDate)} ~
+									{formatDate(challenge.endDate)}
+								</div>
 							</Card.Content>
-							<Card
-								highlight={false}
-								className="absolute top-0 left-0 w-full h-full bg-black opacity-50 flex items-center justify-center border-none"
-							>
+							<Card className="absolute top-0 left-0 w-full h-full bg-black opacity-50 flex items-center justify-center border-none">
 								<div />
 							</Card>
 							<div className="absolute z-20 top-0 left-0 p-[20px] w-full">
 								<div className="">
 									<Image
-										src="/images/character05.png"
-										alt=""
+										src={challenge.challengeDto.badgeDto.badgeImage}
+										alt={challenge.challengeDto.badgeDto.badgeDesc}
 										width={0}
 										height={0}
 										sizes="100vw"
-										className="static w-[100%] object-cover"
+										className="static w-[100px] h-[100px] object-cover"
 									/>
 								</div>
 								<div>
@@ -119,8 +181,59 @@ const userInfoChallengeHistory = () => {
 					))}
 				</div>
 			</ContentSection>
+			<ContentSection title="포기한 챌린지">
+				<div className="flex flex-wrap gap-[20px]">
+					{cancelledChallenges?.map((challenge) => (
+						<Card
+							key={challenge.id}
+							className={`flex flex-col gap-[10px] p-[20px] w-[300px] relative ${statusColorClasses.CANCELLED}`}
+						>
+							<Card.Header
+								title={challenge.challengeDto.challengeTitle}
+								className="p-0"
+							/>
+							<DropdownMenuEdit
+								trigger={<SlOptionsVertical />}
+								menuItems={item}
+								className="absolute top-[30px] right-[20px]"
+								childrenClassName="bg-main-lightyellow "
+							/>
+							<Card.Content className="p-0 flex flex-col gap-[10px]">
+								<p>
+									{calculateDaysLeft(challenge.startDate, challenge.endDate)}
+								</p>
+								{challenge.certificationChallengeDtos.length > 0 &&
+									challenge.certificationChallengeDtos[0]
+										.certificationChallengeImageDtos.length > 0 && (
+										<Image
+											src={
+												challenge.certificationChallengeDtos[0]
+													.certificationChallengeImageDtos[0].imageUrl
+											}
+											alt=""
+											width={0}
+											height={0}
+											sizes="100vw"
+											className="relative object-cover rounded-md w-[130px] h-[130px]"
+										/>
+									)}
+
+								<p>
+									{challenge.challengeDto.challengeType === "COUNT"
+										? `인증 횟수: ${challenge.authCount} / ${challenge.challengeDto.challengeCount} 번`
+										: `목표 금액: ${challenge.totalSaveMoney} / ${challenge.challengeDto.challengeGoal} 원`}
+								</p>
+								<div>
+									{formatDate(challenge.startDate)} ~
+									{formatDate(challenge.endDate)}
+								</div>
+							</Card.Content>
+						</Card>
+					))}
+				</div>
+			</ContentSection>
 		</div>
 	);
 };
 
-export default userInfoChallengeHistory;
+export default UserInfoChallengeHistory;

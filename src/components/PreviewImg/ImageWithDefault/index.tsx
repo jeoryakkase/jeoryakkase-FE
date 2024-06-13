@@ -2,12 +2,12 @@
 
 import { useState } from "react";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 interface ImageWithFallbackProps
 	extends React.ImgHTMLAttributes<HTMLImageElement> {
 	src: string;
-	defaultSrc: string;
+	defaultSrc: string | StaticImageData;
 	width?: number | `${number}`;
 	height?: number | `${number}`;
 }
@@ -17,7 +17,7 @@ const ImageWithDefault = ({
 	defaultSrc,
 	...props
 }: ImageWithFallbackProps) => {
-	const [imageSrc, setImageSrc] = useState(src);
+	const [imageSrc, setImageSrc] = useState<string | StaticImageData>(src);
 
 	const handleImageError = () => {
 		if (imageSrc !== defaultSrc) {

@@ -1,8 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
-import { Button } from "@components/shadcn/ui/Button";
+import { Button } from "@components/Button";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -12,30 +10,76 @@ import {
 } from "@components/shadcn/ui/DropdownMenu";
 import SuccessBadge from "@components/SuccessBadge";
 import badgeData from "@components/SuccessBadge/BadgeData";
+import {
+	MemberChallengesBadges,
+	RepresentativeBadge,
+} from "@containers/userInfo/types";
+import showToast from "@lib/toastConfig";
+import putRepresentBage from "@services/user/badges/putRepresentBage";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const DropDownBadge = () => {
-	const [selectedBadgeId, setSelectedBadgeId] = useState<number | null>(null);
-	const selectedBadge =
-		badgeData.find((badge) => badge.id === selectedBadgeId) || badgeData[0];
-
-	const handleBadgeSelect = (id: number) => {
-		setSelectedBadgeId(id);
+interface DropDownBadgeProps {
+	representativeBadge?: RepresentativeBadge[];
+	generalBadges?: MemberChallengesBadges[];
+}
+const DropDownBadge = ({
+	representativeBadge,
+	generalBadges,
+}: DropDownBadgeProps) => {
+	const queryClient = useQueryClient();
+	const { mutate: represntBadge } = useMutation({
+		mutationFn: putRepresentBage,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["representativeBadges"] });
+			showToast({
+				type: "success",
+				message: "대표 뱃지가 선택되었습니다.",
+			});
+		},
+		onError: () => {
+			showToast({
+				type: "error",
+				message: "대표 뱃지 등록에 실패했습니다.",
+			});
+		},
+	});
+	const handleBadgeSelect = (name: string) => {
+		// setSelectedBadgeName(name);
+		represntBadge(name);
 	};
+	// representativeBadge가 없을 경우에 대비하여 기본값 처리
+	const defaultBadge = badgeData[0];
+	const selectedBadge =
+		representativeBadge && representativeBadge.length > 0
+			? representativeBadge[0]
+			: undefined;
 
+	const badges = generalBadges || [];
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
 				<Button
 					variant="ghost"
+					bgColor="transparent"
+					shadow="transparent"
 					className="bg-none hover:bg-none w-[100%] h-[100%]"
 				>
-					{selectedBadge && (
+					{selectedBadge ? (
 						<SuccessBadge
 							stroke={selectedBadge.stroke}
 							fill={selectedBadge.fill}
-							alt={selectedBadge.alt}
-							contentType={selectedBadge.contentType as "text" | "image"}
-							content={selectedBadge.content}
+							alt={selectedBadge.badgeDesc}
+							contentType="image"
+							content={selectedBadge.badgeImage}
+							className="w-[100px] h-[100px] "
+						/>
+					) : (
+						<SuccessBadge
+							stroke={defaultBadge.stroke}
+							fill={defaultBadge.fill}
+							alt={defaultBadge.alt}
+							contentType={defaultBadge.contentType as "text" | "image"}
+							content={defaultBadge.content}
 							className="w-[100px] h-[100px] "
 						/>
 					)}
@@ -43,18 +87,18 @@ const DropDownBadge = () => {
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className="w-56">
 				<DropdownMenuGroup className="rounded-[50px]">
-					{badgeData.map((badge) => (
+					{badges?.map((badge) => (
 						<DropdownMenuItem
-							key={badge.id}
-							className="justify-center"
-							onSelect={() => handleBadgeSelect(badge.id)}
+							key={badge.name}
+							className="justify-center cursor-pointer"
+							onSelect={() => handleBadgeSelect(badge.name)}
 						>
 							<SuccessBadge
 								stroke={badge.stroke}
 								fill={badge.fill}
-								contentType={badge.contentType as "text" | "image"}
-								content={badge.content}
-								alt={badge.alt}
+								contentType="image"
+								content={badge.badgeImage}
+								alt={badge.badgeDesc}
 								className="w-[50px] h-[50px]"
 							/>
 						</DropdownMenuItem>

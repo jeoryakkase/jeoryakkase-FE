@@ -21,7 +21,7 @@ const ModalInput = forwardRef<HTMLInputElement, InputProps>(
 			<ModalContainer title={title}>
 				<Input
 					{...props}
-					className={`p-[20px] ${className}`}
+					className={`p-[20px] appearance-none ${className}`}
 					placeholder={placeholder}
 					type={type}
 					ref={ref}

@@ -5,9 +5,10 @@ import Axios, {
 	AxiosResponse,
 	InternalAxiosRequestConfig,
 } from "axios";
-import { getSession, signOut } from "next-auth/react";
+import { signOut } from "next-auth/react";
 
 import showToast from "@lib/toastConfig";
+import getAccessToken from "@utils/token.utils";
 
 import { envConfig } from "./envConfig";
 
@@ -25,11 +26,10 @@ export const requestInterceptor = async (
 ) => {
 	const headers: AxiosRequestHeaders =
 		(config.headers as AxiosRequestHeaders) || {};
-	// const accessToken = await getAccessToken();
-	const session = await getSession();
-	console.log("accessToken 헤더", session?.user.accessToken);
+	const accessToken = await getAccessToken();
+	console.log("accessToken 헤더", accessToken);
 
-	headers.Authorization = `${session?.user.accessToken}`;
+	headers.Authorization = `${accessToken}`;
 
 	config.headers = headers;
 	return Promise.resolve(config);
