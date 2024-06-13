@@ -1,9 +1,6 @@
 import { create } from "zustand";
 
-type TagImgType = {
-	id: string;
-	img: string;
-}[];
+type TagImgType = { id: string; img: string }[] | string;
 
 export type UserChallenge = {
 	id: string;

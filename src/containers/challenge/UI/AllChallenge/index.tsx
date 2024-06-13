@@ -1,11 +1,11 @@
 import { ContentSection } from "@components/ContentSection";
 import Flex from "@components/Flex";
-import { Chunk } from "@containers/challenge/dummy";
+import { Challenge } from "@containers/challenge/types";
 
 import ArrangedCard from "./UI/ArrangedCard";
 
 interface AllChallengeProps {
-	allChallenge: Chunk[];
+	allChallenge: Challenge[];
 }
 
 const AllChallenge = ({ allChallenge }: AllChallengeProps) => {
@@ -15,9 +15,7 @@ const AllChallenge = ({ allChallenge }: AllChallengeProps) => {
 			childrenClassName="flex flex-col justify-center"
 		>
 			<Flex direction="column" justify="center">
-				{allChallenge.map((chunk) => (
-					<ArrangedCard key={chunk.chunkId} allChallenge={chunk.challenges} />
-				))}
+				<ArrangedCard allChallenge={allChallenge} />
 			</Flex>
 		</ContentSection>
 	);

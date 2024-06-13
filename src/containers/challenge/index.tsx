@@ -17,6 +17,7 @@ const Challenge = () => {
 	const { data: challengeData } = useQuery(
 		challengeQueryOption.getChallenges(),
 	);
+	console.log(challengeData);
 
 	if (!challengeData) {
 		return null;
@@ -26,9 +27,9 @@ const Challenge = () => {
 		challengeData?.memberChallengesJoinResDto,
 	);
 
-	// const allChallenge = transformAllChallenges(
-	// 	challengeData.challengesReadResDto,
-	// );
+	const allChallenge = transformAllChallenges(
+		challengeData.challengesReadResDto,
+	);
 
 	const hotChallenges = transformAllChallenges(
 		challengeData.challengesPopularityReadResDto,
@@ -39,7 +40,7 @@ const Challenge = () => {
 			{challengeData.memberChallengesJoinResDto && (
 				<UserChallenges challenges={challenges} />
 			)}
-			{/* <PreviewAllChallenge allChallenge={allChallenge} /> */}
+			<PreviewAllChallenge allChallenge={allChallenge} />
 			<HotChallenge hotChallenges={hotChallenges} />
 		</section>
 	);

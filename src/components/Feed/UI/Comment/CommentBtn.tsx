@@ -2,6 +2,7 @@ import { Button } from "@components/Button";
 
 interface CommentBtnProps {
 	isOwner: boolean;
+	isEditing: boolean;
 	onReply?: () => void;
 	onEdit?: () => void;
 	onDelete?: () => void;
@@ -9,6 +10,7 @@ interface CommentBtnProps {
 
 const CommentBtn = ({
 	isOwner,
+	isEditing,
 	onReply,
 	onEdit,
 	onDelete,
@@ -20,13 +22,23 @@ const CommentBtn = ({
 					댓글 달기
 				</Button>
 			)}
-			{isOwner && (
+			{isOwner && !isEditing && (
 				<div className="flex">
 					<Button onClick={onEdit} bgColor="white" className="mr-2 mb-2">
 						수정
 					</Button>
 					<Button onClick={onDelete} bgColor="lightred" className="text-white">
 						삭제
+					</Button>
+				</div>
+			)}
+			{isOwner && isEditing && (
+				<div className="flex">
+					<Button onClick={onEdit} bgColor="white" className="mr-2 mb-2">
+						수정 완료
+					</Button>
+					<Button onClick={onDelete} bgColor="lightred" className="text-white">
+						취소
 					</Button>
 				</div>
 			)}

@@ -6,7 +6,11 @@ import { ContentSection } from "@components/ContentSection";
 import Flex from "@components/Flex";
 import { Badge } from "@components/shadcn/ui/Badge";
 import Progress from "@components/shadcn/ui/Progress";
+import SuccessBadge from "@components/SuccessBadge";
+import showToast from "@lib/toastConfig";
+import postJoinChallenge from "@services/challenge/postJoinChallenge";
 import useAuthStore from "@stores/Auth/useUserAuth";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const getIndicatorClassName = (percentage: number): string => {
 	if (percentage < 50) return "bg-point-red";
@@ -14,11 +18,31 @@ const getIndicatorClassName = (percentage: number): string => {
 	return "bg-main-lightblue";
 };
 
-const InfoBox = ({ challengeDetail }) => {
+const InfoBox = ({ challengeDetail, isJoined, challengeId }) => {
 	const { isLogined, nickname } = useAuthStore();
 	const indicatorClassName = getIndicatorClassName(challengeDetail.percentage);
+	const queryClient = useQueryClient();
+	const { mutate: joinChallengeMutate } = useMutation({
+		mutationFn: () => postJoinChallenge(challengeId),
+		onSuccess: () => {
+			queryClient.invalidateQueries({
+				queryKey: ["challengeInfo", "challengeInfos"],
+			});
+		},
+		onError: () => {
+			showToast({ type: "error", message: "챌린지 참여에 실패했습니다." });
+		},
+	});
+
+	const handleJoinChallenge = () => {
+		joinChallengeMutate();
+	};
+
 	return (
-		<ContentSection title={challengeDetail.title}>
+		<ContentSection
+			title={challengeDetail.title}
+			childrenClassName="flex flex-col items-center"
+		>
 			<Card highlight="" className="flex flex-row w-full p-6">
 				<Image
 					width={322}
@@ -43,7 +67,7 @@ const InfoBox = ({ challengeDetail }) => {
 								{challengeInfo}
 							</Badge>
 						))}
-						{isLogined && challengeDetail.isJoined && (
+						{isLogined && isJoined && (
 							<Badge
 								variant="default"
 								size="m"
@@ -56,7 +80,7 @@ const InfoBox = ({ challengeDetail }) => {
 						)}
 					</div>
 					<div className="mt-4 mb-10 ml-6">{challengeDetail.detail}</div>
-					{isLogined && challengeDetail.isJoined && (
+					{isLogined && isJoined && (
 						<Card
 							highlight=""
 							className="flex flex-row w-full border-transparent shadow-none p-0"
@@ -90,12 +114,36 @@ const InfoBox = ({ challengeDetail }) => {
 						</Card>
 					)}
 				</div>
-				{!isLogined && (
+				{!isJoined && (
 					<Flex align="end" justify="end" className="w-[200px]">
-						<Button className="mr-3">참여하고 뱃지 받기</Button>
+						<Button
+							onClick={handleJoinChallenge}
+							bgColor="midblue"
+							className="mr-3"
+						>
+							참여하고 뱃지 받기
+						</Button>
 					</Flex>
 				)}
 			</Card>
+			{!isJoined && (
+				<Card className="flex flex-col mt-10 w-[400px]">
+					<Card.Header title="획득 가능한 뱃지" />
+					<Card.Content className="flex flex-col items-center">
+						<div className="mt-5 font-semibold">
+							{challengeDetail.badgeName}
+						</div>
+						<div className="w-[100px] h-[100px] mb-20">
+							<SuccessBadge
+								contentType="image"
+								content={challengeDetail.image}
+								fill="yellow"
+							/>
+						</div>
+						<div>{challengeDetail.badgeDescription}</div>
+					</Card.Content>
+				</Card>
+			)}
 		</ContentSection>
 	);
 };

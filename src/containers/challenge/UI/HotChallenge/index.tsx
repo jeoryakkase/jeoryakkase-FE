@@ -4,7 +4,7 @@ import TagCard from "@components/TagCard";
 export interface Challenge {
 	id: string;
 	title: string;
-	imgs: { id: string; img: string }[];
+	imgs: { id: string; img: string }[] | string;
 	description: string;
 	messages: string;
 }

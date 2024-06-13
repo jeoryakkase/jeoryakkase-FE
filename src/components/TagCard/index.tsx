@@ -8,10 +8,7 @@ import {
 import Card from "../Card/index";
 import { Badge } from "../shadcn/ui/Badge/index";
 
-type TagImgType = {
-	id: string;
-	img: string;
-}[];
+type TagImgType = { id: string; img: string }[] | string;
 interface TagCardProps {
 	title: string;
 	description: string;
@@ -22,7 +19,7 @@ interface TagCardProps {
 	dueDate?: boolean;
 	className?: string;
 	countDay?: number;
-	tagMessage?: string;
+	tagMessage?: string | string[];
 }
 
 const TagCard = ({
@@ -61,17 +58,29 @@ const TagCard = ({
 					<Card.Content>{description}</Card.Content>
 				</div>
 				<div className="flex flex-wrap justify-center items-center space-x-2 mb-4">
-					{imgs?.map((img) => (
-						<div key={img.id} className="flex-shrink-0">
-							<Image
-								src={img.img}
-								alt={title}
-								width={70}
-								height={70}
-								className="rounded"
-							/>
-						</div>
-					))}
+					{Array.isArray(imgs)
+						? imgs.map((img) => (
+								<div key={img.id} className="flex-shrink-0">
+									<Image
+										src={img.img}
+										alt={title}
+										width={70}
+										height={70}
+										className="rounded"
+									/>
+								</div>
+							))
+						: imgs && (
+								<div className="flex-shrink-0">
+									<Image
+										src={imgs}
+										alt={title}
+										width={70}
+										height={70}
+										className="rounded"
+									/>
+								</div>
+							)}
 				</div>
 				<div className="flex flex-col items-start space-y-2">
 					{today !== undefined

@@ -16,16 +16,13 @@ export interface ResponsePagenation<T> {
 // 뱃지 타입
 export interface Badge {
 	name: string;
-	badgeImage: {
-		id: string;
-		imageUrl: string;
-	}[];
+	badgeImage: string;
 	badgeDesc: string;
 	badgeType: string;
 }
 
 // 챌린지 타입
-interface ChallengeCertification {
+export interface ChallengeCertification {
 	certificationDate: string;
 	certificationChallengeImageDtos: {
 		id: string;
@@ -33,26 +30,47 @@ interface ChallengeCertification {
 	}[];
 	content: string;
 	saveMoney: string;
+	nickname: string;
+	profileImage: string;
+	representativeBadgeId: number;
+	challengeId: number;
 }
 
 export interface ChallengesJoined {
-	challengeId: string;
+	id: number;
 	challengeTtile: string;
 	challengeTerm: string;
 	isTodayCertification: boolean;
 	startDate: string;
 	endDate: string;
+	successDate: string;
 	effectiveDate: number;
+	totalSaveMoney: number;
 	certificationChallengeDto: ChallengeCertification;
 }
 
 export interface AllChallenges {
-	challengeId: string;
+	id: number;
 	challengeTitle: string;
+	challengeDesc: string;
 	challengeType: string;
 	challengeTerm: string;
 	challengeCount: number;
 	challengeGoal: number;
+	challengeDifficulty: string;
 	authContent: string;
 	badgeDto: Badge;
+}
+
+export interface MemberChallengesJoined {
+	id: number;
+	challengeTtile: string;
+	challengeTerm: string;
+	isTodayCertification: boolean;
+	startDate: string;
+	endDate: string;
+	successDate: string;
+	effectiveDate: number;
+	totalSaveMoney: number;
+	certificationChallengeDto: ChallengeCertification[];
 }
