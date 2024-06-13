@@ -89,8 +89,9 @@ const config: Config = {
 				xxxl: "40px",
 			},
 			boxShadow: {
-				default: "0 2px 4px rgba(0, 0, 0, 0.25)",
-				"custom-default": "0 4px 6px rgba(0, 0, 0, 0.1)",
+				default: "0px 1px 7px 5px rgba(0, 0, 0, 0.2)",
+				"button-shadow": "1px 1px 10px 0px rgba(188, 188, 188, 0.25)",
+				"box-shadow": "0px 2px 4px 0px rgba(0, 0, 0, 0.25)",
 				"custom-inner": "inset 0 4px 6px rgba(0, 0, 0, 0.1)",
 			},
 			zIndex: {

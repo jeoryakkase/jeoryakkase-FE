@@ -31,8 +31,8 @@ const ZarangCard = ({
 	profileImage,
 	comment,
 }: ZarangCardProps) => {
-	const icon = iconMap[id - 1];
-	const highlight = highlightMap[id - 1];
+	const icon = id < 4 ? iconMap[id - 1] : null;
+	const highlight = id < 4 ? highlightMap[id - 1] : "";
 
 	return (
 		<Card
@@ -40,7 +40,9 @@ const ZarangCard = ({
 			className={`flex flex-col items-center ${className}`}
 		>
 			<div className="flex flex-row justify-center items-start p-2">
-				<Image src={icon} alt={`아이콘 ${id}`} width={30} height={30} />
+				{icon && (
+					<Image src={icon} alt={`아이콘 ${id}`} width={30} height={30} />
+				)}
 				<div className="flex flex-col">
 					<Card.Content>
 						<UserProfileBox nickname={nickName} profileImg={profileImage} />

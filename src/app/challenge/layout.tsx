@@ -2,13 +2,19 @@ import { ReactNode } from "react";
 
 interface ChallengeLayoutProps {
 	children: ReactNode;
+	challengeFormModal: ReactNode;
 }
 
-const ChallengeLayout = ({ children }: ChallengeLayoutProps) => {
+const ChallengeLayout = ({
+	children,
+	challengeFormModal,
+}: ChallengeLayoutProps) => {
+	// const isModalOpen = !!modal;
 	return (
 		<div>
 			<h2 className="font-bold text-xxl">짠맛 수련 챌린지 </h2>
 			{children}
+			{challengeFormModal}
 		</div>
 	);
 };

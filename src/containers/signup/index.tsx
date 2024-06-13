@@ -1,11 +1,13 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
+import { Button } from "@components/Button";
+import { Input } from "@components/Input";
 import ImgInput from "@components/PreviewImg/ImgInput";
-import { Button } from "@components/shadcn/ui/Button";
 import {
 	Form,
 	FormControl,
@@ -14,27 +16,44 @@ import {
 	FormLabel,
 	FormMessage,
 } from "@components/shadcn/ui/Form";
-import { Input } from "@components/shadcn/ui/Input";
 import { RadioGroup, RadioGroupItem } from "@components/shadcn/ui/Radio-group/";
-import { Textarea } from "@components/shadcn/ui/Textarea";
 import TagGroup from "@components/TagGroup";
+import { Textarea } from "@components/Textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
+import postSignUp from "@services/api/user/signup";
+import { useMutation } from "@tanstack/react-query";
 
-import { FormSchema, interestTags, signUpDefault } from "./signupValidation";
+import {
+	interestTags,
+	signUpDefault,
+	signupValidation,
+} from "./signupValidation";
 
 const SignupForm = () => {
-	const form = useForm<z.infer<typeof FormSchema>>({
-		resolver: zodResolver(FormSchema),
+	const router = useRouter();
+	const form = useForm<z.infer<typeof signupValidation>>({
+		resolver: zodResolver(signupValidation),
 		defaultValues: signUpDefault,
+	});
+	const { mutate } = useMutation({
+		mutationFn: postSignUp,
+		onSuccess: () => {
+			toast.success("회원가입이 완료되었습니다.", { autoClose: 2000 });
+			router.push("/login");
+		},
+		onError: () => {
+			toast.error("회원가입에 실패하였습니다.", { autoClose: 2000 });
+		},
 	});
 	console.log(
 		"관심사태그",
 		useWatch({ control: form.control, name: "interests" }),
 	);
 
-	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		toast.success("로그인이 완료되었습니다.", { autoClose: 2000 });
+	const onSubmit = (data: z.infer<typeof signupValidation>) => {
+		mutate(data);
 		console.log(data);
+		// 주스탠드 스토어 연결
 	};
 
 	return (
@@ -91,29 +110,7 @@ const SignupForm = () => {
 						</FormItem>
 					)}
 				/>
-				<FormField
-					control={form.control}
-					name="verify"
-					render={({ field }) => (
-						<FormItem>
-							<FormLabel>이메일 인증번호</FormLabel>
-							<div className="flex gap-[20px]">
-								<FormControl>
-									<Input
-										type="text"
-										placeholder="인증번호를 입력해주세요."
-										{...field}
-									/>
-								</FormControl>
-								<Button type="button" onClick={() => {}}>
-									인증번호 확인
-								</Button>
-							</div>
 
-							<FormMessage />
-						</FormItem>
-					)}
-				/>
 				<FormField
 					control={form.control}
 					name="nickname"
@@ -183,7 +180,11 @@ const SignupForm = () => {
 							<FormItem>
 								<FormLabel>연령</FormLabel>
 								<FormControl>
-									<Input type="number" {...field} />
+									<Input
+										type="number"
+										value={field.value}
+										onChange={(e) => field.onChange(e.target.valueAsNumber)}
+									/>
 								</FormControl>
 								<FormMessage />
 							</FormItem>
@@ -243,14 +244,9 @@ const SignupForm = () => {
 							<FormControl>
 								<TagGroup
 									tags={interestTags}
-									selectedTags={interestTags
-										.filter((tag) => field.value.includes(tag.name))
-										.map((tag) => tag.id)}
+									selectedTags={field.value}
 									onChange={(newSelectedTags) => {
-										const selectedTagNames = interestTags
-											.filter((tag) => newSelectedTags.includes(tag.id))
-											.map((tag) => tag.name);
-										field.onChange(selectedTagNames);
+										field.onChange(newSelectedTags);
 									}}
 								/>
 							</FormControl>

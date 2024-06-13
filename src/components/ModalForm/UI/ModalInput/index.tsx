@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, forwardRef } from "react";
 
-import { Input } from "@components/shadcn/ui/Input";
+import { Input } from "@components/Input";
 
 import ModalContainer from "../ModalContainer";
 
