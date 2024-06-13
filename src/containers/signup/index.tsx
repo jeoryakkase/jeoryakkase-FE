@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
-import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { Button } from "@components/Button";
@@ -24,8 +23,8 @@ import showToast from "@lib/toastConfig";
 import {
 	getDuplicationEmail,
 	getDuplicationNickName,
-} from "@services/api/user/duplication";
-import postSignUp from "@services/api/user/signup";
+} from "@services/login/duplication";
+import postSignUp from "@services/signup";
 import { useMutation } from "@tanstack/react-query";
 
 import {
@@ -43,11 +42,17 @@ const SignupForm = () => {
 	const { mutate } = useMutation({
 		mutationFn: postSignUp,
 		onSuccess: () => {
-			toast.success("회원가입이 완료되었습니다.", { autoClose: 2000 });
+			showToast({
+				type: "success",
+				message: "회원가입이 완료되었습니다.",
+			});
 			router.push("/login");
 		},
 		onError: () => {
-			toast.error("회원가입에 실패하였습니다.", { autoClose: 2000 });
+			showToast({
+				type: "error",
+				message: "회원가입에 실패하였습니다.",
+			});
 		},
 	});
 	console.log(

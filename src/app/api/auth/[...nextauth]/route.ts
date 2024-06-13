@@ -1,9 +1,15 @@
-import NextAuth, { User } from "next-auth";
+import NextAuth, { Account, User } from "next-auth";
+import { AdapterUser } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import GoogleProvider from "next-auth/providers/google";
-// import KakaoProvider from "next-auth/providers/kakao";
+import GoogleProvider from "next-auth/providers/google";
+import KakaoProvider from "next-auth/providers/kakao";
+
+import showToast from "@lib/toastConfig";
+import useAuthStore, { UserStoreData } from "@stores/Auth/useUserAuth";
+
 declare module "next-auth" {
 	interface User {
+		userStoreData?: UserStoreData;
 		accessToken?: string;
 		expires_at?: number;
 		refreshToken?: string;
@@ -20,11 +26,12 @@ declare module "next-auth" {
 
 declare module "next-auth/jwt" {
 	interface JWT {
-		accessToken: string;
+		accessToken: string | undefined;
 		expires_at: number;
-		refreshToken: string;
-		user: User;
-		error?: "RefreshAccessTokenError";
+		refreshToken: string | undefined;
+		user: User | AdapterUser;
+		account: Account | null;
+		error?: "RefreshAccessTokenError" | undefined;
 	}
 }
 const handler = NextAuth({
@@ -59,65 +66,74 @@ const handler = NextAuth({
 						},
 					);
 					const authorizationHeader = res.headers.get("Authorization");
-					console.log("authorizationHeader", authorizationHeader);
 					const user = await res.json();
-					console.log("user", user);
+					// 스토어 저장
+					useAuthStore.getState().login(user.user);
 					if (user) {
 						user.accessToken = authorizationHeader;
 						return user;
 					}
+					console.log("반환 user : ", user);
+
+					showToast({ type: "success", message: "로그인이 완료되었습니다." });
 					return null;
 				} catch (error) {
 					console.error("Authorize error:", error);
-					return null;
+					showToast({ type: "error", message: "로그인에 실패했습니다." });
+					throw new Error("User not found.");
 				}
 			},
 		}),
 
-		// GoogleProvider({
-		// 	clientId: envConfig.GOOGLE_CLIENT_ID,
-		// 	clientSecret: envConfig.GOOGLE_CLIENT_SECRET,
-		// 	// 구글은 refresh_token을 위해 access_type: "offline"이 필요
-		// 	authorization: {
-		// 		params: { access_type: "offline", prompt: "consent" },
-		// 	},
-		// }),
-		// KakaoProvider({
-		// 	clientId: envConfig.KAKAO_CLIENT_ID,
-		// 	clientSecret: envConfig.KAKAO_CLIENT_SECRET,
-		// }),
+		GoogleProvider({
+			clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+			clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
+			// 구글은 refresh_token을 위해 access_type: "offline"이 필요
+			authorization: {
+				params: {
+					scope: "openid email profile",
+					access_type: "offline",
+					prompt: "consent",
+				},
+			},
+		}),
+		KakaoProvider({
+			clientId: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID!,
+			clientSecret: process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET!,
+			authorization: {
+				params: {
+					scope: "profile_nickname profile_image account_email",
+					access_type: "offline",
+					prompt: "consent",
+				},
+			},
+		}),
 	],
-	secret: process.env.NEXTAUTH_SECRET,
-	// cookies: {
-	// 	sessionToken: {
-	// 		name: `next-auth.session-token`,
-	// 		options: {
-	// 			domain: "localhost",
-	// 			httpOnly: true,
-	// 			sameSite: "Lax",
-	// 			path: "/",
-	// 			secure: false,
-	// 		},
-	// 	},
-	// },
+	secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
 	callbacks: {
-		async jwt({ token, user }) {
+		async jwt({ token, user, account }) {
+			socialToken(account!);
+			console.log("accoun provider : ", account?.provider);
+			console.log("accoun access_token : ", account?.access_token);
+			console.log("Account : ", account);
+			console.log("시작 token :", token);
+			console.log("시작 user :", user);
 			try {
-				console.log("받은 user값", user);
+				console.log("조건 user", user);
+				console.log("조건 account", account);
 				if (user) {
-					// token.access_token = user.access_token!;
-					// token.refresh_token = user.refresh_token!;
-					// token.expires_at = Date.now() + 36 * 1000;
-					// console.log("token 리프래쉬 후 ", token);
-					// return token;
+					console.log("if user", user);
 					return {
 						...token,
-						accessToken: user.accessToken!,
+						accessToken: user.accessToken! || account?.access_token,
 						expires_at: Date.now() + 36 * 1000!,
-						refreshToken: user.refreshToken!,
+						refreshToken: user.refreshToken! || account?.refresh_token,
 						user,
 					};
 				}
+
+				console.log("일반 user :", user);
+
 				console.log("token 리프래쉬 후 ", token);
 				const nowTime = Math.round(Date.now() / 1000);
 				// 토큰 만료 10분전인지 계산
@@ -127,6 +143,7 @@ const handler = NextAuth({
 				if (shouldRefreshTime > 0) {
 					return token;
 				}
+				showToast({ type: "success", message: "로그인이 완료되었습니다." });
 				// 만료 10분전부터 토큰 리프레시
 				return await refreshAccessToken(token);
 			} catch (error) {
@@ -140,15 +157,21 @@ const handler = NextAuth({
 				session.error = "RefreshTokenError";
 			} else if (token) {
 				session.user = token.user as User;
+				session.accessToken = token.accessToken;
+				session.refreshToken = token.refreshToken;
 				session.expiresAt = token.expires_at;
 				console.log("session 마지막", session);
+				// 사용자의 닉네임을 추출하여 스토어에 저장
+
 				return session;
 			}
+			console.log("session 저장된거니", session);
 			return session;
 		},
 		async redirect({ url, baseUrl }) {
-			if (url.startsWith(baseUrl)) {
-				return url;
+			// 로그인 성공 시 홈으로 리디렉션
+			if (url.startsWith(baseUrl) || url.startsWith("/login")) {
+				return baseUrl;
 			}
 			return baseUrl;
 		},
@@ -156,6 +179,7 @@ const handler = NextAuth({
 
 	pages: {
 		signIn: "/login",
+		newUser: "/signup",
 	},
 });
 
@@ -203,5 +227,38 @@ async function refreshAccessToken(
 		};
 	}
 }
+// 백엔드 소셜 연동
+async function socialToken(account: Account) {
+	try {
+		const res = await fetch(
+			`${process.env.NEXT_PUBLIC_BASE_URL}/api/${account.provider}/auth`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${account.access_token}`,
+				},
+				body: JSON.stringify({
+					refreshToken: account.refresh_token,
+				}),
+			},
+		);
+		console.log(
+			`${process.env.NEXT_PUBLIC_BASE_URL}/api/${account.provider}/auth`,
+		);
+		console.log("accessToken", account.access_token);
+		console.log("refreshToken", account.refresh_token);
 
+		// 스토어 저장 name,badgeDesc,badgeImage
+		// useAuthStore.getState().login(res);
+		if (!res.ok) {
+			throw new Error(`API 호출 실패: ${res.status}`);
+		}
+
+		const data = await res.json();
+		console.log("API 응답:", data);
+	} catch (error) {
+		console.error("백엔드 소셜 연동 중 에러 발생:", error);
+	}
+}
 export { handler as GET, handler as POST };

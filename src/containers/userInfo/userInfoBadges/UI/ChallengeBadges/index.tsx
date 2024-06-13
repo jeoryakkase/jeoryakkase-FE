@@ -1,35 +1,36 @@
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 import SuccessBadge from "@components/SuccessBadge";
-import challengHistoryData from "@containers/userInfo/assets/challengHistoryData";
+// import challengHistoryData from "@containers/userInfo/assets/challengHistoryData";
+import { MebmberChallengesBadges } from "@containers/userInfo/types";
 
-const ChallengeBadges = () => {
-	const challengesWithBadges = challengHistoryData.filter(
-		(challenge) => challenge.badge,
-	);
+interface ChallengeBadgesProps {
+	memberbadges: MebmberChallengesBadges[];
+}
+const ChallengeBadges = ({ memberbadges }: ChallengeBadgesProps) => {
+	// const challengesWithBadges = challengHistoryData.filter(
+	// 	(challenge) => challenge.badge,
+	// );
 	return (
 		<ContentSection
 			title="챌린지 뱃지"
 			className="gap-[20px] overflow-x-scroll"
 			childrenClassName="gap-[40px]"
 		>
-			{challengesWithBadges.map((challenge) => (
+			{memberbadges?.map((challenge) => (
 				<Card
-					key={challenge.id}
-					highlight={false}
+					key={challenge.name}
 					className="flex flex-col gap-[20px] items-start w-[300px] h-[300px] overflow-hidden text-ellipsis "
 				>
-					<Card.Header title={challenge.title} />
+					<Card.Header title={challenge.name} />
 					<Card.Content>
-						<p>한달</p>
-						{challenge.badge && (
-							<SuccessBadge
-								contentType="image"
-								content={challenge.badge}
-								className="w-[120px] h-[120px]"
-								imageClassName="w-[100px] h-[100px]"
-							/>
-						)}
+						<p>{challenge.badgeDesc}</p>
+						<SuccessBadge
+							contentType="image"
+							content={challenge.badgeImage}
+							className="w-[120px] h-[120px]"
+							imageClassName="w-[72px] h-[72px]"
+						/>
 					</Card.Content>
 				</Card>
 			))}

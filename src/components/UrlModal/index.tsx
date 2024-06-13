@@ -17,6 +17,7 @@ interface UrlModalProps {
 	button?: React.ReactNode;
 	buttonAction?: () => void;
 	closeButton?: React.ReactNode;
+	className?: string;
 }
 const UrlModal = ({
 	title,
@@ -24,12 +25,13 @@ const UrlModal = ({
 	button,
 	buttonAction,
 	closeButton,
+	className,
 }: UrlModalProps) => {
 	const router = useRouter();
 	return (
 		<Dialog defaultOpen>
 			<DialogContent
-				className="sm:max-w-[425px]"
+				className={`w-[100%] p-[40px] ${className}`}
 				onInteractOutside={(e) => {
 					e.preventDefault();
 				}}
@@ -39,17 +41,20 @@ const UrlModal = ({
 				</DialogHeader>
 				{children}
 				<DialogFooter>
-					<Button type="button" onClick={buttonAction}>
-						{button}
-					</Button>
-
-					<Button
-						type="button"
-						bgColor="lightyellow"
-						onClick={() => router.back()}
-					>
-						{closeButton}
-					</Button>
+					{button && (
+						<Button type="submit" onClick={buttonAction}>
+							{button}
+						</Button>
+					)}
+					{closeButton && (
+						<Button
+							type="button"
+							bgColor="lightyellow"
+							onClick={() => router.back()}
+						>
+							{closeButton}
+						</Button>
+					)}
 				</DialogFooter>
 			</DialogContent>
 		</Dialog>

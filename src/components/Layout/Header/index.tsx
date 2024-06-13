@@ -27,19 +27,27 @@ const Header = () => {
 				</Link>
 				<ul className="text-black flex gap-[30px]">
 					<HeaderItem label="홈" href="/" />
-					<HeaderItem label="짠맛 내공 쌓기" href="/userinfo" />
+					<HeaderItem label="짠맛 내공 쌓기" href="/naegong" />
 					<HeaderItem label="챌린지" href="/challenge" />
 					<HeaderItem label="염전" showTooltip href="/saltern" />
 				</ul>
 				<div className="flex items-center gap-[30px]">
 					{session?.user ? (
-						<button
-							type="button"
-							onClick={handleLogout}
-							className={`${styles.headerbutton} bg-white-500 hover:text-main-darkblue`}
-						>
-							Logout
-						</button>
+						<>
+							<Link
+								href="/userinfo"
+								className={`${styles.headerbutton} bg-white-500 hover:text-main-darkblue`}
+							>
+								마이페이지
+							</Link>
+							<button
+								type="button"
+								onClick={handleLogout}
+								className={`${styles.headerbutton} bg-white-500 hover:text-main-darkblue`}
+							>
+								Logout
+							</button>
+						</>
 					) : (
 						<>
 							<Link

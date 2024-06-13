@@ -16,7 +16,7 @@ const buttonVariants = cva(
 				outline:
 					"border border-input rounded-[50px] hover:shadow-custom-inner ",
 				secondary: "rounded-[50px] bg-secondary  hover:shadow-custom-inner",
-				ghost: "rounded-[50px] hover:bg-accent hover:text-accent-foreground",
+				ghost: "rounded-[50px] p-0",
 				link: "rounded-[50px] text-primary underline-offset-4 hover:underline",
 			},
 			size: {
@@ -35,10 +35,11 @@ const buttonVariants = cva(
 				red: "bg-point-red text-white ",
 				navy: "bg-main-navy text-white ",
 				white: "bg-white",
+				transparent: "bg-transparent",
 			},
 			shadow: {
 				default: "shadow-button-shadow",
-				none: "shadow-none",
+				transparent: "shadow-transparent",
 			},
 		},
 		defaultVariants: {
