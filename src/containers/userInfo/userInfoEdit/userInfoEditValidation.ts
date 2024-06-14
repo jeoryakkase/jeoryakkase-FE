@@ -1,7 +1,10 @@
 import { z } from "zod";
 
 const FormSchema = z.object({
-	profileImage: z.instanceof(File).nullable().optional(),
+	profileImage: z
+		.union([z.instanceof(File), z.string()])
+		.nullable()
+		.optional(),
 	about: z.string().min(2, {
 		message: "소개글은 2글자 이상이어야 합니다.",
 	}),

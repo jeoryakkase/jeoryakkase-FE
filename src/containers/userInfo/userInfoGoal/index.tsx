@@ -12,8 +12,12 @@ import { useQuery } from "@tanstack/react-query";
 
 import { progressGoalData } from "../assets/progressGoalData";
 
+type Params = {
+	goalId: string;
+};
 const UserInfoGoal = () => {
-	const { goalId } = useParams();
+	const params = useParams<Params>();
+	const goalId = params?.goalId;
 	const { data: goalData } = useQuery({
 		...goalsQueryOption.getGoalsCertifications(Number(goalId)),
 	});
@@ -22,7 +26,6 @@ const UserInfoGoal = () => {
 		return <div>인증을 추가해주세요 🥲 </div>;
 	}
 
-	console.log("goalData", goalData);
 	return (
 		<div>
 			<ContentSection title="진행중인 목표">

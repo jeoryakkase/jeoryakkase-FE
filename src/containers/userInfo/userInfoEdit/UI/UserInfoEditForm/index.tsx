@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@components/Button";
@@ -32,7 +32,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import FormSchema from "../../userInfoEditValidation";
 
 export interface UserEdit {
-	profileImage?: File | null;
+	profileImage?: File | string | null;
 	about: string;
 	email: string;
 	nickname: string;
@@ -45,10 +45,8 @@ export interface UserEdit {
 const UserInfoEditForm = () => {
 	const router = useRouter();
 	const { data: userData } = useQuery({
-		...userQueryOption.getUserInfo(),
+		...userQueryOption.getUserInfoEdit(),
 	});
-
-	console.log("userData", userData);
 	const { mutate: patchUser } = useMutation({
 		mutationFn: patchUserInfo,
 	});
@@ -56,25 +54,21 @@ const UserInfoEditForm = () => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			profileImage: null,
+			profileImage: "",
 			about: "",
 			email: "",
 			nickname: "",
-			age: 0,
+			age: 2,
 			gender: "MALE",
 			savePurpose: "",
 			interests: [],
 		},
 	});
-	console.log(
-		"관심사태그",
-		useWatch({ control: form.control, name: "interests" }),
-	);
 
 	useEffect(() => {
 		if (userData) {
 			form.reset({
-				profileImage: null,
+				profileImage: userData.profileImage ?? "",
 				about: userData.about ?? "",
 				email: userData.email ?? "",
 				nickname: userData.nickname ?? "",
@@ -88,19 +82,19 @@ const UserInfoEditForm = () => {
 
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
 		const formData = new FormData();
-		formData.append("about", data.about);
-		formData.append("email", data.email);
-		formData.append("nickname", data.nickname);
-		formData.append("age", data.age);
-		formData.append("gender", data.gender);
-		formData.append("savePurpose", data.savePurpose);
-		data.interests.forEach((interest) =>
-			formData.append("interests", interest.toString()),
-		);
-		if (data.profileImage) {
+		if (data.profileImage instanceof File) {
 			formData.append("profileImage", data.profileImage);
 		}
-
+		const dto = {
+			about: data.about,
+			email: data.email,
+			nickname: data.nickname,
+			age: data.age,
+			gender: data.gender,
+			savePurpose: data.savePurpose,
+			interests: data.interests,
+		};
+		formData.append("dto", JSON.stringify(dto));
 		patchUser(formData, {
 			onSuccess: () => {
 				showToast({

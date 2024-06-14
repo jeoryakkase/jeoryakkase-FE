@@ -1,8 +1,11 @@
-import { SignUpFormType } from "@containers/signup/signupValidation";
 import apiClient from "@lib/axiosConfig";
 
-const postSignUp = async (data: SignUpFormType) => {
-	return apiClient.post("/signup", data);
+const postSignUp = async (data: FormData) => {
+	return apiClient.post("/signup", data, {
+		headers: {
+			"Content-Type": "multipart/form-data",
+		},
+	});
 };
 
 export default postSignUp;

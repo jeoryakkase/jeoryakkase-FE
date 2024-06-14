@@ -11,7 +11,7 @@ const NaegongGiveUpModalPage = () => {
 		setIsOpen(true);
 	}, []);
 
-	return <>{isOpen && <NaegongGiveUpModal />}</>;
+	return <div>{isOpen && <NaegongGiveUpModal />}</div>;
 };
 
 export default NaegongGiveUpModalPage;

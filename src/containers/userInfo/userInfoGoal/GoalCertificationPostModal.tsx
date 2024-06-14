@@ -14,14 +14,16 @@ import {
 	FormMessage,
 } from "@components/shadcn/ui/Form";
 import UrlModal from "@components/UrlModal";
+import {
+	NaegongDefault,
+	NaegongValidation,
+} from "@containers/naegong/UI/NaegongValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import showToast from "@lib/toastConfig";
 import postGoals from "@services/user/goals/postGoals";
 import { useMutation } from "@tanstack/react-query";
 
-import { NaegongDefault, NaegongValidation } from "./NaegongValidation";
-
-const NaegongPostModal = () => {
+const GoalCertificationPostModal = () => {
 	const form = useForm<z.infer<typeof NaegongValidation>>({
 		resolver: zodResolver(NaegongValidation),
 		defaultValues: NaegongDefault,
@@ -31,14 +33,14 @@ const NaegongPostModal = () => {
 		onSuccess: () => {
 			showToast({
 				type: "success",
-				message: "목표가 작성되었습니다.",
+				message: "인증이 완료되었습니다.",
 			});
 			router.push("/naegong");
 		},
 		onError: () => {
 			showToast({
 				type: "error",
-				message: "진행중인 목표는 최대 5개까지 생성할 수 있습니다.",
+				message: "인증에 실패하였습니다.",
 			});
 		},
 	});
@@ -57,7 +59,6 @@ const NaegongPostModal = () => {
 		};
 
 		formData.append("goalCreateReqDto", JSON.stringify(goalCreateReqDto));
-
 		mutate(formData);
 	};
 	const router = useRouter();
@@ -164,4 +165,4 @@ const NaegongPostModal = () => {
 	);
 };
 
-export default NaegongPostModal;
+export default GoalCertificationPostModal;
