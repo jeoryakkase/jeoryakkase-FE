@@ -1,10 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { CalendarIcon } from "@radix-ui/react-icons";
+
 import { format } from "date-fns";
 
-import cn from "@utils/classnames.utils";
 import { Button } from "@components/shadcn/ui/Button";
 import { Calendar } from "@components/shadcn/ui/Calendar";
 import {
@@ -12,6 +11,9 @@ import {
 	PopoverContent,
 	PopoverTrigger,
 } from "@components/shadcn/ui/Popover";
+import { CalendarIcon } from "@radix-ui/react-icons";
+import cn from "@utils/classnames.utils";
+
 interface ModalDateProps {
 	value?: Date;
 	onChange: (date: Date | undefined) => void;
@@ -27,7 +29,7 @@ const ModalDate = ({ value, onChange }: ModalDateProps) => {
 		<Popover>
 			<PopoverTrigger asChild>
 				<Button
-					variant={"outline"}
+					variant="outline"
 					className={cn(
 						"w-[200px] justify-start text-left font-normal",
 						!date && "text-muted-foreground",

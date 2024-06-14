@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+
+import { TransformedStatistics } from "src/viewModels/main/mainViewModel";
 
 import mainCharacter from "@assets/images/character/character04.png";
 import Card from "@components/Card";
@@ -9,7 +13,11 @@ import { Badge } from "@components/shadcn/ui/Badge";
 import doughtnutData from "@containers/main/assets/doughtnutData";
 import { getFullDate, getLastMonth } from "@utils/dates.utils";
 
-const Statistics = ({ userStatistics }) => {
+interface StatisticsProps {
+	userStatistics: TransformedStatistics | null;
+}
+
+const Statistics = ({ userStatistics }: StatisticsProps) => {
 	if (!userStatistics) {
 		return null;
 	}
@@ -23,6 +31,8 @@ const Statistics = ({ userStatistics }) => {
 	const percentages = userStatistics.monthlyCertificationPercentages
 		? Object.values(userStatistics.monthlyCertificationPercentages)
 		: [];
+	console.log("Labels: ", labels);
+	console.log("Percentages: ", percentages);
 	const doughnutChartData = doughtnutData({ percentage: percentages, labels });
 
 	return (
@@ -62,7 +72,13 @@ const Statistics = ({ userStatistics }) => {
 				<Card.Content>
 					<Flex direction="row">
 						<div className="w-[250px]">
-							<DoughnutChart data={doughnutChartData} />
+							{labels.length > 0 && percentages.length > 0 ? (
+								<div className="w-[250px]">
+									<DoughnutChart data={doughnutChartData} />
+								</div>
+							) : (
+								<div>No data available</div>
+							)}
 						</div>
 						<Flex direction="column">
 							<div className="mb-2">

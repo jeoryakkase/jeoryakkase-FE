@@ -6,6 +6,7 @@ import Image from "next/image";
 import { FaPlus } from "react-icons/fa";
 
 import { Input } from "@components/shadcn/ui/Input";
+import showToast from "@lib/toastConfig";
 import getImgPreview from "@utils/getImgPreview";
 
 import ModalContainer from "../ModalContainer";
@@ -46,7 +47,7 @@ const ModalImgInput = ({
 			const file = event.target.files?.[0] as File;
 			if (file) {
 				if (!file.type.startsWith("image/")) {
-					console.error("이미지 파일을 선택해주세요.");
+					showToast({ type: "error", message: "이미지 파일을 선택해주세요." });
 					return;
 				}
 				getImgPreview(file, setPreviewImage, setPreviewImageData || (() => {}));

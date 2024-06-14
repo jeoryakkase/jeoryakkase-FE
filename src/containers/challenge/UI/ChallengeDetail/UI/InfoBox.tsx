@@ -19,7 +19,7 @@ const getIndicatorClassName = (percentage: number): string => {
 };
 
 const InfoBox = ({ challengeDetail, isJoined, challengeId }) => {
-	const { isLogined, nickname } = useAuthStore();
+	const { isLogined, user } = useAuthStore();
 	const indicatorClassName = getIndicatorClassName(challengeDetail.percentage);
 	const queryClient = useQueryClient();
 	const { mutate: joinChallengeMutate } = useMutation({
@@ -87,7 +87,7 @@ const InfoBox = ({ challengeDetail, isJoined, challengeId }) => {
 						>
 							<div className="flex flex-col w-full items-start">
 								<Card.Header
-									title={`${nickname}님의 챌린지 진행도`}
+									title={`${user?.nickname}님의 챌린지 진행도`}
 									className="ml-4 font-medium text-sm p-0"
 								/>
 								<Card.Content className="w-11/12 flex flex-col mt-1">

@@ -43,7 +43,7 @@ const ProfileBox = ({
 			<Flex direction="column">
 				<UserProfileBox
 					profileImg={profileImg}
-					nickname={nickname}
+					nickname={nickname ?? "username"}
 					badge={badge}
 				/>
 				<div className="flex flex-col ml-24">

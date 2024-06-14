@@ -1,6 +1,11 @@
+import { ChartData } from "chart.js";
+
 import { colors } from "@lib/tailwindColors";
 
-const doughtnutData = ({ percentage, labels }) => ({
+const doughtnutData = ({
+	percentage = [] as number[],
+	labels = [] as string[],
+}): ChartData<"doughnut"> => ({
 	labels,
 	datasets: [
 		{

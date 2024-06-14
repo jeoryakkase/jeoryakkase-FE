@@ -1,5 +1,6 @@
 import apiClient from "@lib/axiosConfig";
-import { ChallengeCertification } from "@types/index";
+
+import { ChallengeCertification } from "../../types";
 
 export default async function getChallengeFeed({
 	challengeId,

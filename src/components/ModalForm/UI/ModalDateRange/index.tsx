@@ -3,6 +3,7 @@
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 
+import { Button } from "@components/Button";
 import { Calendar } from "@components/shadcn/ui/Calendar";
 import {
 	Popover,
@@ -11,22 +12,16 @@ import {
 } from "@components/shadcn/ui/Popover";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import cn from "@utils/classnames.utils";
-import { Button } from "@components/Button";
+
 import ModalContainer from "../ModalContainer";
 
 interface ModalDateRangeProps {
 	title?: string;
 	value?: DateRange; // 날짜 타입(from ~ to)
 	onChange?: (date: DateRange | undefined) => void;
-	className?: string;
 }
 
-const ModalDateRange = ({
-	title,
-	className,
-	value,
-	onChange,
-}: ModalDateRangeProps) => {
+const ModalDateRange = ({ title, value, onChange }: ModalDateRangeProps) => {
 	return (
 		<ModalContainer title={title}>
 			<Popover>

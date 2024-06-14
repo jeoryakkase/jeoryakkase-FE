@@ -28,7 +28,7 @@ export const transformGoals = (goals: MainGoal[]): Goal[] => {
 	return goals.map(transformUserGoal);
 };
 
-interface StatisticsData {
+export interface StatisticsData {
 	dailyCertifications: string[];
 	monthlyCertifications: string[];
 	monthlyCertificationPercentages: Record<string, number>;
@@ -39,7 +39,7 @@ interface StatisticsData {
 	yearMonth: string;
 }
 
-interface TransformedStatistics {
+export interface TransformedStatistics {
 	todayDate: {
 		badges: string[];
 		savings: number;

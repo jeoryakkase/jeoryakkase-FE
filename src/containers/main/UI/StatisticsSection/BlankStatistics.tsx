@@ -18,6 +18,10 @@ const DoughnutChart = dynamic(() => import("@components/DoughnutChart"), {
 const BlankStatistics = () => {
 	const todayDate = getFullDate(new Date());
 	const lastMonth = getLastMonth(new Date());
+	const dummyDoughnutData = doughtnutData({
+		percentage: [30, 30, 30],
+		labels: ["대중교통이용", "어쩌구", "저쩌구"],
+	});
 
 	return (
 		<ContentSection
@@ -58,7 +62,7 @@ const BlankStatistics = () => {
 				<Card.Content>
 					<Flex direction="row">
 						<div className="w-[250px]">
-							<DoughnutChart data={doughtnutData} />
+							<DoughnutChart data={dummyDoughnutData} />
 						</div>
 						<Flex direction="column">
 							<div className="mb-2">지난 한달 총 224,300원 절약</div>

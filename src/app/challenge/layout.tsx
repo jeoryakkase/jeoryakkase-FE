@@ -9,7 +9,6 @@ const ChallengeLayout = ({
 	children,
 	challengeFormModal,
 }: ChallengeLayoutProps) => {
-	// const isModalOpen = !!modal;
 	return (
 		<div>
 			<h2 className="font-bold text-xxl">짠맛 수련 챌린지 </h2>
