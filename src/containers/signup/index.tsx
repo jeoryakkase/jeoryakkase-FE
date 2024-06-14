@@ -60,21 +60,34 @@ const SignupForm = () => {
 	});
 
 	const onSubmit = (data: z.infer<typeof signupValidation>) => {
-		mutate(data);
+		const formData = new FormData();
+		if (data.profileImage instanceof File) {
+			formData.append("profileImage", data.profileImage);
+		}
+		const dto = {
+			about: data.about,
+			email: data.email,
+			nickname: data.nickname,
+			password: data.password,
+			confirmPassword: data.confirmPassword,
+			age: data.age,
+			gender: data.gender,
+			savePurpose: data.savePurpose,
+			interests: data.interests,
+		};
+		formData.append("dto", JSON.stringify(dto));
+		mutate(formData);
 	};
 	// 이메일 중복검사
 	const handleCheckEmail = async () => {
 		const email = form.getValues("email");
 		const response = await getDuplicationEmail({ email });
-		if (response.status === 200) {
+		if (response.isAvailable === true) {
 			showToast({
 				type: "success",
 				message: "사용 가능한 이메일 입니다.",
 			});
-		} else if (
-			response.status === 409 &&
-			response.data === "Member with this email already exists."
-		) {
+		} else if (response.isAvailable === false) {
 			showToast({
 				type: "error",
 				message: "이미 사용중인 이메일 입니다.",
@@ -85,15 +98,12 @@ const SignupForm = () => {
 	const handleCheckNickName = async () => {
 		const nickname = form.getValues("nickname");
 		const response = await getDuplicationNickName({ nickname });
-		if (response.status === 200) {
+		if (response.isAvailable === true) {
 			showToast({
 				type: "success",
 				message: "사용 가능한 닉네임 입니다.",
 			});
-		} else if (
-			response.status === 409 &&
-			response.data === "Member with this nickname already exists.."
-		) {
+		} else if (response.isAvailable === false) {
 			showToast({
 				type: "error",
 				message: "이미 사용중인 닉네임 입니다.",

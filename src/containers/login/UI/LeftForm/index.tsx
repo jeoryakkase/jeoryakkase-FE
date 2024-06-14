@@ -37,7 +37,6 @@ const LeftForm = () => {
 				redirect: false,
 				callbackUrl: "/",
 			});
-			console.log(result);
 
 			if (result && !result.error) {
 				login({

@@ -1,17 +1,10 @@
 import { z } from "zod";
 
-export const userInfoEditDefault = {
-	profileImage: null,
-	about: "",
-	email: "",
-	nickname: "",
-	age: 0,
-	gender: "",
-	savePurpose: "",
-	interests: [],
-};
 const FormSchema = z.object({
-	profileImage: z.instanceof(File).nullable().optional(),
+	profileImage: z
+		.union([z.instanceof(File), z.string()])
+		.nullable()
+		.optional(),
 	about: z.string().min(2, {
 		message: "소개글은 2글자 이상이어야 합니다.",
 	}),
