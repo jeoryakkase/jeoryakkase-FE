@@ -1,3 +1,5 @@
+"use client";
+
 import SignupForm from "src/containers/signup";
 
 const SignupPage = () => {

@@ -1,3 +1,5 @@
+"use client";
+
 import UserInfoEdit from "@containers/userInfo/userInfoEdit";
 
 const UserInfoEditPage = () => {

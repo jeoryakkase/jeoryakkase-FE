@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { GoBookmark } from "react-icons/go";
 
