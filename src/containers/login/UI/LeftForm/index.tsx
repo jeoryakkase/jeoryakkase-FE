@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -17,18 +19,30 @@ import {
 import { Input } from "@components/shadcn/ui/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import showToast from "@lib/toastConfig";
-import useAuthStore from "@stores/Auth/useUserAuth";
+import useAuthStore, { UserStoreData } from "@stores/Auth/useUserAuth";
 
 import { loginDefault, loginValidation } from "./loginValidation";
 import SocialLogin from "../SocialLogin";
 
 const LeftForm = () => {
 	const router = useRouter();
+	const { data: session } = useSession();
 	const login = useAuthStore((state) => state.login);
+	const { user } = useAuthStore();
 	const form = useForm<z.infer<typeof loginValidation>>({
 		resolver: zodResolver(loginValidation),
 		defaultValues: loginDefault,
 	});
+
+	useEffect(() => {
+		if (session) {
+			const userData = session.user;
+			if (userData) {
+				login(userData.userStoreData as UserStoreData);
+			}
+		}
+	}, [session, user?.nickname]);
+
 	const onSubmit = async (data: z.infer<typeof loginValidation>) => {
 		try {
 			const result = await signIn("credentials", {
@@ -52,7 +66,6 @@ const LeftForm = () => {
 			showToast({ type: "error", message: "로그인에 실패하였습니다." });
 		}
 	};
-
 	return (
 		<Form {...form}>
 			<form

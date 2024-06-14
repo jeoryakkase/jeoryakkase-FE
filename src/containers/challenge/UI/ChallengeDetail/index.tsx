@@ -72,7 +72,7 @@ const ChallengeDetail = () => {
 					className="flex flex-col text-center"
 					childrenClassName="flex flex-col flex-grow mt-8"
 				>
-					<HeaderButton />
+					<HeaderButton memberId={memberId} />
 					{/* <ChallengeFeed
 						feedDatas={feedData}
 						joinedCounts={challengeDetail.joinedCounts}

@@ -41,7 +41,8 @@ export interface ChallengeCertification {
 
 export interface ChallengesJoined {
 	id: number;
-	challengeTtile: string;
+	parentsChallengeId: number;
+	challengeTitle: string;
 	challengeTerm: string;
 	isTodayCertification: boolean;
 	startDate: string;
@@ -72,6 +73,7 @@ export interface AllChallengeList {
 export interface MemberChallengesJoined {
 	id: number;
 	challengeTtile: string;
+	parentsChallengeId: number;
 	challengeTerm: string;
 	isTodayCertification: boolean;
 	startDate: string;

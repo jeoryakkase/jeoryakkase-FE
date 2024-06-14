@@ -27,6 +27,10 @@ const showToast = ({ type, message, ...props }: ToastProps) => {
 		pauseOnHover: true,
 	};
 
+	if (message?.includes("Request failed")) {
+		return;
+	}
+
 	if (type === "success") {
 		toast.success(message, { ...toastOptions, ...props });
 	}

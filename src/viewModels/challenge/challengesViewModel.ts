@@ -43,7 +43,8 @@ export const transformChallenges = (
 
 	return userChallengeData.map((userChallenge) => ({
 		id: userChallenge.id.toString(),
-		title: userChallenge.challengeTtile,
+		challengeId: userChallenge.parentsChallengeId.toString(),
+		title: userChallenge.challengeTitle,
 		description: userChallenge.challengeTerm,
 		imgs: userChallenge.certificationChallengeDtos.flatMap((certification) =>
 			certification.certificationChallengeImageDtos.map((img) => ({

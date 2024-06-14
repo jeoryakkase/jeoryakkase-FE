@@ -4,6 +4,7 @@ type TagImgType = { id: string; img: string }[] | string;
 
 export type UserChallenge = {
 	id: string;
+	challengeId: string;
 	title: string;
 	description: string;
 	startDate: string;

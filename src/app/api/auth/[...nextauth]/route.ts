@@ -5,7 +5,7 @@ import GoogleProvider from "next-auth/providers/google";
 import KakaoProvider from "next-auth/providers/kakao";
 
 import showToast from "@lib/toastConfig";
-import useAuthStore, { UserStoreData } from "@stores/Auth/useUserAuth";
+import { UserStoreData } from "@stores/Auth/useUserAuth";
 
 declare module "next-auth" {
 	interface User {
@@ -67,8 +67,7 @@ const handler = NextAuth({
 					);
 					const authorizationHeader = res.headers.get("Authorization");
 					const user = await res.json();
-					// 스토어 저장
-					useAuthStore.getState().login(user.user);
+
 					if (user) {
 						user.accessToken = authorizationHeader;
 						return user;

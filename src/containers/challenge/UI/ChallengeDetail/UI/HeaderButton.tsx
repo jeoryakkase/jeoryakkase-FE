@@ -10,11 +10,20 @@ import {
 	SelectValue,
 } from "@components/Select";
 
-const HeaderButton = () => {
+interface HeaderButtonProps {
+	memberId: string | null;
+}
+
+const HeaderButton = ({ memberId }: HeaderButtonProps) => {
 	const { challengeId } = useParams();
 	return (
 		<section className="flex flex-row justify-end">
-			<Link href={`/challenge/${challengeId}/record`}>
+			<Link
+				href={{
+					pathname: `/challenge/${challengeId}/record`,
+					query: { memeberChallengeId: memberId },
+				}}
+			>
 				<Button
 					bgColor="white"
 					className="border-sub-gray1 rounded-xl mr-3 mb-4 border-2"

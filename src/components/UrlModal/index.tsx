@@ -18,9 +18,11 @@ interface UrlModalProps {
 	buttonAction?: () => void;
 	closeButton?: React.ReactNode;
 	className?: string;
+	isOpen?: boolean;
 }
 const UrlModal = ({
 	title,
+	isOpen,
 	children,
 	button,
 	buttonAction,
@@ -29,7 +31,7 @@ const UrlModal = ({
 }: UrlModalProps) => {
 	const router = useRouter();
 	return (
-		<Dialog defaultOpen>
+		<Dialog defaultOpen open={isOpen}>
 			<DialogContent
 				className={`w-[100%] p-[40px] ${className}`}
 				onInteractOutside={(e) => {

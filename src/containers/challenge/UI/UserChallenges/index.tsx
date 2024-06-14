@@ -9,7 +9,7 @@ interface ChallengeProps {
 }
 
 const UserChallenges = ({ challenges }: ChallengeProps) => {
-	console.log(challenges[0].id);
+	console.log(challenges[0]);
 	return (
 		<ContentSection
 			title="참여 중인 챌린지"
@@ -19,8 +19,8 @@ const UserChallenges = ({ challenges }: ChallengeProps) => {
 				<Link
 					key={challenge.id}
 					href={{
-						pathname: `/challenge/${challenge.id}`,
-						query: { memeberChallengeId: challenge.memeberChallengeId },
+						pathname: `/challenge/${challenge.challengeId}`,
+						query: { memeberChallengeId: challenge.id },
 					}}
 				>
 					<TagCard

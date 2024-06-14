@@ -18,6 +18,7 @@ export interface Feed {
 
 export interface UserChallenges {
 	id: string;
+	challengeId: string;
 	title: string;
 	description: string;
 	startDate: string;
