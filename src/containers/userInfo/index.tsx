@@ -21,9 +21,6 @@ const UserInfo = () => {
 	const { data: generalBadges } = useQuery({
 		...memberBadgesQueryOption.getMemberChallengesBadges(false),
 	});
-	console.log("userInfo", userInfo);
-	console.log("representativeBadges", representativeBadges);
-	console.log("generalBadges", generalBadges);
 	return (
 		<div>
 			<Introduction

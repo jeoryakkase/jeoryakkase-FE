@@ -4,7 +4,7 @@ import UserProfileBox from "@components/UserProfileBox";
 
 import ContentToolTip from "./ContentToolTip";
 
-interface BadgeProps {
+export interface BadgeProps {
 	stroke?: string;
 	fill?: string;
 	className?: string;
@@ -13,9 +13,9 @@ interface BadgeProps {
 	alt?: string;
 }
 
-interface ProfileBoxProps {
-	profileImg: string;
-	nickname: string;
+export interface ProfileBoxProps {
+	profileImg?: string;
+	nickname?: string;
 	date: string;
 	isOwner: boolean;
 	isChallenge: boolean;

@@ -1,7 +1,9 @@
+import getMemberChallenges from "@services/user/challenges/getMemberChallenges";
 import { queryOptions } from "@tanstack/react-query";
 
 import getAllChallenge from "./getAllChallenge";
 import getChallengeDetail from "./getChallengeDetail";
+import getChallengeFeed from "./getChallengeFeed";
 import getChallengeInfo from "./getChallengeInfo";
 import getChallenges from "./getChallenges";
 
@@ -15,7 +17,7 @@ const challengeQueryOption = {
 	getAllChallenges: () =>
 		queryOptions({
 			queryKey: ["allChallenge", "allChallengeList"],
-			queryFn: () => getAllChallenge(),
+			queryFn: () => getAllChallenge(20),
 		}),
 	getChallengeDetail: ({ challengeId }: { challengeId: number }) =>
 		queryOptions({
@@ -28,7 +30,18 @@ const challengeQueryOption = {
 			queryKey: ["challengeInfo", "challengeInfos"],
 			queryFn: () => getChallengeInfo({ challengeId }),
 		}),
-	// getMemberChallenges
+
+	getChallengeFeed: ({ challengeId }: { challengeId: number }) =>
+		queryOptions({
+			queryKey: ["challengeFeed", "challenge", "challengeInfo"],
+			queryFn: () => getChallengeFeed({ challengeId }),
+		}),
+
+	getMemberChallenge: () =>
+		queryOptions({
+			queryKey: ["memberChallenge", "memberChallenges"],
+			queryFn: () => getMemberChallenges(),
+		}),
 };
 
 export default challengeQueryOption;

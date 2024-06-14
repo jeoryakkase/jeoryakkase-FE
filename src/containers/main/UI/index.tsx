@@ -1,14 +1,16 @@
-import BannerCarousels from "@components/BannerCarousel";
 import {
-	dummyHotPostData as hotPostData,
-	dummyStatistics,
-} from "@containers/main/dummy";
-import useAuthStore from "@stores/Auth/useUserAuth";
-import useUserGoalStore from "@stores/Goal/goalStore";
-import useUserChallenge from "@stores/UserChallenge/useUserChallenge";
+	transformGoals,
+	transformStatistics,
+} from "src/viewModels/main/mainViewModel";
 
-import Challenge from "./ChallengeSection/Challenge";
+import BannerCarousels from "@components/BannerCarousel";
+import { dummyHotPostData as hotPostData } from "@containers/main/dummy";
+import mainQueryOption from "@services/main";
+import useAuthStore from "@stores/Auth/useUserAuth";
+import { useQuery } from "@tanstack/react-query";
+
 // import BlankGoal from "./GoalSection/BlankGoal";
+import BlankGoal from "./GoalSection/BlankGoal";
 import Goal from "./GoalSection/Goal";
 import HotPost from "./HotPostSection/HotPost";
 import BlankStatistics from "./StatisticsSection/BlankStatistics";
@@ -30,26 +32,31 @@ const banners = mainBannerData.map((banner, index) => ({
 const Main = () => {
 	// 로그인 상태 받아서 ui 다르게 보여주기
 	// 로그인 안했을 땐 주로 Link href="/login" 감싸기
-	const goals = useUserGoalStore((state) => state.goals);
-	const challenges = useUserChallenge((state) => state.challenges);
 	const { isLogined } = useAuthStore();
+	const { data: goalData } = useQuery(mainQueryOption.getUserGoal());
+	const { data: statisticData } = useQuery(mainQueryOption.getUserStatistics());
+	// const { data: memberChallengeData } = useQuery(
+	// 	challengeQueryOption.getMemberChallenge(),
+	// );
+
+	const goals = goalData ? transformGoals(goalData) : [];
+	const statistics = transformStatistics(statisticData);
 
 	return (
 		<div>
 			<BannerCarousels banners={banners} />
 			{isLogined && (
 				<div>
-					<Statistics userStatistics={dummyStatistics} />
+					<Statistics userStatistics={statistics} />
 					<Goal goals={goals} />
-					<Challenge challenges={challenges} />
+					{/* <Challenge challenges={memberChallengeData} /> */}
 				</div>
 			)}
 
-			{/* provider로 감싸야할거 같음 */}
 			{!isLogined && (
 				<div>
 					<BlankStatistics />
-					{/* <BlankGoal /> */}
+					<BlankGoal />
 				</div>
 			)}
 

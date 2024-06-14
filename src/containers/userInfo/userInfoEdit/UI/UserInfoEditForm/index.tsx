@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@components/Button";
@@ -26,11 +26,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import showToast from "@lib/toastConfig";
 import { getDuplicationNickName } from "@services/login/duplication";
 import userQueryOption from "@services/user";
-
+import patchUserInfo from "@services/user/pathchUserInfo";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import FormSchema from "../../userInfoEditValidation";
-import patchUserInfo from "@services/user/pathchUserInfo";
 
 export interface UserEdit {
 	profileImage?: File | null;
@@ -43,13 +42,22 @@ export interface UserEdit {
 	interests: number[];
 }
 
+export interface UserEdit {
+	profileImage?: File | string | null;
+	about: string;
+	email: string;
+	nickname: string;
+	age: number;
+	gender: string;
+	savePurpose: string;
+	interests: number[];
+}
+
 const UserInfoEditForm = () => {
 	const router = useRouter();
 	const { data: userData } = useQuery({
-		...userQueryOption.getUserInfo(),
+		...userQueryOption.getUserInfoEdit(),
 	});
-
-	console.log("userData", userData);
 	const { mutate: patchUser } = useMutation({
 		mutationFn: patchUserInfo,
 	});
@@ -57,25 +65,21 @@ const UserInfoEditForm = () => {
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			profileImage: null,
+			profileImage: "",
 			about: "",
 			email: "",
 			nickname: "",
-			age: 0,
+			age: 2,
 			gender: "MALE",
 			savePurpose: "",
 			interests: [],
 		},
 	});
-	console.log(
-		"관심사태그",
-		useWatch({ control: form.control, name: "interests" }),
-	);
 
 	useEffect(() => {
 		if (userData) {
 			form.reset({
-				profileImage: null,
+				profileImage: userData.profileImage ?? "",
 				about: userData.about ?? "",
 				email: userData.email ?? "",
 				nickname: userData.nickname ?? "",
@@ -88,8 +92,21 @@ const UserInfoEditForm = () => {
 	}, [userData, form]);
 
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		console.log(data);
-		patchUser(data, {
+		const formData = new FormData();
+		if (data.profileImage instanceof File) {
+			formData.append("profileImage", data.profileImage);
+		}
+		const dto = {
+			about: data.about,
+			email: data.email,
+			nickname: data.nickname,
+			age: data.age,
+			gender: data.gender,
+			savePurpose: data.savePurpose,
+			interests: data.interests,
+		};
+		formData.append("dto", JSON.stringify(dto));
+		patchUser(formData, {
 			onSuccess: () => {
 				showToast({
 					type: "success",

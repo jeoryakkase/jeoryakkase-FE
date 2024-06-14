@@ -1,12 +1,14 @@
-import { ChallengeInfo } from "src/viewModels/challenge/challengesViewModel";
-
 import apiClient from "@lib/axiosConfig";
 
+import { AllChallenges } from "../../types";
+
 interface AllChallengesProps {
-	content: ChallengeInfo[];
+	content: AllChallenges[];
 }
 
-export default async function getAllChallenge() {
-	const response = await apiClient.get<AllChallengesProps>("/challenges/all");
+export default async function getAllChallenge(size: number) {
+	const response = await apiClient.get<AllChallengesProps>(
+		`/challenges/all?size=${size}`,
+	);
 	return response.data;
 }

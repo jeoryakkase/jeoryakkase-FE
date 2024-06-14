@@ -27,7 +27,6 @@ export const requestInterceptor = async (
 	const headers: AxiosRequestHeaders =
 		(config.headers as AxiosRequestHeaders) || {};
 	const accessToken = await getAccessToken();
-	console.log("accessToken 헤더", accessToken);
 
 	headers.Authorization = `${accessToken}`;
 

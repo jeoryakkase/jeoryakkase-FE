@@ -1,14 +1,13 @@
 import apiClient from "@lib/axiosConfig";
 
-import { AllChallenges } from "../../types";
+import { AllChallenges, ChallengesJoined } from "../../types";
 
-interface ChallengesProps {
-	memberChallengesJoinResDto: ChallengesJoined[];
-	challengesReadResDto: AllChallenges[];
-	challengesPopularityReadResDto: AllChallenges[];
+interface MemberChallengesProps extends ChallengesJoined {
+	challengeDto: AllChallenges;
 }
 
 export default async function getMemeberChallenge() {
-	const response = await apiClient.get<ChallengesProps>("/challenges");
+	const response =
+		await apiClient.get<MemberChallengesProps[]>("members/challenges");
 	return response.data;
 }

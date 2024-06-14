@@ -8,7 +8,7 @@ import {
 	CarouselPrevious,
 } from "../shadcn/ui/Carousel";
 
-interface Goal {
+export interface Goal {
 	id: string;
 	img: string;
 	title: string;
@@ -16,6 +16,7 @@ interface Goal {
 	leftMoney: number;
 	dayCount: number;
 	leftDay: number;
+	nickname: string;
 }
 
 interface CardCarouselsProps {
