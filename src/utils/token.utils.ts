@@ -5,7 +5,6 @@ const getAccessToken = async () => {
 	if (session && session.user.accessToken) {
 		return session.user.accessToken as string;
 	}
-	console.log(session, "interceptor session 찍히냐");
 	return null;
 };
 

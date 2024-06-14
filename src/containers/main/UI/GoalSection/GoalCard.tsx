@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 import Card from "@components/Card";
 import { Badge } from "@components/shadcn/ui/Badge";
@@ -36,7 +36,7 @@ const getIndicatorClassName = (percentage: number): string => {
 };
 
 interface GoalCardProps {
-	img: string;
+	img: string | StaticImageData;
 	percentage: number;
 	title: string;
 	leftMoney: number;

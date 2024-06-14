@@ -95,7 +95,10 @@ const Write = () => {
 										onSuccess={handleUpload}
 										uploadPreset="salt_image_upload"
 									>
-										<div className="ml-2 bg-blue-500 text-white px-4 py-2 rounded">
+										<div
+											{...field}
+											className="ml-2 bg-blue-500 text-white px-4 py-2 rounded"
+										>
 											이미지 업로드
 										</div>
 									</CldUploadButton>

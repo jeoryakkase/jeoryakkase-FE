@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import { FaTrash } from "react-icons/fa";
 

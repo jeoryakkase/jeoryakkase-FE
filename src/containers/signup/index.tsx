@@ -37,7 +37,10 @@ const SignupForm = () => {
 	const router = useRouter();
 	const form = useForm<z.infer<typeof signupValidation>>({
 		resolver: zodResolver(signupValidation),
-		defaultValues: signUpDefault,
+		defaultValues: {
+			...signUpDefault,
+			gender: "MALE",
+		},
 	});
 	const { mutate } = useMutation({
 		mutationFn: postSignUp,

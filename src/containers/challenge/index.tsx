@@ -16,7 +16,6 @@ const Challenge = () => {
 	const { data: challengeData } = useQuery(
 		challengeQueryOption.getChallenges(),
 	);
-	console.log(challengeData);
 
 	if (!challengeData) {
 		return null;
