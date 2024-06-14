@@ -7,6 +7,7 @@ import SuccessBadge from "@components/SuccessBadge";
 import { calculateDaysLeft } from "@containers/naegong/asset/cardCalculate";
 import statusColorClasses from "@containers/userInfo/assets/challengeStatusColorClasses";
 import formatDate from "@containers/userInfo/assets/formatDate";
+import { MemberChallenge } from "@containers/userInfo/types";
 
 interface ChallengeHistoryProps {
 	challenges: MemberChallenge[];

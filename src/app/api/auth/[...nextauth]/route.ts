@@ -86,7 +86,7 @@ const handler = NextAuth({
 
 		GoogleProvider({
 			clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
-			clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET!,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
 			// 구글은 refresh_token을 위해 access_type: "offline"이 필요
 			authorization: {
 				params: {
@@ -98,7 +98,7 @@ const handler = NextAuth({
 		}),
 		KakaoProvider({
 			clientId: process.env.NEXT_PUBLIC_KAKAO_CLIENT_ID!,
-			clientSecret: process.env.NEXT_PUBLIC_KAKAO_CLIENT_SECRET!,
+			clientSecret: process.env.KAKAO_CLIENT_SECRET!,
 			authorization: {
 				params: {
 					scope: "profile_nickname profile_image account_email",
@@ -108,7 +108,7 @@ const handler = NextAuth({
 			},
 		}),
 	],
-	secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
+	secret: process.env.NEXTAUTH_SECRET,
 	callbacks: {
 		async jwt({ token, user, account }) {
 			socialToken(account!);

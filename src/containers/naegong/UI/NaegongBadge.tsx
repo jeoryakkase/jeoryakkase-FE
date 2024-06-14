@@ -1,6 +1,7 @@
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 import SuccessBadge from "@components/SuccessBadge";
+import badgeData from "@components/SuccessBadge/BadgeData";
 
 const NaegongBadge = () => {
 	return (

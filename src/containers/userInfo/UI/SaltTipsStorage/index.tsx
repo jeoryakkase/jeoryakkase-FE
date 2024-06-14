@@ -5,6 +5,7 @@ import { GoBookmark } from "react-icons/go";
 import { Button } from "@components/Button";
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
+import { Bookmark } from "@containers/userInfo/types";
 import showToast from "@lib/toastConfig";
 import postBookMark from "@services/user/saltern/postBookMark";
 import { useMutation } from "@tanstack/react-query";

@@ -2,10 +2,10 @@ import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 import SuccessBadge from "@components/SuccessBadge";
 // import challengHistoryData from "@containers/userInfo/assets/challengHistoryData";
-import { MebmberChallengesBadges } from "@containers/userInfo/types";
+import { MemberChallengesBadges } from "@containers/userInfo/types";
 
 interface ChallengeBadgesProps {
-	memberbadges: MebmberChallengesBadges[];
+	memberbadges: MemberChallengesBadges[];
 }
 const ChallengeBadges = ({ memberbadges }: ChallengeBadgesProps) => {
 	// const challengesWithBadges = challengHistoryData.filter(

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 import defaultImage from "@assets/images/character/character01.png";
 import { Input } from "@components/shadcn/ui/Input";
@@ -24,9 +24,9 @@ const ImgInput = ({
 	viewOnly = false,
 }: ImgInputProps) => {
 	const imgInputRef = useRef<HTMLInputElement>(null);
-	const [profileImage, setProfileImage] = useState<string>(
-		initialImage || defaultImage,
-	);
+	const [profileImage, setProfileImage] = useState<
+		string | StaticImageData | undefined
+	>(initialImage || defaultImage);
 
 	useEffect(() => {
 		if (initialImage) {
@@ -52,7 +52,8 @@ const ImgInput = ({
 		},
 		[setProfileImage, setProfileImageData, viewOnly],
 	);
-
+	const profileImageSrc =
+		typeof profileImage === "string" ? profileImage : defaultImage.src;
 	return (
 		<div className="bg-sub-gray3 w-[200px] h-[200px] relative m-auto rounded-full cursor-pointer">
 			<Input
@@ -70,7 +71,7 @@ const ImgInput = ({
 			<div className="">
 				{profileImage ? (
 					<Image
-						src={profileImage}
+						src={profileImageSrc}
 						alt="사용자 프로필"
 						width={0}
 						height={0}
@@ -79,7 +80,7 @@ const ImgInput = ({
 					/>
 				) : (
 					<ImageWithDefault
-						src={profileImage}
+						src={profileImageSrc}
 						defaultSrc={defaultImage}
 						alt="사용자 프로필"
 						onClick={handleImageClick}

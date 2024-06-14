@@ -14,6 +14,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import statusColorClasses from "../assets/challengeStatusColorClasses";
 import formatDate from "../assets/formatDate";
+import { MemberChallenge } from "../types";
 import DropdownMenuEdit from "../userInfoEdit/UI/DropDownEdit";
 
 const UserInfoChallengeHistory = () => {
@@ -60,7 +61,7 @@ const UserInfoChallengeHistory = () => {
 								</p>
 								{challenge.certificationChallengeDtos.length > 0 &&
 									challenge.certificationChallengeDtos[0]
-										.certificationChallengeImageDtos.length > 0 && (
+										.certificationChallengeImageDtos && (
 										<Image
 											src={
 												challenge.certificationChallengeDtos[0]
@@ -130,7 +131,7 @@ const UserInfoChallengeHistory = () => {
 								</p>
 								{challenge.certificationChallengeDtos.length > 0 &&
 									challenge.certificationChallengeDtos[0]
-										.certificationChallengeImageDtos.length > 0 && (
+										.certificationChallengeImageDtos && (
 										<Image
 											src={
 												challenge.certificationChallengeDtos[0]
@@ -204,7 +205,7 @@ const UserInfoChallengeHistory = () => {
 								</p>
 								{challenge.certificationChallengeDtos.length > 0 &&
 									challenge.certificationChallengeDtos[0]
-										.certificationChallengeImageDtos.length > 0 && (
+										.certificationChallengeImageDtos && (
 										<Image
 											src={
 												challenge.certificationChallengeDtos[0]

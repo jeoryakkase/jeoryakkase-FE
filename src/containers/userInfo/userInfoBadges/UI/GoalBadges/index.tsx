@@ -16,7 +16,6 @@ const GoalBadges = () => {
 			{challengesWithBadges.map((challenge) => (
 				<Card
 					key={challenge.id}
-					highlight={false}
 					className="flex flex-col gap-[20px] items-start w-[300px] h-[300px] overflow-hidden text-ellipsis "
 				>
 					<Card.Header title={challenge.title} />
