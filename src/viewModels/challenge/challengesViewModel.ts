@@ -119,7 +119,11 @@ export const transformChallengeInfo = (
 	if (!challengeInfo) {
 		// showToast({ type: "error", message: "존재하지 않는 챌린지 입니다." });
 		return null;
+	}
+	return {
+		challengeId: challengeInfo.id.toString(),
 		info: {
+			title: challengeInfo.challengeTitle,
 			image: challengeInfo.badgeDto.badgeImage,
 			info: [
 				challengeInfo.challengeTerm,

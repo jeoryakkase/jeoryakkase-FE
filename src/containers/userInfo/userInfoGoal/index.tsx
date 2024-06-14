@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { SlOptionsVertical } from "react-icons/sl";
+import { useParams } from "next/navigation";
+import { FaTrash } from "react-icons/fa";
 
 import { Button } from "@components/Button";
 import Card from "@components/Card";
@@ -16,24 +16,16 @@ type Params = {
 	goalId: string;
 };
 const UserInfoGoal = () => {
-	const statusColorClasses = {
-		"진행중인 목표": "bg-main-lightyellow",
-		"완료된 목표": "bg-main-darkblue",
-		"포기한 목표": "bg-point-lightred",
-	};
-	const inProgressGoals = goalData.filter(
-		(goal) => goal.status === "진행중인 목표",
-	);
-	const completedGoals = goalData.filter(
-		(goal) => goal.status === "완료된 목표",
-	);
-	const abandonedGoals = goalData.filter(
-		(goal) => goal.status === "포기한 목표",
-	);
-	const item = [
-		{ id: 1, label: "포기하기" },
-		{ id: 2, label: "공유하기" },
-	];
+	const params = useParams<Params>();
+	const goalId = params?.goalId;
+	const { data: goalData } = useQuery({
+		...goalsQueryOption.getGoalsCertifications(Number(goalId)),
+	});
+
+	if (!goalData || !Array.isArray(goalData)) {
+		return <div>인증을 추가해주세요 🥲 </div>;
+	}
+
 	return (
 		<div>
 			<ContentSection title="진행중인 목표">

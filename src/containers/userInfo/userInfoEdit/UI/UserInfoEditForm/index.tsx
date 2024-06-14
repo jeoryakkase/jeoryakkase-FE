@@ -32,17 +32,6 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import FormSchema from "../../userInfoEditValidation";
 
 export interface UserEdit {
-	profileImage?: File | null;
-	about: string;
-	email: string;
-	nickname: string;
-	age: number;
-	gender: string;
-	savePurpose: string;
-	interests: number[];
-}
-
-export interface UserEdit {
 	profileImage?: File | string | null;
 	about: string;
 	email: string;

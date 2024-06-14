@@ -11,7 +11,7 @@ import { ContentSection } from "@components/ContentSection";
 import challengeQueryOption from "@services/challenge";
 import { useQuery } from "@tanstack/react-query";
 
-import ChallengeFeed from "./UI/ChallengeFeed";
+// import ChallengeFeed from "./UI/ChallengeFeed";
 import HeaderButton from "./UI/HeaderButton";
 import InfoBox from "./UI/InfoBox";
 
