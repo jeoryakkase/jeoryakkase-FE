@@ -73,7 +73,6 @@ const handler = NextAuth({
 						user.accessToken = authorizationHeader;
 						return user;
 					}
-					console.log("반환 user : ", user);
 
 					showToast({ type: "success", message: "로그인이 완료되었습니다." });
 					return null;
@@ -113,16 +112,8 @@ const handler = NextAuth({
 	callbacks: {
 		async jwt({ token, user, account }) {
 			socialToken(account!);
-			console.log("accoun provider : ", account?.provider);
-			console.log("accoun access_token : ", account?.access_token);
-			console.log("Account : ", account);
-			console.log("시작 token :", token);
-			console.log("시작 user :", user);
 			try {
-				console.log("조건 user", user);
-				console.log("조건 account", account);
 				if (user) {
-					console.log("if user", user);
 					return {
 						...token,
 						accessToken: user.accessToken! || account?.access_token,
@@ -131,10 +122,6 @@ const handler = NextAuth({
 						user,
 					};
 				}
-
-				console.log("일반 user :", user);
-
-				console.log("token 리프래쉬 후 ", token);
 				const nowTime = Math.round(Date.now() / 1000);
 				// 토큰 만료 10분전인지 계산
 				const shouldRefreshTime =
@@ -160,12 +147,10 @@ const handler = NextAuth({
 				session.accessToken = token.accessToken;
 				session.refreshToken = token.refreshToken;
 				session.expiresAt = token.expires_at;
-				console.log("session 마지막", session);
 				// 사용자의 닉네임을 추출하여 스토어에 저장
 
 				return session;
 			}
-			console.log("session 저장된거니", session);
 			return session;
 		},
 		async redirect({ url, baseUrl }) {
@@ -217,7 +202,6 @@ async function refreshAccessToken(
 	} catch (error) {
 		// 액세스 토큰 갱신 에러 시 2번까지는 시도하도록 retry 추가
 		if (retryCount < 3) {
-			console.log(`액세스 토큰 (${retryCount + 1})번째 갱신 재시도 중 `);
 			return refreshAccessToken(token, retryCount + 1);
 		}
 
@@ -243,11 +227,6 @@ async function socialToken(account: Account) {
 				}),
 			},
 		);
-		console.log(
-			`${process.env.NEXT_PUBLIC_BASE_URL}/api/${account.provider}/auth`,
-		);
-		console.log("accessToken", account.access_token);
-		console.log("refreshToken", account.refresh_token);
 
 		// 스토어 저장 name,badgeDesc,badgeImage
 		// useAuthStore.getState().login(res);
@@ -255,8 +234,7 @@ async function socialToken(account: Account) {
 			throw new Error(`API 호출 실패: ${res.status}`);
 		}
 
-		const data = await res.json();
-		console.log("API 응답:", data);
+		await res.json();
 	} catch (error) {
 		console.error("백엔드 소셜 연동 중 에러 발생:", error);
 	}

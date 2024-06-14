@@ -1,9 +1,11 @@
 "use client";
+
 import { IoMdSettings } from "react-icons/io";
+
+import { Button } from "@components/Button";
 
 import DropdownMenuEdit from "./UI/DropDownEdit";
 import UserInfoEditForm from "./UI/UserInfoEditForm";
-import { Button } from "@components/Button";
 
 const UserInfoEdit = () => {
 	const item = [

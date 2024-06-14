@@ -2,14 +2,14 @@ import { z } from "zod";
 
 type GoalStatus = "PROCEEDING" | "COMPLETE" | "GIVE_UP" | "FAILURE";
 
-export interface NaegongFormType {
+export interface GoalCertificationFormType {
 	goalTitle: string;
 	goalAmount: number;
 	goalImage?: File | null;
 	goalStartDate: Date;
 	goalEndDate: Date;
 }
-export const NaegongDefault = {
+export const GoalCertificationDefault = {
 	goalTitle: "",
 	goalAmount: 0,
 	goalImage: null,
@@ -17,7 +17,7 @@ export const NaegongDefault = {
 	goalEndDate: new Date(),
 };
 
-export interface GoalItemType {
+export interface GoalCertificationType {
 	id: number;
 	goalTitle: string;
 	goalAmount: number;
@@ -28,7 +28,7 @@ export interface GoalItemType {
 	goalStatus: GoalStatus;
 }
 
-export const NaegongValidation = z.object({
+export const GoalCertification = z.object({
 	goalTitle: z.string().min(2, { message: "제목은 2글자 이상이어야 합니다." }),
 	goalAmount: z.coerce
 		.number()

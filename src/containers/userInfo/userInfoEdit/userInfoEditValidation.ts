@@ -1,5 +1,15 @@
 import { z } from "zod";
 
+export const userInfoEditDefault = {
+	profileImage: null,
+	about: "",
+	email: "",
+	nickname: "",
+	age: 0,
+	gender: "",
+	savePurpose: "",
+	interests: [],
+};
 const FormSchema = z.object({
 	profileImage: z.instanceof(File).nullable().optional(),
 	about: z.string().min(2, {

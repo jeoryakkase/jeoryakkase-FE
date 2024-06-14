@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@components/Button";
@@ -37,7 +37,10 @@ const SignupForm = () => {
 	const router = useRouter();
 	const form = useForm<z.infer<typeof signupValidation>>({
 		resolver: zodResolver(signupValidation),
-		defaultValues: signUpDefault,
+		defaultValues: {
+			...signUpDefault,
+			gender: "MALE",
+		},
 	});
 	const { mutate } = useMutation({
 		mutationFn: postSignUp,
@@ -55,15 +58,9 @@ const SignupForm = () => {
 			});
 		},
 	});
-	console.log(
-		"관심사태그",
-		useWatch({ control: form.control, name: "interests" }),
-	);
 
 	const onSubmit = (data: z.infer<typeof signupValidation>) => {
 		mutate(data);
-		console.log(data);
-		// 주스탠드 스토어 연결
 	};
 	// 이메일 중복검사
 	const handleCheckEmail = async () => {

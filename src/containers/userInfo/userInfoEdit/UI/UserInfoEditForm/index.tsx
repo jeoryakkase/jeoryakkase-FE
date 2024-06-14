@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
-import { useForm, useWatch } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "@components/Button";
@@ -26,11 +26,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import showToast from "@lib/toastConfig";
 import { getDuplicationNickName } from "@services/login/duplication";
 import userQueryOption from "@services/user";
-
+import patchUserInfo from "@services/user/pathchUserInfo";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 import FormSchema from "../../userInfoEditValidation";
-import patchUserInfo from "@services/user/pathchUserInfo";
 
 export interface UserEdit {
 	profileImage?: File | null;
@@ -49,7 +48,6 @@ const UserInfoEditForm = () => {
 		...userQueryOption.getUserInfo(),
 	});
 
-	console.log("userData", userData);
 	const { mutate: patchUser } = useMutation({
 		mutationFn: patchUserInfo,
 	});
@@ -67,10 +65,6 @@ const UserInfoEditForm = () => {
 			interests: [],
 		},
 	});
-	console.log(
-		"관심사태그",
-		useWatch({ control: form.control, name: "interests" }),
-	);
 
 	useEffect(() => {
 		if (userData) {
@@ -88,7 +82,6 @@ const UserInfoEditForm = () => {
 	}, [userData, form]);
 
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		console.log(data);
 		patchUser(data, {
 			onSuccess: () => {
 				showToast({
