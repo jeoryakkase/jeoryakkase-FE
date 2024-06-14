@@ -29,6 +29,8 @@ const Feed = ({ feedData, children }: FeedProps) => {
 						badge={feedData.badge}
 						writeHour={feedData.writeHour}
 						progressDate={feedData.progressDate}
+						title={feedData.title}
+						img={feedData.img}
 					/>
 				</Flex>
 				<Contents

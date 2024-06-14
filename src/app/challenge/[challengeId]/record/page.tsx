@@ -1,10 +1,12 @@
-// "use client";
+"use client";
+
+import ChallengeCertificateModal from "@containers/challenge/UI/ChallengeDetail/UI/ChallengeCertificateModal";
 
 // import { useParams, useRouter } from "next/navigation";
 
 // import ModalSadContent from "@components/ModalSadContent";
 
-const SadModal = () => {
+const ChallengeCertificate = () => {
 	// const router = useRouter();
 	// const { challengeId } = useParams();
 	// const challengeModalContent = "포기";
@@ -13,7 +15,7 @@ const SadModal = () => {
 	// 	router.replace(`/challenge/${challengeId}`);
 	// };
 
-	return <div> 이거 왜 안떠???</div>;
+	return <ChallengeCertificateModal />;
 };
 
-export default SadModal;
+export default ChallengeCertificate;

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import Image from "next/image";
 
+import defaultImage from "@assets/images/character/character01.png";
 import { Input } from "@components/shadcn/ui/Input";
 import getImgPreview from "@utils/getImgPreview";
 
@@ -22,7 +23,6 @@ const ImgInput = ({
 	setProfileImageData,
 	viewOnly = false,
 }: ImgInputProps) => {
-	const defaultImage = "/images/character01.png";
 	const imgInputRef = useRef<HTMLInputElement>(null);
 	const [profileImage, setProfileImage] = useState<string>(
 		initialImage || defaultImage,
@@ -75,7 +75,7 @@ const ImgInput = ({
 						width={0}
 						height={0}
 						sizes="100vw"
-						className="relative object-cover rounded-full w-[100%] "
+						className="relative object-cover rounded-full w-[200px] h-[200px] "
 					/>
 				) : (
 					<ImageWithDefault

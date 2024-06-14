@@ -11,15 +11,17 @@ interface BannerCarouselsProps {
 	banners: Array<{
 		title: string;
 		subtitle: string;
-		icon: React.ReactNode;
+		icon: React.ReactNode | string;
 		backgroundColor: string;
+		subTitleText?: string;
+		titleColors?: string;
 	}>;
 }
 
 const BannerCarousels = ({ banners }: BannerCarouselsProps) => {
 	return (
 		<Carousel className="w-full max-w-5xl mx-auto mb-16">
-			<CarouselPrevious />
+			<CarouselPrevious className="bg-main-lightyellow" />
 			<CarouselContent>
 				{banners.map((banner, index) => (
 					// eslint-disable-next-line react/no-array-index-key
@@ -29,11 +31,13 @@ const BannerCarousels = ({ banners }: BannerCarouselsProps) => {
 							subtitle={banner.subtitle}
 							icon={banner.icon}
 							backgroundColor={banner.backgroundColor}
+							subTitleText={banner.subTitleText}
+							titleColors={banner.titleColors}
 						/>
 					</CarouselItem>
 				))}
 			</CarouselContent>
-			<CarouselNext />
+			<CarouselNext className="bg-main-lightyellow" />
 		</Carousel>
 	);
 };

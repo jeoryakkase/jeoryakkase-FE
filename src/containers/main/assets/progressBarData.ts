@@ -9,6 +9,12 @@ const progressBarData = (percentage: number) => ({
 			borderWidth: 0.5,
 			barThickness: 10,
 		},
+		{
+			label: "총 진행도",
+			data: [100],
+			backgroundColor: ["#FDDB3A"],
+			barThickness: 10,
+		},
 	],
 });
 

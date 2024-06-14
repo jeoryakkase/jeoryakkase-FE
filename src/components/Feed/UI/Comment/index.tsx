@@ -31,12 +31,7 @@ const Comment = ({ commentData }: CommentArrProps) => {
 			<Header commentCounts={commentData.commentCounts} />
 			<div className="p-2">
 				{comments[commentData.postId]?.comments.map((comment) => (
-					<CommentBox
-						key={comment.id}
-						comment={comment}
-						onReplyEdit={() => console.log("수정")}
-						onReplyDelete={() => console.log("삭제")}
-					/>
+					<CommentBox key={comment.id} comment={comment} />
 				))}
 			</div>
 		</section>

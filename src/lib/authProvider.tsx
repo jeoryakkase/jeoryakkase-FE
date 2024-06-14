@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-
 import { SessionProvider } from "next-auth/react";
 
 interface Props {
@@ -9,7 +7,13 @@ interface Props {
 }
 
 const AuthProvider = ({ children }: Props) => {
-	return <SessionProvider>{children}</SessionProvider>;
+	// 리프
+	const REFRESH_AGE = 3600 * 24 * 14;
+	return (
+		<SessionProvider refetchInterval={REFRESH_AGE} refetchOnWindowFocus>
+			{children}
+		</SessionProvider>
+	);
 };
 
 export default AuthProvider;

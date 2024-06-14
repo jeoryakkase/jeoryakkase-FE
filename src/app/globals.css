@@ -72,3 +72,9 @@ body {
 		@apply bg-background text-foreground;
 	}
 }
+
+/* swiper */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+	@apply text-[#0A174E];
+}

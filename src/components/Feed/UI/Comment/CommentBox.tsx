@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import Image from "next/image";
 
+import { Input } from "@components/Input";
 import cn from "@utils/classnames.utils";
 
 import CommentBtn from "./CommentBtn";
@@ -19,16 +20,11 @@ export interface CommentProps {
 
 interface CommentBoxProps {
 	comment: CommentProps;
-	onReplyEdit?: () => void;
-	onReplyDelete?: () => void;
 }
 
-const CommentBox = ({
-	comment,
-	onReplyEdit,
-	onReplyDelete,
-}: CommentBoxProps) => {
+const CommentBox = ({ comment }: CommentBoxProps) => {
 	const [isReplying, setIsReplying] = useState(false);
+	const [isEditing, setIsEditing] = useState(false);
 
 	const handleReplyClick = () => {
 		setIsReplying(true);
@@ -41,6 +37,14 @@ const CommentBox = ({
 	const handleReplySubmit = (replyComment: string) => {
 		console.log("성공", replyComment);
 		setIsReplying(false);
+	};
+
+	const handleEditClick = () => {
+		setIsEditing(true);
+	};
+
+	const handleEditCancel = () => {
+		setIsEditing(false);
 	};
 
 	// useEffect(() => {}, [isReplying]);
@@ -67,13 +71,18 @@ const CommentBox = ({
 						<span className="ml-2 text-sm text-main-darkgray">내 댓글</span>
 					)}
 				</div>
-				<p className="w-full">{comment.comment}</p>
+				{!isEditing ? (
+					<p className="w-full">{comment.comment}</p>
+				) : (
+					<Input defaultValue={comment.comment} className="text-center" />
+				)}
 				{!isReplying && (
 					<CommentBtn
 						isOwner={comment.isOwner}
 						onReply={handleReplyClick}
-						onEdit={onReplyEdit}
-						onDelete={onReplyDelete}
+						isEditing={isEditing}
+						onEdit={handleEditClick}
+						onDelete={handleEditCancel}
 					/>
 				)}
 			</div>

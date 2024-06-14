@@ -12,20 +12,23 @@ import {
 import { CalendarIcon } from "@radix-ui/react-icons";
 import cn from "@utils/classnames.utils";
 import { Button } from "@components/Button";
+import ModalContainer from "../ModalContainer";
 
 interface ModalDateRangeProps {
+	title?: string;
 	value?: DateRange; // 날짜 타입(from ~ to)
 	onChange?: (date: DateRange | undefined) => void;
 	className?: string;
 }
 
 const ModalDateRange = ({
+	title,
 	className,
 	value,
 	onChange,
 }: ModalDateRangeProps) => {
 	return (
-		<div className={cn("grid gap-2", className)}>
+		<ModalContainer title={title}>
 			<Popover>
 				<PopoverTrigger asChild>
 					<Button
@@ -64,7 +67,7 @@ const ModalDateRange = ({
 					/>
 				</PopoverContent>
 			</Popover>
-		</div>
+		</ModalContainer>
 	);
 };
 

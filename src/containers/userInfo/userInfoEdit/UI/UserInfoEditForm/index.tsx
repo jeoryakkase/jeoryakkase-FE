@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
+
+import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
-import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { Button } from "@components/Button";
@@ -21,24 +23,107 @@ import { Textarea } from "@components/Textarea";
 import { interestTags } from "@containers/signup/signupValidation";
 import mockMemberData from "@containers/userInfo/assets/userinfoData";
 import { zodResolver } from "@hookform/resolvers/zod";
+import showToast from "@lib/toastConfig";
+import { getDuplicationNickName } from "@services/login/duplication";
+import userQueryOption from "@services/user";
+
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import FormSchema from "../../userInfoEditValidation";
+import patchUserInfo from "@services/user/pathchUserInfo";
+
+export interface UserEdit {
+	profileImage?: File | null;
+	about: string;
+	email: string;
+	nickname: string;
+	age: number;
+	gender: string;
+	savePurpose: string;
+	interests: number[];
+}
 
 const UserInfoEditForm = () => {
+	const router = useRouter();
+	const { data: userData } = useQuery({
+		...userQueryOption.getUserInfo(),
+	});
+
+	console.log("userData", userData);
+	const { mutate: patchUser } = useMutation({
+		mutationFn: patchUserInfo,
+	});
+
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
-		defaultValues: mockMemberData,
+		defaultValues: {
+			profileImage: null,
+			about: "",
+			email: "",
+			nickname: "",
+			age: 0,
+			gender: "MALE",
+			savePurpose: "",
+			interests: [],
+		},
 	});
 	console.log(
 		"관심사태그",
 		useWatch({ control: form.control, name: "interests" }),
 	);
 
-	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		toast.success("회원가입 수정이 완료되었습니다.", { autoClose: 2000 });
-		console.log(data);
-	};
+	useEffect(() => {
+		if (userData) {
+			form.reset({
+				profileImage: null,
+				about: userData.about ?? "",
+				email: userData.email ?? "",
+				nickname: userData.nickname ?? "",
+				age: userData.age ?? 0,
+				gender: userData.gender ?? "",
+				savePurpose: userData.savePurpose ?? "",
+				interests: userData.interests ?? [],
+			});
+		}
+	}, [userData, form]);
 
+	const onSubmit = (data: z.infer<typeof FormSchema>) => {
+		console.log(data);
+		patchUser(data, {
+			onSuccess: () => {
+				showToast({
+					type: "success",
+					message: "성공적으로 수정되었습니다.",
+				});
+				router.push("/userinfo");
+			},
+			onError: () => {
+				showToast({
+					type: "error",
+					message: "유저 정보가 정상적으로 수정되지 않았습니다.",
+				});
+			},
+		});
+	};
+	// 닉네임 중복검사
+	const handleCheckNickName = async () => {
+		const nickname = form.getValues("nickname");
+		const response = await getDuplicationNickName({ nickname });
+		if (response.status === 200) {
+			showToast({
+				type: "success",
+				message: "사용 가능한 닉네임 입니다.",
+			});
+		} else if (
+			response.status === 409 &&
+			response.data === "Member with this nickname already exists.."
+		) {
+			showToast({
+				type: "error",
+				message: "이미 사용중인 닉네임 입니다.",
+			});
+		}
+	};
 	return (
 		<Form {...form}>
 			<form
@@ -106,7 +191,7 @@ const UserInfoEditForm = () => {
 										{...field}
 									/>
 								</FormControl>
-								<Button type="button" onClick={() => {}}>
+								<Button type="button" onClick={handleCheckNickName}>
 									중복확인
 								</Button>
 							</div>
@@ -145,13 +230,13 @@ const UserInfoEditForm = () => {
 										<FormItem className="flex items-center space-x-3 space-y-0">
 											<FormLabel className="font-normal">남성</FormLabel>
 											<FormControl>
-												<RadioGroupItem value="male" />
+												<RadioGroupItem value="MALE" />
 											</FormControl>
 										</FormItem>
 										<FormItem className="flex items-center space-x-3 space-y-0">
 											<FormLabel className="font-normal">여성</FormLabel>
 											<FormControl>
-												<RadioGroupItem value="female" />
+												<RadioGroupItem value="FEMALE" />
 											</FormControl>
 										</FormItem>
 									</RadioGroup>
@@ -184,14 +269,9 @@ const UserInfoEditForm = () => {
 							<FormControl>
 								<TagGroup
 									tags={interestTags}
-									selectedTags={interestTags
-										.filter((tag) => field.value.includes(tag.name))
-										.map((tag) => tag.id)}
+									selectedTags={field.value}
 									onChange={(newSelectedTags) => {
-										const selectedTagNames = interestTags
-											.filter((tag) => newSelectedTags.includes(tag.id))
-											.map((tag) => tag.name);
-										field.onChange(selectedTagNames);
+										field.onChange(newSelectedTags);
 									}}
 								/>
 							</FormControl>
@@ -199,7 +279,7 @@ const UserInfoEditForm = () => {
 						</FormItem>
 					)}
 				/>
-				<Button type="submit">회원가입</Button>
+				<Button type="submit">회원정보 수정</Button>
 			</form>
 		</Form>
 	);

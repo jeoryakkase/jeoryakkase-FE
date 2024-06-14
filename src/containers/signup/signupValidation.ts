@@ -15,26 +15,26 @@ export const interestTags = [
 	{ id: 12, name: "공과금" },
 ];
 export interface SignUpFormType {
-	profileImage?: string | undefined;
+	profileImage?: File | null; // 프로필
 	about: string;
 	email: string;
 	nickname: string;
 	password: string;
 	confirmPassword: string;
 	age: number;
-	gender: "male" | "female";
+	gender: string;
 	savePurpose: string;
 	interests: number[];
 }
 export const signUpDefault = {
-	profileImage: "",
+	profileImage: null,
 	about: "",
 	email: "",
 	nickname: "",
 	password: "",
 	confirmPassword: "",
 	age: 0,
-	gender: "male",
+	gender: "",
 	savePurpose: "",
 	interests: [],
 };
@@ -46,8 +46,8 @@ const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9]).{8,}$/;
 
 export const signupValidation = z
 	.object({
-		// profileImage: z.instanceof(File).nullable().optional(),
-		profileImage: z.string().optional(),
+		profileImage: z.instanceof(File).nullable().optional(),
+		// profileImage: z.string().optional(),
 		about: z.string().min(2, {
 			message: "소개글은 2글자 이상이어야 합니다.",
 		}),
@@ -75,7 +75,7 @@ export const signupValidation = z
 			.int({ message: "나이는 정수여야 합니다." })
 			.min(1, { message: "나이는 1세 이상이어야 합니다." })
 			.max(100, { message: "나이는 100세 이하여야 합니다." }),
-		gender: z.enum(["male", "female"], {
+		gender: z.enum(["MALE", "FEMALE"], {
 			required_error: "성별을 선택하세요.",
 		}),
 		savePurpose: z.string().min(2, {
