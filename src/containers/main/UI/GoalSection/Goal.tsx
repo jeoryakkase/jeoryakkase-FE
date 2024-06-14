@@ -10,6 +10,7 @@ interface GoalProps {
 		leftMoney: number;
 		dayCount: number;
 		leftDay: number;
+		nickname: string;
 	}>;
 }
 

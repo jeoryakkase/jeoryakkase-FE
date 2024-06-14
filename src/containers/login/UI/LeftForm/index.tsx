@@ -17,26 +17,38 @@ import {
 import { Input } from "@components/shadcn/ui/Input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import showToast from "@lib/toastConfig";
+import useAuthStore from "@stores/Auth/useUserAuth";
 
 import { loginDefault, loginValidation } from "./loginValidation";
 import SocialLogin from "../SocialLogin";
 
 const LeftForm = () => {
 	const router = useRouter();
+	const login = useAuthStore((state) => state.login);
 	const form = useForm<z.infer<typeof loginValidation>>({
 		resolver: zodResolver(loginValidation),
 		defaultValues: loginDefault,
 	});
-
 	const onSubmit = async (data: z.infer<typeof loginValidation>) => {
 		try {
-			await signIn("credentials", {
+			const result = await signIn("credentials", {
 				username: data.email,
 				password: data.password,
 				redirect: false,
 				callbackUrl: "/",
 			});
-			router.replace("/");
+			console.log(result);
+
+			if (result && !result.error) {
+				login({
+					nickname: data.email,
+					badge: null,
+					profileImage: null,
+				});
+				router.replace("/");
+			} else {
+				showToast({ type: "error", message: "로그인 처리에 실패하였습니다." });
+			}
 		} catch (error) {
 			showToast({ type: "error", message: "로그인에 실패하였습니다." });
 		}

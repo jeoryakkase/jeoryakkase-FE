@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-interface ContentsProps {
+export interface ContentsProps {
 	title?: string;
 	body: string;
 	img?: string;

@@ -1,3 +1,6 @@
+import { ContentsProps } from "@components/Feed/UI/Contents";
+import { ProfileBoxProps } from "@components/Feed/UI/ProfileBox";
+
 type TagImgType = { id: string; img: string }[] | string;
 
 export interface Challenge {
@@ -6,6 +9,11 @@ export interface Challenge {
 	imgs: TagImgType;
 	description: string;
 	messages: string;
+}
+
+export interface Feed {
+	profileData: ProfileBoxProps;
+	content: ContentsProps;
 }
 
 export interface UserChallenges {
@@ -19,6 +27,7 @@ export interface UserChallenges {
 	dueDate?: boolean;
 	countDay?: number;
 	memeberChallengeId: number;
+	// feedData: Feed;
 }
 
 export interface ChallengeInfoBoxProps {

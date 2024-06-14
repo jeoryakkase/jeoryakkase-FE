@@ -24,6 +24,7 @@ const Naegong = () => {
 	const { data: goalData } = useQuery({
 		...goalsQueryOption.getGoals(),
 	});
+
 	const inProgressGoals: GoalItemType[] = [];
 	const completedGoals: GoalItemType[] = [];
 	const abandonedGoals: GoalItemType[] = [];

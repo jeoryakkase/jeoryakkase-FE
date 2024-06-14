@@ -1,14 +1,15 @@
 import {
 	ChallengeDetail,
 	ChallengeInfoBoxProps,
+	FeedData,
 	UserChallenges,
 } from "@containers/challenge/types";
 import { Challenge } from "@containers/challenge/UI/HotChallenge";
-import showToast from "@lib/toastConfig";
 
 import {
 	AllChallengeList,
 	AllChallenges,
+	ChallengeCertification,
 	ChallengesJoined,
 	MemberChallengesJoined,
 } from "../../types";
@@ -54,9 +55,10 @@ export const transformChallenges = (
 		endDate: userChallenge.endDate,
 		today: userChallenge.isTodayCertification,
 		countDay: userChallenge.effectiveDate,
-		memeberChallengeId: userChallenge.certificationChallengeDtos.map(
-			(memeberId) => memeberId.id,
-		),
+		// memeberChallengeId: userChallenge.certificationChallengeDtos.map(
+		// 	(memeberId) => memeberId.id,
+		// ),
+		memeberChallengeId: userChallenge.certificationChallengeDtos[0]?.id, // 첫 번째 id 값만 사용
 	}));
 };
 
@@ -115,7 +117,7 @@ export const transformChallengeInfo = (
 	challengeInfo: ChallengeInfo | undefined,
 ): ChallengeInfoBoxProps | null => {
 	if (!challengeInfo) {
-		showToast({ type: "error", message: "존재하지 않는 챌린지 입니다." });
+		// showToast({ type: "error", message: "존재하지 않는 챌린지 입니다." });
 		return null;
 	}
 	return {
@@ -135,4 +137,23 @@ export const transformChallengeInfo = (
 			badgeDescription: challengeInfo.badgeDto.badgeDesc,
 		},
 	};
+};
+
+export const transformFeedData = (
+	feedData: ChallengeCertification[],
+): FeedData[] => {
+	return feedData.map((feed) => ({
+		id: feed.id,
+		nickname: feed.nickname,
+		profileImg: feed.profileImage,
+		isOwner: false,
+		isChallenge: false,
+		date: new Date(feed.certificationDate).toLocaleDateString(),
+		badge: "",
+		writeHour: new Date(feed.certificationDate).getHours(),
+		img: feed.certificationChallengeImageDtos[0]?.imageUrl || "",
+		progressDate: 0,
+		title: "",
+		body: feed.content,
+	}));
 };

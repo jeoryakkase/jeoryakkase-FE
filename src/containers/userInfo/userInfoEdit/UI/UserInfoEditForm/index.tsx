@@ -82,7 +82,21 @@ const UserInfoEditForm = () => {
 	}, [userData, form]);
 
 	const onSubmit = (data: z.infer<typeof FormSchema>) => {
-		patchUser(data, {
+		const formData = new FormData();
+		formData.append("about", data.about);
+		formData.append("email", data.email);
+		formData.append("nickname", data.nickname);
+		formData.append("age", data.age);
+		formData.append("gender", data.gender);
+		formData.append("savePurpose", data.savePurpose);
+		data.interests.forEach((interest) =>
+			formData.append("interests", interest.toString()),
+		);
+		if (data.profileImage) {
+			formData.append("profileImage", data.profileImage);
+		}
+
+		patchUser(formData, {
 			onSuccess: () => {
 				showToast({
 					type: "success",
