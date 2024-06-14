@@ -22,6 +22,7 @@ import { useMutation } from "@tanstack/react-query";
 import { NaegongDefault, NaegongValidation } from "./NaegongValidation";
 
 const NaegongPostModal = () => {
+	const router = useRouter();
 	const form = useForm<z.infer<typeof NaegongValidation>>({
 		resolver: zodResolver(NaegongValidation),
 		defaultValues: NaegongDefault,
@@ -57,7 +58,9 @@ const NaegongPostModal = () => {
 		};
 
 		formData.append("goalCreateReqDto", JSON.stringify(goalCreateReqDto));
-
+		mutate(formData);
+	};
+	return (
 		<Form {...form}>
 			<UrlModal title="목표작성">
 				<ModalForm

@@ -20,8 +20,8 @@ const ChallengeDetail = () => {
 	// Prefetch Infinite Query 훅으로 가져오기
 
 	const params = useSearchParams();
-	const memberId = params.get("memeberChallengeId");
-	const { challengeId } = useParams();
+	const memberId = params ? params.get("memeberChallengeId") : null;
+	const { challengeId } = useParams() as { challengeId: string };
 
 	const numberChallengeId = Number(challengeId);
 	const numberMemberId = Number(memberId);
@@ -38,11 +38,11 @@ const ChallengeDetail = () => {
 		}),
 	);
 
-	const { data: challengeFeedData } = useQuery(
-		challengeQueryOption.getChallengeFeed({
-			challengeId: numberChallengeId,
-		}),
-	);
+	// const { data: challengeFeedData } = useQuery(
+	// 	challengeQueryOption.getChallengeFeed({
+	// 		challengeId: numberChallengeId,
+	// 	}),
+	// );
 
 	const challengeDetail = challengeDetailData
 		? transformChallengeInfoWithData(challengeDetailData)
@@ -53,36 +53,6 @@ const ChallengeDetail = () => {
 	// 	: [];
 
 	if (!challengeDetail) {
-		return null;
-	}
-
-	const isJoined = !!challengeDetailData;
-
-	const numberChallengeId = Number(challengeId);
-	const numberMemberId = Number(memberId);
-	console.log(typeof numberMemberId);
-	console.log(numberChallengeId);
-	const { data: challengeDetailData } = useQuery(
-		challengeQueryOption.getChallengeDetail({
-			challengeId: numberMemberId,
-		}),
-	);
-
-	console.log(challengeDetailData);
-
-	const { data: challengeInfoData } = useQuery(
-		challengeQueryOption.getChallengeInfo({
-			challengeId: numberChallengeId,
-		}),
-	);
-
-	const challengeDetail = challengeDetailData
-		? transformChallengeInfoWithData(challengeDetailData)
-		: transformChallengeInfo(challengeInfoData);
-
-	if (!challengeDetail) {
-		showToast({ type: "error", message: "챌린지 정보가 없습니다." });
-		// router.replace("/challenge");
 		return null;
 	}
 
