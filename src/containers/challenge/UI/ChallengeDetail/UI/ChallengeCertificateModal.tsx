@@ -31,7 +31,7 @@ const ChallengeCertificateModal = () => {
 	const queryClient = useQueryClient();
 
 	const { mutate: RecordCertificateMutate } = useMutation({
-		mutationFn: () => putAbandonChallenge({ userChallengeId: NumbChallengeId }),
+		mutationFn: () => putAbandonChallenge(NumbChallengeId),
 		onSuccess: () => {
 			queryClient.invalidateQueries({
 				queryKey: ["challengeInfo", "challengeInfos"],
