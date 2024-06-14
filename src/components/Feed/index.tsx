@@ -21,22 +21,22 @@ const Feed = ({ feedData, children }: FeedProps) => {
 			<Container>
 				<Flex className="mb-10">
 					<ProfileBox
-						nickname={feedData.nickname}
-						profileImg={feedData.profileImg}
-						isOwner={feedData.isOwner}
-						isChallenge={feedData.isChallenge}
-						date={feedData.date}
-						badge={feedData.badge}
-						writeHour={feedData.writeHour}
-						progressDate={feedData.progressDate}
-						title={feedData.title}
-						img={feedData.img}
+						nickname={feedData.profileData.nickname}
+						profileImg={feedData.profileData.profileImg}
+						isOwner={feedData.profileData.isOwner}
+						isChallenge={feedData.profileData.isChallenge}
+						date={feedData.profileData.date}
+						badge={feedData.profileData.badge}
+						writeHour={feedData.profileData.writeHour}
+						progressDate={feedData.profileData.progressDate}
+						title={feedData.profileData.title}
+						img={feedData.profileData.img}
 					/>
 				</Flex>
 				<Contents
-					title={feedData.title}
-					img={feedData.img}
-					body={feedData.body}
+					title={feedData.content.title}
+					img={feedData.content.img}
+					body={feedData.content.body}
 				/>
 				{feedData.category === "vote" && children}
 				<Comment commentData={feedData.commentData} />

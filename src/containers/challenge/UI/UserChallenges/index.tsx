@@ -9,7 +9,6 @@ interface ChallengeProps {
 }
 
 const UserChallenges = ({ challenges }: ChallengeProps) => {
-	console.log(challenges[0].id);
 	return (
 		<ContentSection
 			title="참여 중인 챌린지"

@@ -1,13 +1,13 @@
 // import ModalSadContent from "@components/ModalSadContent";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 
 import {
 	transformChallengeInfo,
 	transformChallengeInfoWithData,
+	transformFeedData,
 } from "src/viewModels/challenge/challengesViewModel";
 
 import { ContentSection } from "@components/ContentSection";
-import showToast from "@lib/toastConfig";
 import challengeQueryOption from "@services/challenge";
 import { useQuery } from "@tanstack/react-query";
 
@@ -36,19 +36,21 @@ const ChallengeDetail = () => {
 
 	const numberChallengeId = Number(challengeId);
 	const numberMemberId = Number(memberId);
-	console.log(numberMemberId);
-	console.log(typeof numberMemberId);
-	console.log(numberChallengeId);
+
 	const { data: challengeDetailData } = useQuery(
 		challengeQueryOption.getChallengeDetail({
 			challengeId: numberMemberId,
 		}),
 	);
 
-	console.log(challengeDetailData);
-
 	const { data: challengeInfoData } = useQuery(
 		challengeQueryOption.getChallengeInfo({
+			challengeId: numberChallengeId,
+		}),
+	);
+
+	const { data: challengeFeedData } = useQuery(
+		challengeQueryOption.getChallengeFeed({
 			challengeId: numberChallengeId,
 		}),
 	);
@@ -57,23 +59,23 @@ const ChallengeDetail = () => {
 		? transformChallengeInfoWithData(challengeDetailData)
 		: transformChallengeInfo(challengeInfoData);
 
-	console.log(challengeInfoData);
+	// const feedData = challengeFeedData
+	// 	? transformFeedData(challengeFeedData)
+	// 	: [];
 
 	if (!challengeDetail) {
-		showToast({ type: "error", message: "챌린지 정보가 없습니다." });
-		// router.replace("/challenge");
 		return null;
 	}
 
 	const isJoined = !!challengeDetailData;
-	console.log(isJoined);
+
 	return (
 		<>
 			{challengeDetail.info && (
 				<InfoBox
 					challengeId={challengeDetail.challengeId}
 					challengeDetail={challengeDetail.info}
-					isJoined={!!challengeDetailData}
+					isJoined={isJoined}
 				/>
 			)}
 			{challengeDetailData && (
@@ -83,10 +85,10 @@ const ChallengeDetail = () => {
 					childrenClassName="flex flex-col flex-grow mt-8"
 				>
 					<HeaderButton />
-					<ChallengeFeed
-						feedDatas={challengeDetail.feedData}
+					{/* <ChallengeFeed
+						feedDatas={feedData}
 						joinedCounts={challengeDetail.joinedCounts}
-					/>
+					/> */}
 				</ContentSection>
 			)}
 		</>

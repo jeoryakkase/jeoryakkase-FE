@@ -34,8 +34,7 @@ const CommentBox = ({ comment }: CommentBoxProps) => {
 		setIsReplying(false);
 	};
 
-	const handleReplySubmit = (replyComment: string) => {
-		console.log("성공", replyComment);
+	const handleReplySubmit = () => {
 		setIsReplying(false);
 	};
 
@@ -46,8 +45,6 @@ const CommentBox = ({ comment }: CommentBoxProps) => {
 	const handleEditCancel = () => {
 		setIsEditing(false);
 	};
-
-	// useEffect(() => {}, [isReplying]);
 
 	return (
 		<section className="flex flex-col mb-4">

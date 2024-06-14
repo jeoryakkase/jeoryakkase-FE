@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import mainCharacter from "@assets/images/character/character04.png";
 import Card from "@components/Card";
 import { ContentSection } from "@components/ContentSection";
 import DoughnutChart from "@components/DoughnutChart";
@@ -9,9 +10,20 @@ import doughtnutData from "@containers/main/assets/doughtnutData";
 import { getFullDate, getLastMonth } from "@utils/dates.utils";
 
 const Statistics = ({ userStatistics }) => {
-	const { todayDate, lastMonth, logo } = userStatistics;
+	if (!userStatistics) {
+		return null;
+	}
+
+	const { todayDate, yearMonth, totalSavings } = userStatistics;
 	const formattedTodayDate = getFullDate(new Date());
 	const formattedLastMonth = getLastMonth(new Date());
+	const labels = userStatistics.monthlyCertificationPercentages
+		? Object.keys(userStatistics.monthlyCertificationPercentages)
+		: [];
+	const percentages = userStatistics.monthlyCertificationPercentages
+		? Object.values(userStatistics.monthlyCertificationPercentages)
+		: [];
+	const doughnutChartData = doughtnutData({ percentage: percentages, labels });
 
 	return (
 		<ContentSection
@@ -50,13 +62,13 @@ const Statistics = ({ userStatistics }) => {
 				<Card.Content>
 					<Flex direction="row">
 						<div className="w-[250px]">
-							<DoughnutChart data={doughtnutData} />
+							<DoughnutChart data={doughnutChartData} />
 						</div>
 						<Flex direction="column">
 							<div className="mb-2">
-								지난 한달 총 {lastMonth.totalSavings.toLocaleString()}원 절약
+								지난 한달 총 {yearMonth.totalSavings.toLocaleString()}원 절약
 							</div>
-							{lastMonth.badges.map((badge) => (
+							{yearMonth.badges.map((badge) => (
 								<Badge
 									key={badge}
 									bgColor="yellow"
@@ -80,12 +92,19 @@ const Statistics = ({ userStatistics }) => {
 						justify="center"
 						className="w-full"
 					>
-						<Image alt="이모티콘" src={logo.src} width={100} height={100} />
+						<Image
+							alt="이모티콘"
+							src={mainCharacter}
+							width={100}
+							height={100}
+						/>
 						<span className="w-full text-sm text-center mt-2">
 							{" "}
 							저략카세로 절약한 금액{" "}
 						</span>
-						<span className="mt-4 font-semibold">총 {logo.message} 원 </span>
+						<span className="mt-4 font-semibold">
+							총 {totalSavings.toLocaleString()} 원{" "}
+						</span>
 					</Flex>
 				</Card.Content>
 			</Card>
