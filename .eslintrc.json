@@ -47,6 +47,8 @@
 		"import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] }
 	},
 	"rules": {
+		"no-console": "off",
+		"react-hooks/exhaustive-deps": "off",
 		"@typescript-eslint/no-explicit-any": "off",
 		"react/react-in-jsx-scope": "off", // react 17부턴 import 안해도돼서 기능 끔
 		// 경고표시, 파일 확장자를 .ts나 .tsx 모두 허용함

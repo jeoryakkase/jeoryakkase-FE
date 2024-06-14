@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export interface recordFormType {
+export interface RecordFormType {
 	uploadFiles: string;
 	saveMoney: number;
 	content: string;
