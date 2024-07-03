@@ -3,9 +3,11 @@
 import { useEffect } from "react";
 
 import { useRouter } from "next/navigation";
-import { signIn, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+
+import { signInWithCredentials } from "src/serverActions/auth";
 
 import { Button } from "@components/Button";
 import {
@@ -38,21 +40,18 @@ const LeftForm = () => {
 		if (session) {
 			const userData = session.user;
 			if (userData) {
-				login(userData.userStoreData as UserStoreData);
+				login(userData.userStoreData as UserStoreData); // 서버에서 관리하는 로그인 api 응답값의 여부에따라
 			}
 		}
 	}, [session, user?.nickname]);
 
 	const onSubmit = async (data: z.infer<typeof loginValidation>) => {
 		try {
-			const result = await signIn("credentials", {
-				username: data.email,
-				password: data.password,
-				redirect: false,
-				callbackUrl: "/",
-			});
-
-			if (result && !result.error) {
+			const result = (await signInWithCredentials(
+				data,
+			)) as unknown as Promise<any>;
+			console.log("result", result);
+			if (result && !(await result).error) {
 				login({
 					nickname: data.email,
 					badge: null,

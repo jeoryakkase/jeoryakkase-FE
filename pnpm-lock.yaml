@@ -83,6 +83,9 @@ dependencies:
   next-cloudinary:
     specifier: ^6.6.2
     version: 6.6.2(next@14.2.4)(react@18.3.1)
+  path-to-regexp:
+    specifier: ^7.0.0
+    version: 7.0.0
   react:
     specifier: ^18.3.1
     version: 18.3.1
@@ -4393,6 +4396,11 @@ packages:
     dependencies:
       lru-cache: 10.2.2
       minipass: 7.1.2
+
+  /path-to-regexp@7.0.0:
+    resolution: {integrity: sha512-58Y94bQqF3zBIASFNiufRPH1NfgZth1qwZ35radL87sg8pgbVqr6uikAhqZtFD+w65MGH6SWnY/ly3GbrM4fbg==}
+    engines: {node: '>=16'}
+    dev: false
 
   /path-type@4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}

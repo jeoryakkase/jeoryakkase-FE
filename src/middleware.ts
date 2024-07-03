@@ -29,4 +29,28 @@
 // export const config = {
 // 	matcher: ["/userinfo", "/challenge/(.*)/record", "/saltern/write"],
 // };
-export { auth as middleware } from "./auth";
+// export { auth as middleware } from "./auth";
+
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { match } from "path-to-regexp";
+
+import { getSession } from "./serverActions/auth"; // import { auth } from '@/auth'
+
+const matchersForAuth = ["/userinfo", "/challenge/write", "/saltern/write"];
+
+const middleware = async (request: NextRequest) => {
+	if (isMatch(request.nextUrl.pathname, matchersForAuth)) {
+		return (await getSession()) // 세션 정보 확인
+			? NextResponse.next()
+			: NextResponse.redirect(new URL("/login", request.url));
+		// : NextResponse.redirect(new URL(`/signin?callbackUrl=${request.url}`, request.url))
+	}
+	return NextResponse.next();
+};
+
+function isMatch(pathname: string, urls: string[]) {
+	return urls.some((url) => !!match(url)(pathname));
+}
+
+export default middleware;
